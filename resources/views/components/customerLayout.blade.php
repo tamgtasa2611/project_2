@@ -16,6 +16,8 @@
           rel="stylesheet">
     {{--    bootstrap css + js--}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{--    mdb--}}
+    <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">
     {{--    file css tuy chinh--}}
     <link rel="stylesheet" href="{{ asset('plugins/css/customer.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
@@ -24,5 +26,17 @@
 @include('partials.customerNavbar')
 {{$slot}}
 @include('partials.customerFooter')
+<script
+    type="text/javascript"
+    src="{{asset('plugins/js/script.js')}}"
+></script>
+<script
+    type="text/javascript"
+    src="{{asset('plugins/mdb/js/mdb.umd.min.js')}}"
+></script>
+<script
+    type="text/javascript"
+    src="{{asset('plugins/mdb/js/mdb.es.min.js/')}}"
+></script>
 </body>
 </html>
