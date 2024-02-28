@@ -16,11 +16,6 @@
     font-style: normal;
 }
 
-/*hover nav*/
-.nav-link.active, .nav-link:hover, .nav-link:focus {
-    font-weight: 500;
-}
-
 /*width*/
 .w-fit {
     width: fit-content;
@@ -44,16 +39,7 @@
     font-size: 0.7rem !important;
 }
 
-/*dropdown nav*/
-.dropdown:hover > .dropdown-menu {
-    display: block;
-}
-
-.dropdown > .dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-    pointer-events: none;
-}
-
+/*animate*/
 .animate {
     animation-duration: 0.2s;
     -webkit-animation-duration: 0.2s;
@@ -100,13 +86,42 @@
     animation-name: slideIn;
 }
 
+.hover-pointer {
+    cursor: pointer;
+}
+
+
+/*navbar*/
+/*hover nav*/
+.nav-link.active {
+    font-weight: bold;
+}
+
+.nav-link.active, .nav-link:hover, .nav-link:focus {
+    color: #3b71ca !important;
+}
+
+/*dropdown nav*/
+.dropright {
+    left: auto !important;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
 /*home*/
 #hero_section {
 
 }
 
 .hero-section {
-    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     height: 622px;
 }
