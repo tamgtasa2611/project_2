@@ -17,6 +17,9 @@
     {{--    jquery--}}
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    {{--    scroll reveal--}}
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
     {{--    bootstrap css + js--}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{--    css mdb--}}
@@ -25,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/customer.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
-<body>
+<body class="overflow-x-hidden overflow-y-auto">
 @include('partials.customerNavbar')
 {{$slot}}
 @include('partials.customerFooter')
