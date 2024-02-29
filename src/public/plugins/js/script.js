@@ -40,3 +40,10 @@ $(document).ready(function () {
         }
     });
 });
+
+setInterval(function () {
+    $(".alert").addClass('opacity-0');
+    setInterval(function () {
+        $(".alert").fadeOut();
+    }, 1000);
+}, 3000);

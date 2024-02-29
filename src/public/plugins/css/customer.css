@@ -149,4 +149,9 @@ html.sr .load-hidden {
     height: 622px;
 }
 
-
+/*validation*/
+.invalid-text {
+    width: auto;
+    font-size: .8rem;
+    color: var(--mdb-danger);
+}

@@ -2,8 +2,17 @@
 <x-customerLayout>
     <section id="signup-section" class="m-nav">
         <div class="container h-ok">
-            <div class="w-100 h-100 d-flex align-items-center justify-content-center load-hidden fade-in fade-bottom">
-                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+            <div class="w-100 h-100 d-flex align-items-center justify-content-center
+             load-hidden fade-in fade-bottom position-relative">
+                @if (session('failed'))
+                    <div class="alert alert-danger position-absolute top-0 tran-3 end-0 mt-3 fade-in">
+                        {{ session('failed') }}
+                    </div>
+                @endif
+                <form method="post" action="{{route('customer.registerProcess')}}"
+                      enctype="multipart/form-data"
+                      class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                    @csrf
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
                         <h6 class="display-6 text-primary fw-bold">Register</h6>
@@ -12,37 +21,73 @@
                     <div class="row mb-4">
                         <div class="col">
                             <div data-mdb-input-init class="form-outline">
-                                <input type="text" id="first_name" class="form-control"/>
+                                <input type="text" id="first_name" name="first_name" class="form-control"
+                                       value="{{old('first_name')}}" required/>
                                 <label class="form-label" for="first_name">First name</label>
                             </div>
+                            @if ($errors->has('first_name'))
+                                @foreach ($errors->get('first_name') as $error)
+                                    <span class="text-danger fs-7">{{ $error }}</span>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="col">
                             <div data-mdb-input-init class="form-outline">
-                                <input type="text" id="last_name" class="form-control"/>
+                                <input type="text" id="last_name" name="last_name" class="form-control"
+                                       value="{{old('last_name')}}" required/>
                                 <label class="form-label" for="last_name">Last name</label>
                             </div>
+                            @if ($errors->has('last_name'))
+                                @foreach ($errors->get('last_name') as $error)
+                                    <span class="text-danger fs-7">{{ $error }}</span>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="email" id="email" class="form-control"/>
-                        <label class="form-label" for="email">Email address</label>
+                    <div class="mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="email" id="email" name="email" class="form-control"
+                                   value="{{old('email')}}" required/>
+                            <label class="form-label" for="email">Email address</label>
+                        </div>
+                        @if ($errors->has('email'))
+                            @foreach ($errors->get('email') as $error)
+                                <span class="text-danger fs-7">{{ $error }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="password" id="pwd" class="form-control"/>
-                        <label class="form-label" for="pwd">Password</label>
+                    <div class="mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="password" id="password" name="password" class="form-control"
+                                   value="{{old('password')}}" required minlength="6"/>
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+                        @if ($errors->has('password'))
+                            @foreach ($errors->get('password') as $error)
+                                <span class="text-danger fs-7">{{ $error }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Number input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="number" id="phone" class="form-control"/>
-                        <label class="form-label" for="phone">Phone number</label>
+                    <div class="mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="tel" id="phone" name="phone" class="form-control"
+                                   value="{{old('phone')}}" required/>
+                            <label class="form-label" for="phone">Phone number</label>
+                        </div>
+                        @if ($errors->has('phone'))
+                            @foreach ($errors->get('phone') as $error)
+                                <span class="text-danger fs-7">{{ $error }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Submit button -->
-                    <button data-mdb-ripple-init type="button"
+                    <button data-mdb-ripple-init type="submit"
                             class="btn btn-primary btn-block mb-4 rounded-9 tran-2">
                         Sign up
                     </button>

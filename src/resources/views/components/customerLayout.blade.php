@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/customer.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
-<body class="overflow-x-hidden overflow-y-auto body-custom">
+<body class="overflow-x-hidden overflow-y-auto h-100 body-custom">
 @include('partials.customerNavbar')
 {{$slot}}
 @include('partials.customerFooter')

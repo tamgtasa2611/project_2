@@ -63,55 +63,59 @@
             </ul>
         </div>
 
-        {{--        login btn--}}
-        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-            <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('customer.login')}}"
-               data-mdb-ripple-init>
-                Log in
-            </a>
-            <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('customer.signup')}}"
-               data-mdb-ripple-init>
-                Sign up
-            </a>
-        </div>
+        @guest
+            {{--        login btn--}}
+            <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
+                <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('customer.login')}}"
+                   data-mdb-ripple-init>
+                    Log in
+                </a>
+                <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('customer.register')}}"
+                   data-mdb-ripple-init>
+                    Sign up
+                </a>
+            </div>
+        @endguest
 
-        {{--        account btn--}}
-        {{--        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">--}}
-        {{--            <!-- Icon -->--}}
-        {{--            <div class="dropdown me-3">--}}
-        {{--                <a class="text-reset tran-2 dropdown-toggle hidden-arrow"--}}
-        {{--                   aria-expanded="false" id="dropdown3"--}}
-        {{--                   data-mdb-toggle="dropdown" href="#" role="button">--}}
-        {{--                    <i class="bi bi-bell-fill"></i>--}}
-        {{--                    <span class="badge rounded-pill badge-notification bg-danger">1</span>--}}
-        {{--                </a>--}}
-        {{--                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"--}}
-        {{--                    aria-labelledby="dropdown3">--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
-        {{--                </ul>--}}
-        {{--            </div>--}}
+        @auth
+            {{--        account btn--}}
+            <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
+                <!-- Icon -->
+                <div class="dropdown me-3">
+                    <a class="text-reset tran-2 dropdown-toggle hidden-arrow"
+                       aria-expanded="false" id="dropdown3"
+                       data-mdb-toggle="dropdown" href="#" role="button">
+                        <i class="bi bi-bell-fill"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                    </a>
+                    <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
+                        aria-labelledby="dropdown3">
+                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
+                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
+                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
+                    </ul>
+                </div>
 
-        {{--            <!-- Notifications -->--}}
-        {{--            <div class="dropdown">--}}
-        {{--                <a class="text-reset tran-2  dropdown-toggle hidden-arrow"--}}
-        {{--                   aria-expanded="false" id="dropdown4"--}}
-        {{--                   data-mdb-toggle="dropdown" href="#" role="button">--}}
-        {{--                    <i class="bi bi-gear-fill"></i>--}}
-        {{--                </a>--}}
-        {{--                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"--}}
-        {{--                    aria-labelledby="dropdown4">--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">My bookings</a></li>--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">Settings</a></li>--}}
-        {{--                    <li>--}}
-        {{--                        <hr class="m-0">--}}
-        {{--                    </li>--}}
-        {{--                    <li><a class="dropdown-item tran-2" href="#">Sign out</a></li>--}}
-        {{--                </ul>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-        {{--        account btn--}}
+                <!-- Notifications -->
+                <div class="dropdown">
+                    <a class="text-reset tran-2  dropdown-toggle hidden-arrow"
+                       aria-expanded="false" id="dropdown4"
+                       data-mdb-toggle="dropdown" href="#" role="button">
+                        <i class="bi bi-gear-fill"></i>
+                    </a>
+                    <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
+                        aria-labelledby="dropdown4">
+                        <li><a class="dropdown-item tran-2" href="#">My bookings</a></li>
+                        <li><a class="dropdown-item tran-2" href="#">Settings</a></li>
+                        <li>
+                            <hr class="m-0">
+                        </li>
+                        <li><a class="dropdown-item tran-2" href="{{route('customer.logout')}}">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+            {{--        account btn--}}
+        @endauth
 
         {{--       responsive list button --}}
         <div class="text-end navbar-toggler border-0 p-0">
@@ -130,7 +134,9 @@
                     <hr>
                     <ul class="navbar-nav nav-fill mb-lg-0 h-75 w-100 align-items-start">
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link active tran-2 row d-flex m-0" aria-current="page" href="#">
+                            <a class="nav-link tran-2 row align-items-center d-flex m-0
+                            {{request()->routeIs('customer.home') ? 'active' : ''}}"
+                               href="{{route('customer.home')}}">
                                 <i class="bi bi-house-fill col-2"></i>
                                 <div class="col-10">
                                     Home
@@ -139,7 +145,8 @@
                         </li>
 
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link tran-2  row d-flex m-0" href="#" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link tran-2  row d-flex align-items-center m-0" href="#" role="button"
+                               data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <i class="bi bi-door-closed-fill col-2"></i>
                                 <div class="col-10">
@@ -149,7 +156,8 @@
                         </li>
 
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link tran-2 row d-flex m-0 " href="#" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link tran-2 row d-flex align-items-center m-0 " href="#" role="button"
+                               data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <i class="bi bi-chat-heart-fill col-2"></i>
                                 <div class="col-10">
@@ -159,7 +167,7 @@
                         </li>
 
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link tran-2 row d-flex m-0" aria-current="page" href="#">
+                            <a class="nav-link tran-2 row d-flex align-items-center m-0" href="#">
                                 <i class="bi bi-image-fill col-2"></i>
                                 <div class="col-10">
                                     Gallery
@@ -168,7 +176,9 @@
                         </li>
 
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link tran-2 row d-flex m-0" aria-current="page" href="#">
+                            <a class="nav-link tran-2 row d-flex align-items-center m-0
+                            {{request()->routeIs('customer.contact') ? 'active' : ''}}"
+                               href="{{route('customer.contact')}}">
                                 <i class="bi bi-telephone-fill col-2"></i>
                                 <div class="col-10">
                                     Contact
@@ -177,24 +187,61 @@
                         </li>
 
                         <li class="nav-item w-100 text-start">
-                            <a class="nav-link tran-2 row d-flex m-0" aria-current="page" href="#">
+                            <a class="nav-link tran-2 row d-flex align-items-center m-0
+                            {{request()->routeIs('customer.about') ? 'active' : ''}}"
+                               href="{{route('customer.about')}}">
                                 <i class="bi bi-info-circle-fill col-2"></i>
                                 <div class="col-10">
                                     About Us
                                 </div>
                             </a>
                         </li>
+
+                        @auth
+                            <li class="nav-item w-100 text-start">
+                                <a class="nav-link tran-2 row d-flex align-items-center m-0" href="#">
+                                    <i class="bi bi-bell-fill col-2"></i>
+                                    <div class="col-10">
+                                        Notification
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="nav-item w-100 text-start">
+                                <a class="nav-link tran-2 row d-flex align-items-center m-0" href="#">
+                                    <i class="bi bi-gear-fill col-2"></i>
+                                    <div class="col-10">
+                                        Settings
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="nav-item w-100 text-start">
+                                <a class="nav-link tran-2 row d-flex align-items-center m-0"
+                                   href="{{route('customer.logout')}}">
+                                    <i class="bi bi-box-arrow-left col-2"></i>
+                                    <div class="col-10">
+                                        Sign out
+                                    </div>
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
 
-                <div class="w-100 d-flex flex-column justify-content-between align-items-end">
-                    <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-9 w-100" href="#">
-                        Log in
-                    </a>
-                    <a class="btn btn-primary px-3 tran-2 rounded-9 w-100" href="#">
-                        Sign up
-                    </a>
-                </div>
+                @guest
+                    {{--                LOGIN--}}
+                    <div class="w-100 d-flex flex-column justify-content-between align-items-end">
+                        <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-9 w-100"
+                           href="{{route('customer.login')}}">
+                            Log in
+                        </a>
+                        <a class="btn btn-primary px-3 tran-2 rounded-9 w-100" href="{{route('customer.register')}}">
+                            Sign up
+                        </a>
+                    </div>
+                    {{--                LOGIN--}}
+                @endguest
             </div>
         </div>
     </div>

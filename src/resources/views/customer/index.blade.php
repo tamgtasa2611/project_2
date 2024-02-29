@@ -1,5 +1,6 @@
 <title>Home - Skyrim Hotel</title>
 <x-customerLayout>
+
     {{--    HERO--}}
     <section id="hero_section" class="m-nav mb-5">
         <!-- Background image -->
@@ -38,11 +39,11 @@
     {{--HERO--}}
 
     {{--  ROOMS  --}}
-    <section id="rooms" class="my-5">
+    <section id="rooms" class="my-5 h-auto">
         <!-- Background image -->
-        <div class="container h-auto">
+        <div class="container">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
+                class="w-100 py-5 d-flex justify-content-start align-items-center">
                 <div class="w-100 d-flex flex-column justify-content-center align-items-center
                  fade-in fade-bottom load-hidden">
                     <h1 class="display-6 text-center fw-bold mb-3 text-primary">
@@ -138,11 +139,11 @@
     {{--  ROOMS  --}}
 
     {{-- INTRODUCTION --}}
-    <section id="introduction">
+    <section id="introduction" class="mt-5 h-auto">
         <!-- Background image -->
-        <div class="container h-auto">
+        <div class="container">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
+                class="w-100 py-5 d-flex justify-content-start align-items-center">
                 <div class="w-100 d-flex flex-column justify-content-center align-items-center
                  fade-in load-hidden">
                     <h1 class="display-6 text-center fw-bold mb-3 text-primary fade-top">
@@ -201,11 +202,11 @@
     {{-- INTRODUCTION --}}
 
     {{--  AVT  --}}
-    <section id="ceo" class="">
+    <section id="ceo" class="my-5 h-auto">
         <!-- Background image -->
-        <div class="container h-ok">
+        <div class="container">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
+                class="w-100 py-5 d-flex justify-content-start align-items-center">
                 <div class="row w-100 justify-content-center fade-in load-hidden">
                     <div class="col-10 col-md-3 mb-5 mb-md-0">
                         <div class="rounded-circle overflow-hidden fade-left">

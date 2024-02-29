@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,15 +31,11 @@ Route::get('/about', function () {
 })->name('customer.about');
 
 //LOGIN
-Route::get('/login', function () {
-    return view('customer.login');
-})->name('customer.login');
-Route::get('/signup', function () {
-    return view('customer.signup');
-})->name('customer.signup');
-Route::get('/logout', function () {
-    return view('customer.logout');
-})->name('customer.logout');
+Route::get('/login', [UserController::class, 'login'])->name('customer.login');
+Route::post('/login', [UserController::class, 'loginProcess'])->name('customer.loginProcess');
+Route::get('/signup', [UserController::class, 'register'])->name('customer.register');
+Route::post('/signup', [UserController::class, 'registerProcess'])->name('customer.registerProcess');
+Route::get('/logout', [UserController::class, 'logout'])->name('customer.logout');
 //LOGIN
 //CUSTOMER
 

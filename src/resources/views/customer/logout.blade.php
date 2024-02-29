@@ -3,11 +3,7 @@
     <section id="logout-section"class="m-nav">
         <div class="container h-ok">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center load-hidden fade-in fade-bottom">
-                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
-                    {{--                    heading--}}
-                    <div class="mb-5">
-                        <img src="{{asset('images/logo.png')}}" alt="logo" class="img-fluid">
-                    </div>
+                <form class="bg-white p-5 pb-4 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
                     {{--                    success icon--}}
                     <div class="d-flex align-items-center justify-content-center mb-4">
                         <i class="bi bi-check-circle-fill text-success display-1"></i>
@@ -22,9 +18,9 @@
                         </div>
                     </div>
                     <!-- Submit button -->
-                    <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-center">
                         <a data-mdb-ripple-init type="button"
-                           class="btn btn-tertiary rounded-9 tran-2"
+                           class="btn btn-secondary rounded-9 tran-2 me-2"
                            href="{{route('customer.home')}}">
                             Home
                         </a>

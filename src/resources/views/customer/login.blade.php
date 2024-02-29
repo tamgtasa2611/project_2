@@ -2,48 +2,70 @@
 <x-customerLayout>
     <section id="login-section" class="m-nav">
         <div class="container h-ok">
-            <div class="w-100 h-100 d-flex align-items-center justify-content-center load-hidden fade-in fade-bottom">
-                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+            <div class="w-100 h-100 d-flex align-items-center justify-content-center
+             load-hidden fade-in fade-bottom position-relative">
+                {{--alert create account--}}
+                @if (session('success'))
+                    <div class="alert alert-success position-absolute top-0 tran-3 end-0 mt-3 fade-in">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                {{--alert login fail--}}
+                @if (session('failed'))
+                    <div class="alert alert-danger position-absolute top-0 tran-3 end-0 mt-3 fade-in">
+                        {{ session('failed') }}
+                    </div>
+                @endif
+                {{--               login form--}}
+                <form method="post" action="{{route('customer.loginProcess')}}" enctype="multipart/form-data"
+                      class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                    @csrf
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
                         <h6 class="display-6 text-primary fw-bold">Login</h6>
                     </div>
                     <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="email" id="email" class="form-control"/>
-                        <label class="form-label" for="email">Email address</label>
+                    <div class="mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="email" id="email" name="email" class="form-control" required
+                                   value="{{old('email')}}"/>
+                            <label class="form-label" for="email">Email address</label>
+                        </div>
+                        @if ($errors->has('email'))
+                            @foreach ($errors->get('email') as $error)
+                                <span class="text-danger fs-7">{{ $error }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="password" id="pwd" class="form-control"/>
-                        <label class="form-label" for="pwd">Password</label>
-                    </div>
-
-                    <!-- 2 column grid layout for inline styling -->
-                    <div class="row mb-4 justify-content-between">
-                        <div class="col d-flex justify-content-start">
-                            <!-- Checkbox -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="remember" checked/>
-                                <label class="form-check-label" for="remember"> Remember me </label>
-                            </div>
+                    <div class="mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="password" id="pwd" name="password" class="form-control" required
+                                   minlength="6"/>
+                            <label class="form-label" for="pwd">Password</label>
                         </div>
-                        <div class="col d-flex justify-content-end">
-                            <!-- Simple link -->
-                            <a href="#!">Forgot password?</a>
-                        </div>
+                        @if ($errors->has('password'))
+                            @foreach ($errors->get('password') as $error)
+                                <span class="text-danger fs-7">{{ $error }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Submit button -->
-                    <button data-mdb-ripple-init type="button"
+                    <button data-mdb-ripple-init type="submit"
                             class="btn btn-primary btn-block mb-4 rounded-9 tran-2">
                         Sign in
                     </button>
 
-                    <!-- Register buttons -->
+                    {{--                        reset password--}}
+                    <div class="text-center mb-3">
+                        <a href="#!">Forgot password?</a>
+                    </div>
+
+                    {{--                        register--}}
                     <div class="text-center">
-                        <p>Not a member? <a href="{{route('customer.signup')}}">Register</a></p>
+                        <p>Not a member? <a href="{{route('customer.register')}}">Register</a></p>
                     </div>
                 </form>
             </div>
