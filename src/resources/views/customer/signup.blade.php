@@ -72,11 +72,11 @@
                         @endif
                     </div>
 
-                    <!-- Number input -->
+                    <!-- Phone Number input -->
                     <div class="mb-4">
                         <div data-mdb-input-init class="form-outline">
                             <input type="tel" id="phone" name="phone" class="form-control"
-                                   value="{{old('phone')}}" required/>
+                                   value="{{old('phone')}}" maxlength="13" required/>
                             <label class="form-label" for="phone">Phone number</label>
                         </div>
                         @if ($errors->has('phone'))

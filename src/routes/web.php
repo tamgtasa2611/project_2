@@ -37,6 +37,12 @@ Route::get('/signup', [UserController::class, 'register'])->name('customer.regis
 Route::post('/signup', [UserController::class, 'registerProcess'])->name('customer.registerProcess');
 Route::get('/logout', [UserController::class, 'logout'])->name('customer.logout');
 //LOGIN
+
+Route::get('/profile', [UserController::class, 'setting'])->name('customer.profile');
+Route::get('/editAccount', [UserController::class, 'setting'])->name('customer.editAccount');
+Route::get('/changePassword', [UserController::class, 'setting'])->name('customer.changePassword');
+Route::get('/myBooking', [UserController::class, 'setting'])->name('customer.myBooking');
+
 //CUSTOMER
 
 Route::prefix('admin')->group(function () {

@@ -12,7 +12,7 @@
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" height="24">
                     </div>
                     <p>
-                        Welcome to Breezehome, where luxury meets comfort and relaxation.
+                        Welcome to Skyrim Hotel, where luxury meets comfort and relaxation.
                     </p>
                 </div>
                 <!-- Grid column -->

@@ -90,9 +90,10 @@
                     </a>
                     <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown3">
-                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
+                        <li><a class="dropdown-item tran-2" href="#">Welcome back!</a></li>
+                        <li><a class="dropdown-item tran-2" href="#">Book a room now for 20% sales off!</a>
+                        </li>
+                        <li><a class="dropdown-item tran-2" href="#">Account created successfully!</a></li>
                     </ul>
                 </div>
 
@@ -101,16 +102,21 @@
                     <a class="text-reset tran-2  dropdown-toggle hidden-arrow"
                        aria-expanded="false" id="dropdown4"
                        data-mdb-toggle="dropdown" href="#" role="button">
-                        <i class="bi bi-gear-fill"></i>
+                        <i class="bi bi-person-fill"></i>
                     </a>
                     <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown4">
-                        <li><a class="dropdown-item tran-2" href="#">My bookings</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Settings</a></li>
+                        <li><a class="dropdown-item tran-2" href="{{route('customer.profile')}}">
+                                <i class="bi bi-info-circle-fill me-2"></i>My profile</a></li>
+                        <li><a class="dropdown-item tran-2" href="{{route('customer.myBooking')}}">
+                                <i class="bi bi-receipt me-2"></i>My bookings</a></li>
+                        <li><a class="dropdown-item tran-2" href="{{route('customer.editAccount')}}">
+                                <i class="bi bi-gear-fill me-2"></i>Settings</a></li>
                         <li>
                             <hr class="m-0">
                         </li>
-                        <li><a class="dropdown-item tran-2" href="{{route('customer.logout')}}">Sign out</a></li>
+                        <li><a class="dropdown-item tran-2" href="{{route('customer.logout')}}">
+                                <i class="bi bi-box-arrow-left me-2"></i>Sign out</a></li>
                     </ul>
                 </div>
             </div>

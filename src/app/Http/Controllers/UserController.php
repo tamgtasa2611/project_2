@@ -50,17 +50,25 @@ class UserController extends Controller
             'last_name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
-            'phone' => 'required',
+            'phone' => 'required|max:13',
         ]);
 
         if ($validated) {
             $arr = [];
+            $arr = Arr::add($arr, 'first_name', $request->first_name);
+            $arr = Arr::add($arr, 'last_name', $request->last_name);
             $arr = Arr::add($arr, 'email', $request->email);
             $arr = Arr::add($arr, 'password', $request->password);
+            $arr = Arr::add($arr, 'phone_number', $request->phone);
             User::create($arr);
             return to_route('customer.login')->with('success', 'Account created successfully!');
         } else {
             return to_route('customer.register')->with('failed', 'Something went wrong!');
         }
+    }
+
+    public function setting()
+    {
+        return view('customer.setting.index');
     }
 }
