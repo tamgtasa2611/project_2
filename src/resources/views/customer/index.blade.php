@@ -1,28 +1,32 @@
+<title>Home - Skyrim Hotel</title>
 <x-customerLayout>
     {{--    HERO--}}
-    <section id="hero_section">
+    <section id="hero_section" class="m-nav mb-5">
         <!-- Background image -->
         <div class="container h-ok">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center hero-section fade-in"
+                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center hero-section fade-in load-hidden"
                 style="background-image: url('{{asset('images/banner.png')}}')">
                 <div class="w-100 d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="display-6 fw-bold text-primary-emphasis fade-in fade-top">Welcome to</h1>
-                    <h1 class="display-4 fw-bold mb-3 text-primary fade-in fade-top">Skyrim Hotel</h1>
-                    <p class="fs-6 col-10 col-md-8 col-lg-4 text-center fade-in fade-top">
+                    <h1 class="display-6 fw-bold text-primary-emphasis">Welcome
+                        to</h1>
+                    <h1 class="display-4 fw-bold mb-3 text-primary">Skyrim
+                        Hotel</h1>
+                    <p class="fs-6 col-10 col-md-8 col-lg-4 text-center">
                         Get ready for unforgettable
                         experiences and
                         create lasting
                         memories with your loved ones</p>
                     <div
-                        class="fade-bottom fade-in mt-3 d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start">
+                        class="mt-3 d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start">
                         <a type="button"
                            class="btn btn-secondary mb-2 mb-sm-0 me-sm-2 tran-2 btn-lg rounded-9"
-                           href="#">
+                           href="#"
+                           data-mdb-ripple-init>
                             DISCOVER
                         </a>
                         <a type="button" class="btn btn-primary tran-2 btn-lg rounded-9"
-                           href="#">
+                           href="#" data-mdb-ripple-init>
                             BOOK NOW
                         </a>
                     </div>
@@ -34,17 +38,18 @@
     {{--HERO--}}
 
     {{--  ROOMS  --}}
-    <section id="rooms" class="mt-5">
+    <section id="rooms" class="my-5">
         <!-- Background image -->
         <div class="container h-auto">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center hero-section">
-                <div class="w-100 d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="display-6 text-center fw-bold mb-3 text-primary fade-in fade-top">
+                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
+                <div class="w-100 d-flex flex-column justify-content-center align-items-center
+                 fade-in fade-bottom load-hidden">
+                    <h1 class="display-6 text-center fw-bold mb-3 text-primary">
                         Designer room to fall in love with</h1>
                     <div class="mt-5 justify-content-center row">
                         <!-- Carousel wrapper -->
-                        <div id="carouselMaterialStyle" class="carousel slide carousel-fade col-10 fade-in"
+                        <div id="carouselMaterialStyle" class="carousel slide carousel-fade col-10"
                              data-mdb-ride="carousel"
                              data-mdb-carousel-init>
                             <!-- Indicators -->
@@ -59,7 +64,7 @@
                             </div>
 
                             <!-- Inner -->
-                            <div class="carousel-inner rounded-5 shadow-4-strong overflow-hidden">
+                            <div class="carousel-inner rounded-9 shadow-4-strong overflow-hidden">
                                 <!-- Single item -->
                                 <div class="carousel-item active">
                                     <img src="{{asset('images/1.png')}}"
@@ -111,7 +116,7 @@
                         <!-- Carousel wrapper -->
                     </div>
                     <div class="row mt-5 justify-content-center">
-                        <div class="text-center col-10 col-lg-9 fade-in fade-bottom">
+                        <div class="text-center col-10 col-lg-9">
                             Skyrim Hotel offers its guests various stylishly furnished, comfortable design rooms in four
                             categories. All our beds are finished in extra sizes to provide even more sleeping comfort.
                             Each
@@ -120,7 +125,7 @@
                             rooms in three primary elements: sun, water and earth.
                         </div>
                     </div>
-                    <div class="mt-5 fade-in fade-bottom">
+                    <div class="mt-5">
                         <a href="/" class="link-primary pb-1 border-bottom border-primary">
                             DISCOVER ROOMS
                         </a>
@@ -133,16 +138,17 @@
     {{--  ROOMS  --}}
 
     {{-- INTRODUCTION --}}
-    <section id="introduction" class="mt-5">
+    <section id="introduction">
         <!-- Background image -->
         <div class="container h-auto">
             <div
-                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center hero-section">
-                <div class="w-100 d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="display-6 text-center fw-bold mb-3 text-primary fade-in fade-top">
+                class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
+                <div class="w-100 d-flex flex-column justify-content-center align-items-center
+                 fade-in load-hidden">
+                    <h1 class="display-6 text-center fw-bold mb-3 text-primary fade-top">
                         The glamorous hotel in the heart of Skyrim</h1>
                     <div class="row mt-5">
-                        <div class="col-12 col-lg-4 fade-in fade-left">
+                        <div class="col-12 col-lg-4 fade-left">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
                                     <i class="bi bi-envelope-fill fs-4"></i>
@@ -155,7 +161,7 @@
                                 phone and our friendly staff will be at your door in no time.</p>
                         </div>
 
-                        <div class="col-12 col-lg-4 fade-in fade-bottom">
+                        <div class="col-12 col-lg-4 fade-bottom">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
                                     <i class="bi bi-envelope-fill fs-4"></i>
@@ -169,7 +175,7 @@
                                 the stories and history behind them, and answer any questions you may have.</p>
                         </div>
 
-                        <div class="col-12 col-lg-4 fade-in fade-right">
+                        <div class="col-12 col-lg-4 fade-right">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
                                     <i class="bi bi-envelope-fill fs-4"></i>
@@ -183,7 +189,7 @@
                                 every day.</p>
                         </div>
                     </div>
-                    <div class="mt-5 fade-in fade-bottom">
+                    <div class="mt-5 fade-bottm">
                         <a href="/" class="link-primary pb-1 border-bottom border-primary">
                             EXPLORE SERVICES
                         </a>
@@ -194,20 +200,21 @@
     </section>
     {{-- INTRODUCTION --}}
 
-    {{--  CEO  --}}
-    <section id="ceo" class="my-5">
+    {{--  AVT  --}}
+    <section id="ceo" class="">
         <!-- Background image -->
-        <div class="container h-auto">
+        <div class="container h-ok">
             <div
                 class="w-100 h-100 py-5 d-flex justify-content-start align-items-center">
-                <div class="row w-100 justify-content-center">
+                <div class="row w-100 justify-content-center fade-in load-hidden">
                     <div class="col-10 col-md-3 mb-5 mb-md-0">
-                        <div class="rounded-circle overflow-hidden fade-in fade-left">
+                        <div class="rounded-circle overflow-hidden fade-left">
                             <img src="{{asset('images/ceo.png')}}" class="img-fluid">
                         </div>
                     </div>
                     <div class="col-10 col-md-9 text-center">
-                        <div class="ms-md-5 d-flex h-100 flex-column justify-content-center fade-in fade-right">
+                        <div
+                            class="ms-md-5 d-flex h-100 flex-column justify-content-center fade-right">
                             <div>
                                 <p class="fst-italic fs-4">
                                     "Join us as we delve into the heart of our hotel and discover the magic that makes
@@ -225,5 +232,5 @@
         </div>
         <!-- Background image -->
     </section>
-    {{--  CEO  --}}
+    {{--  AVT  --}}
 </x-customerLayout>

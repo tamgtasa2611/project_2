@@ -1,44 +1,34 @@
 //ScrollReveal
-let fadeIn = {
-    duration: 1400,
-    delay: 100,
-    easing: "ease",
-};
-let fadeInFast = {
+let FadeIn = {
     duration: 1200,
-    delay: 100,
-    easing: "ease",
-};
-let fadeInFaster = {
-    duration: 1000,
-    delay: 100,
-    easing: "ease",
-};
+}
+let scaleUp = {
+    scale: 0.85
+}
+let scaleDown = {
+    scale: 1.15
+}
 let fadeTop = {
-    distance: "40%",
-    origin: "top",
-};
-let fadeLeft = {
-    distance: "40%",
-    origin: "left",
-};
-let fadeRight = {
-    distance: "40%",
-    origin: "right",
-};
+    origin: "top", distance: "20px"
+}
 let fadeBottom = {
-    distance: "40%",
-    origin: "bottom",
-};
+    origin: "bottom", distance: "20px"
+}
+let fadeLeft = {
+    origin: "left", distance: "40px"
+}
+let fadeRight = {
+    origin: "right", distance: "40px"
+}
 
-
-ScrollReveal().reveal(".fade-in", fadeIn);
-ScrollReveal().reveal(".fade-in-fast", fadeInFast);
-ScrollReveal().reveal(".fade-in-faster", fadeInFaster);
-ScrollReveal().reveal(".fade-left", fadeLeft);
-ScrollReveal().reveal(".fade-right", fadeRight);
+ScrollReveal().reveal(".fade-scale-up", scaleUp);
+ScrollReveal().reveal(".fade-scale-down", scaleDown);
+ScrollReveal().reveal(".fade-in", FadeIn);
+ScrollReveal().reveal(".fade-std");
 ScrollReveal().reveal(".fade-top", fadeTop);
 ScrollReveal().reveal(".fade-bottom", fadeBottom);
+ScrollReveal().reveal(".fade-left", fadeLeft);
+ScrollReveal().reveal(".fade-right", fadeRight);
 
 $(document).ready(function () {
     $(window).scroll((e) => {

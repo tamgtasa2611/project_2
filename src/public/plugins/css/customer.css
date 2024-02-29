@@ -8,6 +8,25 @@
     scroll-behavior: smooth;
 }
 
+.body-custom {
+}
+
+/*margin from navbar*/
+.m-nav {
+    margin-top: 74px !important;
+}
+
+@media (max-width: 768px) {
+    .m-nav {
+        margin-top: 56px !important;
+    }
+}
+
+/*scroll reveal*/
+html.sr .load-hidden {
+    visibility: hidden;
+}
+
 /*font playfair display*/
 .font-2 {
     font-family: "Playfair Display", serif !important;

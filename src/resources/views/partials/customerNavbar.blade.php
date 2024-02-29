@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg sticky-top py-0 tran-2 bg-white border border-white shadow-0"
+<nav class="navbar navbar-expand-lg fixed-top py-0 tran-2 bg-white border border-white shadow-0"
      id="navbar">
     <div class="container py-3">
         {{--        brand--}}
@@ -47,62 +47,64 @@
                 </li>
                 {{--contact--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2" href="/">Contact</a>
+                    <a class="nav-link tran-2" href="{{route('customer.contact')}}">Contact</a>
                 </li>
                 {{--about--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2" href="/">About Us</a>
+                    <a class="nav-link tran-2" href="{{route('customer.about')}}">About Us</a>
                 </li>
 
             </ul>
         </div>
 
         {{--        login btn--}}
-        {{--        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">--}}
-        {{--            <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="#">--}}
-        {{--                Log in--}}
-        {{--            </a>--}}
-        {{--            <a class="btn btn-primary px-3 tran-2 rounded-9" href="#">--}}
-        {{--                Sign up--}}
-        {{--            </a>--}}
-        {{--        </div>--}}
+        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
+            <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('customer.login')}}"
+               data-mdb-ripple-init>
+                Log in
+            </a>
+            <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('customer.signup')}}"
+               data-mdb-ripple-init>
+                Sign up
+            </a>
+        </div>
 
         {{--        account btn--}}
-        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-            <!-- Icon -->
-            <div class="dropdown me-3">
-                <a class="text-reset tran-2 dropdown-toggle hidden-arrow"
-                   aria-expanded="false" id="dropdown3"
-                   data-mdb-toggle="dropdown" href="#" role="button">
-                    <i class="bi bi-bell-fill"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                </a>
-                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
-                    aria-labelledby="dropdown3">
-                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
-                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
-                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>
-                </ul>
-            </div>
+        {{--        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">--}}
+        {{--            <!-- Icon -->--}}
+        {{--            <div class="dropdown me-3">--}}
+        {{--                <a class="text-reset tran-2 dropdown-toggle hidden-arrow"--}}
+        {{--                   aria-expanded="false" id="dropdown3"--}}
+        {{--                   data-mdb-toggle="dropdown" href="#" role="button">--}}
+        {{--                    <i class="bi bi-bell-fill"></i>--}}
+        {{--                    <span class="badge rounded-pill badge-notification bg-danger">1</span>--}}
+        {{--                </a>--}}
+        {{--                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"--}}
+        {{--                    aria-labelledby="dropdown3">--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">Notification 1</a></li>--}}
+        {{--                </ul>--}}
+        {{--            </div>--}}
 
-            <!-- Notifications -->
-            <div class="dropdown">
-                <a class="text-reset tran-2  dropdown-toggle hidden-arrow"
-                   aria-expanded="false" id="dropdown4"
-                   data-mdb-toggle="dropdown" href="#" role="button">
-                    <i class="bi bi-gear-fill"></i>
-                </a>
-                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
-                    aria-labelledby="dropdown4">
-                    <li><a class="dropdown-item tran-2" href="#">My bookings</a></li>
-                    <li><a class="dropdown-item tran-2" href="#">Settings</a></li>
-                    <li>
-                        <hr class="m-0">
-                    </li>
-                    <li><a class="dropdown-item tran-2" href="#">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+        {{--            <!-- Notifications -->--}}
+        {{--            <div class="dropdown">--}}
+        {{--                <a class="text-reset tran-2  dropdown-toggle hidden-arrow"--}}
+        {{--                   aria-expanded="false" id="dropdown4"--}}
+        {{--                   data-mdb-toggle="dropdown" href="#" role="button">--}}
+        {{--                    <i class="bi bi-gear-fill"></i>--}}
+        {{--                </a>--}}
+        {{--                <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"--}}
+        {{--                    aria-labelledby="dropdown4">--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">My bookings</a></li>--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">Settings</a></li>--}}
+        {{--                    <li>--}}
+        {{--                        <hr class="m-0">--}}
+        {{--                    </li>--}}
+        {{--                    <li><a class="dropdown-item tran-2" href="#">Sign out</a></li>--}}
+        {{--                </ul>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
         {{--        account btn--}}
 
         {{--       responsive list button --}}
