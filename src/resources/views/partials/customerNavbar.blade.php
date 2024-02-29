@@ -12,7 +12,9 @@
             <ul class="navbar-nav mb-lg-0 w-100 justify-content-between">
                 {{--                home--}}
                 <li class="nav-item">
-                    <a class="nav-link active tran-2" aria-current="page" href="/home">Home</a>
+                    <a class="nav-link tran-2
+                    {{request()->routeIs('customer.home') ? 'active' : ''}}"
+                       href="{{route('customer.home')}}">Home</a>
                 </li>
                 {{--                rooms--}}
                 <li class="nav-item dropdown">
@@ -47,11 +49,15 @@
                 </li>
                 {{--contact--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2" href="{{route('customer.contact')}}">Contact</a>
+                    <a class="nav-link tran-2
+                    {{request()->routeIs('customer.contact') ? 'active' : ''}}"
+                       href="{{route('customer.contact')}}">Contact</a>
                 </li>
                 {{--about--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2" href="{{route('customer.about')}}">About Us</a>
+                    <a class="nav-link tran-2
+                    {{request()->routeIs('customer.about') ? 'active' : ''}}"
+                       href="{{route('customer.about')}}">About Us</a>
                 </li>
 
             </ul>
