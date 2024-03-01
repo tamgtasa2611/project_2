@@ -31,6 +31,7 @@ ScrollReveal().reveal(".fade-left", fadeLeft);
 ScrollReveal().reveal(".fade-right", fadeRight);
 
 $(document).ready(function () {
+    // NAV BAR SCROLL
     $(window).scroll((e) => {
         let navBar = $("#navbar");
         if (window.scrollY >= 20) {
@@ -39,11 +40,26 @@ $(document).ready(function () {
             navBar.addClass("border-white");
         }
     });
-});
 
-setInterval(function () {
-    $(".alert").addClass('opacity-0');
+    // ALERT
     setInterval(function () {
-        $(".alert").fadeOut();
-    }, 1000);
-}, 3000);
+        $(".alert").addClass('opacity-0');
+        setInterval(function () {
+            $(".alert").fadeOut();
+        }, 1000);
+    }, 3500);
+
+    // PASSWORD EYE
+    $("#show_hide_password a").on('click', function (event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass("bi-eye-slash");
+            $('#show_hide_password i').removeClass("bi-eye");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass("bi-eye-slash");
+            $('#show_hide_password i').addClass("bi-eye");
+        }
+    });
+});

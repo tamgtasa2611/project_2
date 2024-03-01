@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckLoginUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-//CUSTOMER
+//CUSTOMER---------------------------------------------------------
 Route::get('/', function () {
     return view('customer.index');
 })->name('customer.home');
@@ -38,13 +39,16 @@ Route::post('/signup', [UserController::class, 'registerProcess'])->name('custom
 Route::get('/logout', [UserController::class, 'logout'])->name('customer.logout');
 //LOGIN
 
-Route::get('/profile', [UserController::class, 'setting'])->name('customer.profile');
-Route::get('/editAccount', [UserController::class, 'setting'])->name('customer.editAccount');
-Route::get('/changePassword', [UserController::class, 'setting'])->name('customer.changePassword');
-Route::get('/myBooking', [UserController::class, 'setting'])->name('customer.myBooking');
+Route::middleware([CheckLoginUser::class])->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('customer.profile');
+    Route::get('/editAccount', [UserController::class, 'editAccount'])->name('customer.editAccount');
+    Route::get('/changePassword', [UserController::class, 'changePassword'])->name('customer.changePassword');
+    Route::get('/myBooking', [UserController::class, 'myBooking'])->name('customer.myBooking');
+});
+//CUSTOMER---------------------------------------------------------
 
-//CUSTOMER
 
+//ADMIN---------------------------------------------------------
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.index');
@@ -53,3 +57,4 @@ Route::prefix('admin')->group(function () {
         return view('admin.index');
     })->name('admin.dashboard');
 });
+//ADMIN---------------------------------------------------------

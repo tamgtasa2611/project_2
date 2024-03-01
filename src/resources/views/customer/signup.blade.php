@@ -5,9 +5,7 @@
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
              load-hidden fade-in fade-bottom position-relative">
                 @if (session('failed'))
-                    <div class="alert alert-danger position-absolute top-0 tran-3 end-0 mt-3 fade-in">
-                        {{ session('failed') }}
-                    </div>
+                    @include('partials.flashMsgFail')
                 @endif
                 <form method="post" action="{{route('customer.registerProcess')}}"
                       enctype="multipart/form-data"
@@ -60,9 +58,13 @@
 
                     <!-- Password input -->
                     <div class="mb-4">
-                        <div data-mdb-input-init class="form-outline">
+                        <div data-mdb-input-init class="form-outline input-group"
+                             id="show_hide_password">
                             <input type="password" id="password" name="password" class="form-control"
                                    value="{{old('password')}}" required minlength="6"/>
+                            <a href="#!" class="input-group-text">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </a>
                             <label class="form-label" for="password">Password</label>
                         </div>
                         @if ($errors->has('password'))

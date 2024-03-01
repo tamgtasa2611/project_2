@@ -1,12 +1,10 @@
-<title>Contact - Skyrim Hotel</title>
+<title>Change password - Skyrim Hotel</title>
 <x-customerLayout>
     <section id="login-section" class="m-nav">
         <div class="container h-ok">
-            <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section
-             "
-                 style="background-image: url('{{asset('images/contact.png')}}')">
-                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4
-                load-hidden fade-in fade-bottom">
+            <div class="w-100 h-100 d-flex align-items-center justify-content-center
+             load-hidden fade-in fade-bottom">
+                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
                         <h6 class="display-6 text-primary fw-bold">Contact Us</h6>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+//    login logout register
     public function login()
     {
         return view('customer.login');
@@ -25,6 +26,12 @@ class UserController extends Controller
         //check db
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            //Lấy thông tin của customer đang login
+            $user = Auth::user();
+            //Cho login
+            Auth::login($user);
+            //Ném thông tin user đăng nhập lên session
+            session(['user' => $user]);
             return to_route('customer.home')->with('success', 'Sign in successfully!');
         }
         return to_route('customer.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
@@ -67,8 +74,27 @@ class UserController extends Controller
         }
     }
 
-    public function setting()
+//    login logout register
+
+//  profile
+    public function profile()
     {
-        return view('customer.setting.index');
+        return view('customer.profile.index');
     }
+
+    public function myBooking()
+    {
+        return view('customer.profile.index');
+    }
+
+    public function editAccount()
+    {
+        return view('customer.profile.index');
+    }
+
+    public function changePassword()
+    {
+        return view('customer.profile.index');
+    }
+//    profile
 }

@@ -6,15 +6,11 @@
              load-hidden fade-in fade-bottom position-relative">
                 {{--alert create account--}}
                 @if (session('success'))
-                    <div class="alert alert-success position-absolute top-0 tran-3 end-0 mt-3 fade-in">
-                        {{ session('success') }}
-                    </div>
+                    @include('partials.flashMsgSuccess')
                 @endif
                 {{--alert login fail--}}
                 @if (session('failed'))
-                    <div class="alert alert-danger position-absolute top-0 tran-3 end-0 mt-3 fade-in">
-                        {{ session('failed') }}
-                    </div>
+                    @include('partials.flashMsgFail')
                 @endif
                 {{--               login form--}}
                 <form method="post" action="{{route('customer.loginProcess')}}" enctype="multipart/form-data"
@@ -40,9 +36,13 @@
 
                     <!-- Password input -->
                     <div class="mb-4">
-                        <div data-mdb-input-init class="form-outline">
+                        <div data-mdb-input-init class="form-outline input-group"
+                             id="show_hide_password">
                             <input type="password" id="pwd" name="password" class="form-control" required
                                    minlength="6"/>
+                            <a href="#!" class="input-group-text">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </a>
                             <label class="form-label" for="pwd">Password</label>
                         </div>
                         @if ($errors->has('password'))
