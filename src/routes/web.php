@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Middleware\CheckLoginUser;
+use App\Http\Controllers\GuestController;
+use App\Http\Middleware\CheckLoginGuest;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,34 +17,37 @@ use App\Http\Middleware\CheckLoginUser;
 
 //CUSTOMER---------------------------------------------------------
 Route::get('/', function () {
-    return view('customer.index');
-})->name('customer.home');
+    return view('guest.index');
+})->name('guest.home');
 Route::get('/home', function () {
-    return view('customer.index');
-})->name('customer.home');
+    return view('guest.index');
+})->name('guest.home');
 
 Route::get('/contact', function () {
-    return view('customer.contact');
-})->name('customer.contact');
+    return view('guest.contact');
+})->name('guest.contact');
 
 Route::get('/about', function () {
-    return view('customer.about');
-})->name('customer.about');
+    return view('guest.about');
+})->name('guest.about');
 
 //LOGIN
-Route::get('/login', [UserController::class, 'login'])->name('customer.login');
-Route::post('/login', [UserController::class, 'loginProcess'])->name('customer.loginProcess');
-Route::get('/signup', [UserController::class, 'register'])->name('customer.register');
-Route::post('/signup', [UserController::class, 'registerProcess'])->name('customer.registerProcess');
-Route::get('/logout', [UserController::class, 'logout'])->name('customer.logout');
+Route::get('/login', [GuestController::class, 'login'])->name('guest.login');
+Route::post('/login', [GuestController::class, 'loginProcess'])->name('guest.loginProcess');
+Route::get('/signup', [GuestController::class, 'register'])->name('guest.register');
+Route::post('/signup', [GuestController::class, 'registerProcess'])->name('guest.registerProcess');
+Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 //LOGIN
 
-Route::middleware([CheckLoginUser::class])->group(function () {
-    Route::get('/profile', [UserController::class, 'profile'])->name('customer.profile');
-    Route::get('/editAccount', [UserController::class, 'editAccount'])->name('customer.editAccount');
-    Route::get('/changePassword', [UserController::class, 'changePassword'])->name('customer.changePassword');
-    Route::get('/myBooking', [UserController::class, 'myBooking'])->name('customer.myBooking');
+//PROFILE
+Route::middleware([CheckLoginGuest::class])->group(function () {
+    Route::get('/profile', [GuestController::class, 'profile'])->name('guest.profile');
+    Route::get('/editAccount', [GuestController::class, 'editAccount'])->name('guest.editAccount');
+    Route::get('/changePassword', [GuestController::class, 'changePassword'])->name('guest.changePassword');
+    Route::get('/myBooking', [GuestController::class, 'myBooking'])->name('guest.myBooking');
 });
+//PROFILE
+
 //CUSTOMER---------------------------------------------------------
 
 

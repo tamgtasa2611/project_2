@@ -13,8 +13,8 @@
                 {{--                home--}}
                 <li class="nav-item">
                     <a class="nav-link tran-2
-                    {{request()->routeIs('customer.home') ? 'active' : ''}}"
-                       href="{{route('customer.home')}}">Home</a>
+                    {{request()->routeIs('guest.home') ? 'active' : ''}}"
+                       href="{{route('guest.home')}}">Home</a>
                 </li>
                 {{--                rooms--}}
                 <li class="nav-item dropdown">
@@ -50,34 +50,34 @@
                 {{--contact--}}
                 <li class="nav-item">
                     <a class="nav-link tran-2
-                    {{request()->routeIs('customer.contact') ? 'active' : ''}}"
-                       href="{{route('customer.contact')}}">Contact</a>
+                    {{request()->routeIs('guest.contact') ? 'active' : ''}}"
+                       href="{{route('guest.contact')}}">Contact</a>
                 </li>
                 {{--about--}}
                 <li class="nav-item">
                     <a class="nav-link tran-2
-                    {{request()->routeIs('customer.about') ? 'active' : ''}}"
-                       href="{{route('customer.about')}}">About Us</a>
+                    {{request()->routeIs('guest.about') ? 'active' : ''}}"
+                       href="{{route('guest.about')}}">About Us</a>
                 </li>
 
             </ul>
         </div>
 
-        @guest
+        @guest('guest')
             {{--        login btn--}}
             <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-                <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('customer.login')}}"
+                <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('guest.login')}}"
                    data-mdb-ripple-init>
                     Log in
                 </a>
-                <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('customer.register')}}"
+                <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('guest.register')}}"
                    data-mdb-ripple-init>
                     Sign up
                 </a>
             </div>
         @endguest
 
-        @auth
+        @auth('guest')
             {{--        account btn--}}
             <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
                 <!-- Icon -->
@@ -106,16 +106,16 @@
                     </a>
                     <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown4">
-                        <li><a class="dropdown-item tran-2" href="{{route('customer.profile')}}">
+                        <li><a class="dropdown-item tran-2" href="{{route('guest.profile')}}">
                                 <i class="bi bi-info-circle me-2"></i>My profile</a></li>
-                        <li><a class="dropdown-item tran-2" href="{{route('customer.myBooking')}}">
+                        <li><a class="dropdown-item tran-2" href="{{route('guest.myBooking')}}">
                                 <i class="bi bi-receipt me-2"></i>My bookings</a></li>
-                        <li><a class="dropdown-item tran-2" href="{{route('customer.editAccount')}}">
+                        <li><a class="dropdown-item tran-2" href="{{route('guest.editAccount')}}">
                                 <i class="bi bi-gear me-2"></i>Settings</a></li>
                         <li>
                             <hr class="m-0">
                         </li>
-                        <li><a class="dropdown-item tran-2" href="{{route('customer.logout')}}">
+                        <li><a class="dropdown-item tran-2" href="{{route('guest.logout')}}">
                                 <i class="bi bi-box-arrow-left me-2"></i>Sign out</a></li>
                     </ul>
                 </div>
@@ -137,10 +137,10 @@
             <div class="offcanvas-body d-flex flex-column justify-content-between">
                 <div class="w-100 flex-fill mb-3">
                     <h5 class="text-primary fw-bold p-3 text-center">
-                        @auth
+                        @auth('guest')
                             Hello, Tam!
                         @endauth
-                        @guest
+                        @guest('guest')
                             Welcome to Skyrim Hotel!
                         @endguest
                     </h5>
@@ -148,8 +148,8 @@
                     <div class="list-group list-group-light">
                         <a class="d-flex align-items-center list-group-item list-group-item-action
                         px-3 border-0 tran-2
-                            {{request()->routeIs('customer.home') ? 'active' : ''}}"
-                           href="{{route('customer.home')}}">
+                            {{request()->routeIs('guest.home') ? 'active' : ''}}"
+                           href="{{route('guest.home')}}">
                             <i class="bi bi-house col-2"></i>
                             <div class="col-10">
                                 Home
@@ -177,8 +177,8 @@
                         </a>
                         <a class="d-flex align-items-center list-group-item list-group-item-action
                         px-3 border-0 tran-2
-                            {{request()->routeIs('customer.contact') ? 'active' : ''}}"
-                           href="{{route('customer.contact')}}">
+                            {{request()->routeIs('guest.contact') ? 'active' : ''}}"
+                           href="{{route('guest.contact')}}">
                             <i class="bi bi-telephone col-2"></i>
                             <div class="col-10">
                                 Contact
@@ -186,14 +186,14 @@
                         </a>
                         <a class="d-flex align-items-center list-group-item list-group-item-action
                         px-3 border-0 tran-2
-                            {{request()->routeIs('customer.about') ? 'active' : ''}}"
-                           href="{{route('customer.about')}}">
+                            {{request()->routeIs('guest.about') ? 'active' : ''}}"
+                           href="{{route('guest.about')}}">
                             <i class="bi bi-info-circle col-2"></i>
                             <div class="col-10">
                                 About Us
                             </div>
                         </a>
-                        @auth
+                        @auth('guest')
                             <a class="d-flex align-items-center list-group-item list-group-item-action
                             px-3 border-0 tran-2"
                                href="#">
@@ -205,7 +205,7 @@
 
                             <a class="d-flex align-items-center list-group-item list-group-item-action
                             px-3 border-0 tran-2"
-                               href="{{route('customer.profile')}}">
+                               href="{{route('guest.profile')}}">
                                 <i class="bi bi-person col-2"></i>
                                 <div class="col-10">
                                     My profile
@@ -214,7 +214,7 @@
 
                             <a class="d-flex align-items-center list-group-item list-group-item-action
                             px-3 border-0 tran-2"
-                               href="{{route('customer.logout')}}">
+                               href="{{route('guest.logout')}}">
                                 <i class="bi bi-box-arrow-left col-2"></i>
                                 <div class="col-10">
                                     Sign out
@@ -225,8 +225,8 @@
                     {{--                    <ul class="navbar-nav nav-fill h-75 w-100 align-items-start">--}}
                     {{--                        <li class="nav-item w-100 text-start">--}}
                     {{--                            <a class="nav-link tran-2 row align-items-center d-flex m-0--}}
-                    {{--                            {{request()->routeIs('customer.home') ? 'active' : ''}}"--}}
-                    {{--                               href="{{route('customer.home')}}">--}}
+                    {{--                            {{request()->routeIs('guest.home') ? 'active' : ''}}"--}}
+                    {{--                               href="{{route('guest.home')}}">--}}
                     {{--                                <i class="bi bi-house col-2"></i>--}}
                     {{--                                <div class="col-10">--}}
                     {{--                                    Home--}}
@@ -258,8 +258,8 @@
 
                     {{--                        <li class="nav-item w-100 text-start">--}}
                     {{--                            <a class="nav-link tran-2 row d-flex align-items-center m-0--}}
-                    {{--                            {{request()->routeIs('customer.contact') ? 'active' : ''}}"--}}
-                    {{--                               href="{{route('customer.contact')}}">--}}
+                    {{--                            {{request()->routeIs('guest.contact') ? 'active' : ''}}"--}}
+                    {{--                               href="{{route('guest.contact')}}">--}}
                     {{--                                <i class="bi bi-telephone col-2"></i>--}}
                     {{--                                <div class="col-10">--}}
                     {{--                                    Contact--}}
@@ -269,8 +269,8 @@
 
                     {{--                        <li class="nav-item w-100 text-start">--}}
                     {{--                            <a class="nav-link tran-2 row d-flex align-items-center m-0--}}
-                    {{--                            {{request()->routeIs('customer.about') ? 'active' : ''}}"--}}
-                    {{--                               href="{{route('customer.about')}}">--}}
+                    {{--                            {{request()->routeIs('guest.about') ? 'active' : ''}}"--}}
+                    {{--                               href="{{route('guest.about')}}">--}}
                     {{--                                <i class="bi bi-info-circle col-2"></i>--}}
                     {{--                                <div class="col-10">--}}
                     {{--                                    About Us--}}
@@ -278,7 +278,7 @@
                     {{--                            </a>--}}
                     {{--                        </li>--}}
 
-                    {{--                        @auth--}}
+                    {{--                        @auth('guest')--}}
                     {{--                            <li class="nav-item w-100 text-start">--}}
                     {{--                                <a class="nav-link tran-2 row d-flex align-items-center m-0" href="#">--}}
                     {{--                                    <i class="bi bi-bell col-2"></i>--}}
@@ -299,7 +299,7 @@
 
                     {{--                            <li class="nav-item w-100 text-start">--}}
                     {{--                                <a class="nav-link tran-2 row d-flex align-items-center m-0"--}}
-                    {{--                                   href="{{route('customer.logout')}}">--}}
+                    {{--                                   href="{{route('guest.logout')}}">--}}
                     {{--                                    <i class="bi bi-box-arrow-left col-2"></i>--}}
                     {{--                                    <div class="col-10">--}}
                     {{--                                        Sign out--}}
@@ -311,14 +311,14 @@
 
                 </div>
 
-                @guest
+                @guest('guest')
                     {{--                LOGIN--}}
                     <div class="w-100 d-flex flex-column justify-content-between align-items-end">
                         <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-9 w-100"
-                           href="{{route('customer.login')}}">
+                           href="{{route('guest.login')}}">
                             Log in
                         </a>
-                        <a class="btn btn-primary px-3 tran-2 rounded-9 w-100" href="{{route('customer.register')}}">
+                        <a class="btn btn-primary px-3 tran-2 rounded-9 w-100" href="{{route('guest.register')}}">
                             Sign up
                         </a>
                     </div>

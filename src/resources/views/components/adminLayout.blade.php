@@ -25,7 +25,7 @@
     {{--    css mdb--}}
     <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">
     {{--    file css tuy chinh--}}
-    <link rel="stylesheet" href="{{ asset('plugins/css/customer.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('plugins/css/guest.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
 <body class="overflow-x-hidden overflow-y-auto body-custom">

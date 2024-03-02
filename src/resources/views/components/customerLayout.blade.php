@@ -5,15 +5,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{--    font Inter--}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    {{--    font Playfair Display--}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-          rel="stylesheet">
     {{--    favicon--}}
     <link rel="icon" type="image/x-icon" href="{{asset('images/logo_1.png')}}">
     {{--    jquery--}}
@@ -26,8 +17,17 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{--    css mdb--}}
     <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">
+    {{--    font Inter--}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    {{--    font Playfair Display--}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+          rel="stylesheet">
     {{--    file css tuy chinh--}}
-    <link rel="stylesheet" href="{{ asset('plugins/css/customer.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('plugins/css/guest.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
 <body class="overflow-x-hidden overflow-y-auto h-100 body-custom">
