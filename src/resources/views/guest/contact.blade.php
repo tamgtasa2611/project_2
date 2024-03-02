@@ -1,5 +1,5 @@
 <title>Contact - Skyrim Hotel</title>
-<x-customerLayout>
+<x-guestLayout>
     <section id="login-section" class="m-nav">
         <div class="container h-ok">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section
@@ -39,4 +39,4 @@
             </div>
         </div>
     </section>
-</x-customerLayout>
+</x-guestLayout>

@@ -1,5 +1,5 @@
 <title>Sign up - Skyrim Hotel</title>
-<x-customerLayout>
+<x-guestLayout>
     <section id="signup-section" class="m-nav">
         <div class="container h-ok">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
@@ -78,7 +78,7 @@
                     <div class="mb-4">
                         <div data-mdb-input-init class="form-outline">
                             <input type="tel" id="phone" name="phone" class="form-control"
-                                   value="{{old('phone')}}" maxlength="13" required/>
+                                   value="{{old('phone')}}" maxlength="20" required/>
                             <label class="form-label" for="phone">Phone number</label>
                         </div>
                         @if ($errors->has('phone'))
@@ -102,5 +102,5 @@
             </div>
         </div>
     </section>
-</x-customerLayout>
+</x-guestLayout>
 

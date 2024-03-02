@@ -80,12 +80,12 @@ CREATE TABLE services (
 );
 
 CREATE TABLE bookingServices (
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	booking_id INT NOT NULL,
     service_id INT NOT NULL,
     employee_id INT,
     created_date DATETIME NOT NULL,
     note TEXT,
-    PRIMARY KEY (booking_id, service_id),
     FOREIGN KEY (booking_id) REFERENCES bookings(id),
     FOREIGN KEY (service_id) REFERENCES services(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
@@ -94,3 +94,5 @@ CREATE TABLE bookingServices (
 
 /*============TEST=============*/
 select * from guests;
+INSERT INTO admins VALUES 
+(1, 'Admin 1', 'admin1@gmail.com', '$2y$12$SfmNR/IjTz2B67dLQ4yk5eVwcBkJyP8Dxd/hr3dZ8AfyamPFreJUq', '+84123456789');

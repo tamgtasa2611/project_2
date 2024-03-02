@@ -1,5 +1,5 @@
 <title>About Us - Skyrim Hotel</title>
-<x-customerLayout>
+<x-guestLayout>
     <section id="about-section" class="m-nav py-5">
         <div class="container h-auto">
             <div class="w-100 d-flex flex-column align-items-center justify-content-center
@@ -37,4 +37,4 @@
             </div>
         </div>
     </section>
-</x-customerLayout>
+</x-guestLayout>

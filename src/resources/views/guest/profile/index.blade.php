@@ -1,5 +1,5 @@
 <title>My profile - Skyrim Hotel</title>
-<x-customerLayout>
+<x-guestLayout>
     <section id="profile-section" class="m-nav">
         <div class="container">
             <div class="row py-5 justify-content-center">
@@ -19,4 +19,4 @@
             </div>
         </div>
     </section>
-</x-customerLayout>
+</x-guestLayout>

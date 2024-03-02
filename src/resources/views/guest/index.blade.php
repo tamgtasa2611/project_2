@@ -1,6 +1,5 @@
 <title>Home - Skyrim Hotel</title>
-<x-customerLayout>
-
+<x-guestLayout>
     {{--    HERO--}}
     <section id="hero_section" class="m-nav mb-5">
         <!-- Background image -->
@@ -152,7 +151,7 @@
                         <div class="col-12 col-lg-4 fade-left">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-envelope-fill fs-4"></i>
+                                    <i class="bi bi-headset fs-4"></i>
                                 </div>
                             </div>
                             <h6 class="fw-bold text-primary-emphasis text-center mb-4">24/7 Room Services</h6>
@@ -165,7 +164,7 @@
                         <div class="col-12 col-lg-4 fade-bottom">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-envelope-fill fs-4"></i>
+                                    <i class="bi bi-person-walking fs-4"></i>
                                 </div>
                             </div>
                             <h6 class="fw-bold text-primary-emphasis text-center mb-4">Diverse Guide Tour</h6>
@@ -179,7 +178,7 @@
                         <div class="col-12 col-lg-4 fade-right">
                             <div class="d-flex justify-content-center mb-4">
                                 <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-envelope-fill fs-4"></i>
+                                    <i class="bi bi-bicycle fs-4"></i>
                                 </div>
                             </div>
                             <h6 class="fw-bold text-primary-emphasis text-center mb-4">Free Fitness Center</h6>
@@ -234,4 +233,4 @@
         <!-- Background image -->
     </section>
     {{--  AVT  --}}
-</x-customerLayout>
+</x-guestLayout>

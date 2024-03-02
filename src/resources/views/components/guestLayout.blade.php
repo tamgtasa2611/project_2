@@ -30,18 +30,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
-<body class="overflow-x-hidden overflow-y-auto body-custom">
-@include('partials.adminNavbar')
-
-<div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 border border-top-0">
-        @include('partials.adminSidenav')
-    </div>
-    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0">
-        {{$slot}}
-    </div>
-</div>
-
+<body class="overflow-x-hidden overflow-y-auto h-100 body-custom">
+@include('partials.guestNavbar')
+{{$slot}}
+@include('partials.guestFooter')
 <script
     type="text/javascript"
     src="{{asset('plugins/js/script.js')}}"

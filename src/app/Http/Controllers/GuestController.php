@@ -41,9 +41,8 @@ class GuestController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::guard('guest')->logout();
+        session()->forget('guest');
         return view('guest.logout');
     }
 
@@ -92,7 +91,11 @@ class GuestController extends Controller
 
     public function editAccount()
     {
-        return view('guest.profile.editAccount');
+        $guestId = Auth::guard('guest')->id();
+        $guest = Guest::find($guestId);
+        return view('guest.profile.editAccount', [
+            'guest' => $guest
+        ]);
     }
 
     public function changePassword()
