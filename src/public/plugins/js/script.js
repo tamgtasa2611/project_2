@@ -1,25 +1,29 @@
 //ScrollReveal
 let FadeIn = {
     duration: 1200,
-}
+};
 let scaleUp = {
-    scale: 0.85
-}
+    scale: 0.85,
+};
 let scaleDown = {
-    scale: 1.15
-}
+    scale: 1.15,
+};
 let fadeTop = {
-    origin: "top", distance: "20px"
-}
+    origin: "top",
+    distance: "20px",
+};
 let fadeBottom = {
-    origin: "bottom", distance: "20px"
-}
+    origin: "bottom",
+    distance: "20px",
+};
 let fadeLeft = {
-    origin: "left", distance: "40px"
-}
+    origin: "left",
+    distance: "40px",
+};
 let fadeRight = {
-    origin: "right", distance: "40px"
-}
+    origin: "right",
+    distance: "40px",
+};
 
 ScrollReveal().reveal(".fade-scale-up", scaleUp);
 ScrollReveal().reveal(".fade-scale-down", scaleDown);
@@ -43,23 +47,23 @@ $(document).ready(function () {
 
     // ALERT
     setInterval(function () {
-        $(".alert").addClass('opacity-0');
+        $(".alert").addClass("opacity-0");
         setInterval(function () {
             $(".alert").fadeOut();
         }, 1000);
     }, 3500);
 
     // PASSWORD EYE
-    $("#show_hide_password a").on('click', function (event) {
+    $("#show_hide_password a").on("click", function (event) {
         event.preventDefault();
-        if ($('#show_hide_password input').attr("type") == "text") {
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass("bi-eye-slash");
-            $('#show_hide_password i').removeClass("bi-eye");
-        } else if ($('#show_hide_password input').attr("type") == "password") {
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass("bi-eye-slash");
-            $('#show_hide_password i').addClass("bi-eye");
+        if ($("#show_hide_password input").attr("type") == "text") {
+            $("#show_hide_password input").attr("type", "password");
+            $("#show_hide_password i").addClass("bi-eye-slash");
+            $("#show_hide_password i").removeClass("bi-eye");
+        } else if ($("#show_hide_password input").attr("type") == "password") {
+            $("#show_hide_password input").attr("type", "text");
+            $("#show_hide_password i").removeClass("bi-eye-slash");
+            $("#show_hide_password i").addClass("bi-eye");
         }
     });
 });

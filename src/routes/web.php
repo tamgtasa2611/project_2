@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\GuestController;
-use App\Http\Controllers\AdminController;
-use App\Http\Middleware\CheckLoginGuest;
 use App\Http\Middleware\CheckLoginAdmin;
+use App\Http\Middleware\CheckLoginGuest;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,20 +59,34 @@ Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
         Route::get('/roomTypes', [AdminController::class, 'roomTypes'])->name('admin.roomTypes');
+
         Route::get('/rooms', [AdminController::class, 'rooms'])->name('admin.rooms');
+
         Route::get('/employees', [AdminController::class, 'employees'])->name('admin.employees');
-        Route::get('/guests', [AdminController::class, 'guests'])->name('admin.guests');
+
+        // GUESTS
+        Route::get('/guests', [AdminGuestController::class, 'index'])->name('admin.guests');
+        Route::get('/guests/create', [AdminGuestController::class, 'create'])->name('admin.guests.create');
+        Route::post('/guests/create', [AdminGuestController::class, 'store'])->name('admin.guests.store');
+        Route::get('/guests/{guest}/edit', [AdminGuestController::class, 'edit'])->name('admin.guests.edit');
+        Route::put('/guests/{guest}/edit', [AdminGuestController::class, 'update'])->name('admin.guests.update');
+        Route::delete('/guests/{guest}', [AdminGuestController::class, 'destroy'])->name('admin.guests.destroy');
+
+        // BOOKING
         Route::get('/bookings', [AdminController::class, 'bookings'])->name('admin.bookings');
+
         Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
+
         Route::get('/ratings', [AdminController::class, 'ratings'])->name('admin.ratings');
+
         Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     });
 
-//    LOGIN
+    //    LOGIN
     Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'loginProcess'])->name('admin.loginProcess');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
-
 });
 //ADMIN---------------------------------------------------------

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class GuestController extends Controller
 {
-//    login logout register
+    //    login logout register
     public function login()
     {
         return view('guest.login');
@@ -53,32 +53,26 @@ class GuestController extends Controller
 
     public function registerProcess(StoreGuestRequest $request)
     {
-//        $validated = $request->validate([
-//            'first_name' => 'required',
-//            'last_name' => 'required',
-//            'email' => 'required|unique:users',
-//            'password' => 'required|min:6',
-//            'phone' => 'required|max:20',
-//        ]);
         $validated = $request->validated();
 
         if ($validated) {
-            $arr = [];
-            $arr = Arr::add($arr, 'first_name', $request->first_name);
-            $arr = Arr::add($arr, 'last_name', $request->last_name);
-            $arr = Arr::add($arr, 'email', $request->email);
-            $arr = Arr::add($arr, 'password', Hash::make($request->password));
-            $arr = Arr::add($arr, 'phone_number', $request->phone);
-            Guest::create($arr);
+            $data = [];
+            $data = Arr::add($data, 'first_name', $request->first_name);
+            $data = Arr::add($data, 'last_name', $request->last_name);
+            $data = Arr::add($data, 'email', $request->email);
+            $data = Arr::add($data, 'password', Hash::make($request->password));
+            $data = Arr::add($data, 'phone_number', $request->phone);
+            $data = Arr::add($data, 'status', 1);
+            Guest::create($data);
             return to_route('guest.login')->with('success', 'Account created successfully!');
         } else {
             return to_route('guest.register')->with('failed', 'Something went wrong!');
         }
     }
 
-//    login logout register
+    //    login logout register
 
-//  profile
+    //  profile
     public function profile()
     {
         return view('guest.profile.index');
@@ -102,5 +96,5 @@ class GuestController extends Controller
     {
         return view('guest.profile.changePassword');
     }
-//    profile
+    //    profile
 }

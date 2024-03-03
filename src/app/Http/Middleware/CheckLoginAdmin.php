@@ -20,6 +20,6 @@ class CheckLoginAdmin
         if (session()->has('admin')) {
             return $next($request);
         }
-        return Redirect::route('admin.login')->with('failed', "Please log in first!");
+        return Redirect::route('admin.login')->with('need_login', "Please log in first!");
     }
 }
