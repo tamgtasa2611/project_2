@@ -62,7 +62,7 @@ Route::prefix('admin')->group(function () {
 
         //    DASHBOARD 
         Route::prefix('dashboard')->group(function () {
-            Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+            Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         });
 
         // ROOM TYPES
@@ -73,6 +73,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('admin.roomTypes.edit');
             Route::put('/{roomType}/edit', [AdminRoomTypeController::class, 'update'])->name('admin.roomTypes.update');
             Route::delete('/{roomType}', [AdminRoomTypeController::class, 'destroy'])->name('admin.roomTypes.destroy');
+            // PDF
+            Route::get('downloadPdf', [AdminRoomTypeController::class, 'downloadPDF'])->name('admin.roomTypes.downloadPdf');
         });
 
         // ROOMS 
@@ -93,6 +95,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/{guest}/edit', [AdminGuestController::class, 'edit'])->name('admin.guests.edit');
             Route::put('/{guest}/edit', [AdminGuestController::class, 'update'])->name('admin.guests.update');
             Route::delete('/{guest}', [AdminGuestController::class, 'destroy'])->name('admin.guests.destroy');
+            // PDF
+            Route::get('downloadPdf', [AdminGuestController::class, 'downloadPDF'])->name('admin.guests.downloadPdf');
         });
 
         // BOOKINGs

@@ -35,8 +35,7 @@
             <!-- description Number input -->
             <div class="mb-4">
                 <div data-mdb-input-init class="form-outline">
-                    <textarea id="description" name="description" class="form-control" rows="4">{{ $roomType->description }}
-                    </textarea>
+                    <textarea id="description" name="description" class="form-control" rows="4">{{ $roomType->description }}</textarea>
                     <label class="form-label" for="description">Description</label>
                 </div>
                 @if ($errors->has('description'))

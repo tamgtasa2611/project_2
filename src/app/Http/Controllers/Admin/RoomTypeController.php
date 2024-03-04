@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateRoomTypeRequest;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RoomTypeController extends Controller
 {
@@ -87,5 +88,16 @@ class RoomTypeController extends Controller
         $roomType->delete();
         //Quay về danh sách
         return to_route('admin.roomTypes')->with('success', 'Room type deleted successfully!');
+    }
+
+    // PDF
+    public function downloadPDF()
+    {
+        $roomTypes = RoomType::all();
+
+        $pdf = PDF::loadView('admin.roomTypes.pdf', array('roomTypes' =>  $roomTypes))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('data.pdf');
     }
 }

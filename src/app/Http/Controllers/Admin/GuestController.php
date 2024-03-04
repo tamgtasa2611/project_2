@@ -9,6 +9,8 @@ use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class GuestController extends Controller
 {
@@ -94,5 +96,17 @@ class GuestController extends Controller
         $guest->delete();
         //Quay về danh sách
         return to_route('admin.guests')->with('success', 'Guest deleted successfully!');
+    }
+
+    // PDF
+
+    public function downloadPDF()
+    {
+        $guests = Guest::all();
+
+        $pdf = PDF::loadView('admin.guests.pdf', array('guests' =>  $guests))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('data.pdf');
     }
 }

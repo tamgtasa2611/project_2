@@ -16,7 +16,7 @@
             <a href="{{ route('admin.guests.create') }}" class="d-flex align-items-center me-3">
                 <i class="me-2 bi bi-plus-circle"></i>Add new guest
             </a>
-            <a href="" class="d-flex align-items-center">
+            <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
                 <i class="me-2 bi bi-download"></i>Export
             </a>
         </div>
@@ -52,13 +52,13 @@
             <table class="table align-middle mb-0 bg-white border">
                 <thead class="table-primary">
                     <tr>
-                        <th>ID</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Phone number</th>
-                        <th class="text-center">Actions</th>
+                        <th class="align-middle">ID</th>
+                        <th class="align-middle">First name</th>
+                        <th class="align-middle">Last name</th>
+                        <th class="align-middle">Email</th>
+                        <th class="align-middle">Status</th>
+                        <th class="align-middle">Phone number</th>
+                        <th class="text-center align-middle">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

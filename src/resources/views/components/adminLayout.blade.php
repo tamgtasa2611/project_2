@@ -39,7 +39,7 @@
         <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 border border-top-0">
             @include('partials.adminSidenav')
         </div>
-        <div class="col-12 col-lg-9 col-xl-10 ps-lg-0">
+        <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 bg-light">
             <div class="p-3">
                 <div class="position-relative">
                     {{ $slot }}
