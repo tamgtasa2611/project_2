@@ -74,7 +74,24 @@ html.sr .load-hidden {
     -webkit-animation-fill-mode: both;
 }
 
-@keyframes slideIn {
+@-webkit-keyframes slideUp {
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        -webkit-opacity: 1;
+    }
+
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+}
+
+@keyframes slideUp {
     0% {
         transform: translateY(1rem);
         opacity: 0;
@@ -91,9 +108,13 @@ html.sr .load-hidden {
     }
 }
 
-@-webkit-keyframes slideIn {
+.slideUp {
+    animation: slideUp 300ms;
+}
+
+@-webkit-keyframes slideDown {
     0% {
-        -webkit-transform: transform;
+        -webkit-transform: translateY(-1rem);
         -webkit-opacity: 0;
     }
 
@@ -103,20 +124,36 @@ html.sr .load-hidden {
     }
 
     0% {
-        -webkit-transform: translateY(1rem);
+        -webkit-transform: translateY(-1rem);
         -webkit-opacity: 0;
     }
 }
 
-.slideIn {
-    -webkit-animation-name: slideIn;
-    animation-name: slideIn;
+@keyframes slideDown {
+    0% {
+        transform: translateY(-1rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+
+    0% {
+        transform: translateY(-1rem);
+        opacity: 0;
+    }
 }
 
+.slideDown {
+    animation: slideDown 300ms;
+}
+
+/* CURSOR  */
 .hover-pointer {
     cursor: pointer;
 }
-
 
 /*navbar*/
 /*hover nav*/
@@ -124,7 +161,9 @@ html.sr .load-hidden {
     font-weight: bold;
 }
 
-.nav-link.active, .nav-link:hover, .nav-link:focus {
+.nav-link.active,
+.nav-link:hover,
+.nav-link:focus {
     color: #3b71ca !important;
 }
 
@@ -144,7 +183,6 @@ html.sr .load-hidden {
 
 /*home*/
 #hero_section {
-
 }
 
 .hero-section {
@@ -160,7 +198,7 @@ html.sr .load-hidden {
 /*validation*/
 .invalid-text {
     width: auto;
-    font-size: .8rem;
+    font-size: 0.8rem;
     color: var(--mdb-danger);
 }
 

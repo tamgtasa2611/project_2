@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
+use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\CheckLoginGuest;
@@ -58,30 +59,61 @@ Route::middleware([CheckLoginGuest::class])->group(function () {
 Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-        Route::get('/roomTypes', [AdminController::class, 'roomTypes'])->name('admin.roomTypes');
+        //    DASHBOARD 
+        Route::prefix('dashboard')->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        });
 
-        Route::get('/rooms', [AdminController::class, 'rooms'])->name('admin.rooms');
+        // ROOM TYPES
+        Route::prefix('roomTypes')->group(function () {
+            Route::get('/', [AdminRoomTypeController::class, 'index'])->name('admin.roomTypes');
+            Route::get('/create', [AdminRoomTypeController::class, 'create'])->name('admin.roomTypes.create');
+            Route::post('/create', [AdminRoomTypeController::class, 'store'])->name('admin.roomTypes.store');
+            Route::get('/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('admin.roomTypes.edit');
+            Route::put('/{roomType}/edit', [AdminRoomTypeController::class, 'update'])->name('admin.roomTypes.update');
+            Route::delete('/{roomType}', [AdminRoomTypeController::class, 'destroy'])->name('admin.roomTypes.destroy');
+        });
 
-        Route::get('/employees', [AdminController::class, 'employees'])->name('admin.employees');
+        // ROOMS 
+        Route::prefix('rooms')->group(function () {
+            Route::get('/', [AdminController::class, 'rooms'])->name('admin.rooms');
+        });
+
+        // EMPLOYEES
+        Route::prefix('employees')->group(function () {
+            Route::get('/', [AdminController::class, 'employees'])->name('admin.employees');
+        });
 
         // GUESTS
-        Route::get('/guests', [AdminGuestController::class, 'index'])->name('admin.guests');
-        Route::get('/guests/create', [AdminGuestController::class, 'create'])->name('admin.guests.create');
-        Route::post('/guests/create', [AdminGuestController::class, 'store'])->name('admin.guests.store');
-        Route::get('/guests/{guest}/edit', [AdminGuestController::class, 'edit'])->name('admin.guests.edit');
-        Route::put('/guests/{guest}/edit', [AdminGuestController::class, 'update'])->name('admin.guests.update');
-        Route::delete('/guests/{guest}', [AdminGuestController::class, 'destroy'])->name('admin.guests.destroy');
+        Route::prefix('guests')->group(function () {
+            Route::get('/', [AdminGuestController::class, 'index'])->name('admin.guests');
+            Route::get('/create', [AdminGuestController::class, 'create'])->name('admin.guests.create');
+            Route::post('/create', [AdminGuestController::class, 'store'])->name('admin.guests.store');
+            Route::get('/{guest}/edit', [AdminGuestController::class, 'edit'])->name('admin.guests.edit');
+            Route::put('/{guest}/edit', [AdminGuestController::class, 'update'])->name('admin.guests.update');
+            Route::delete('/{guest}', [AdminGuestController::class, 'destroy'])->name('admin.guests.destroy');
+        });
 
-        // BOOKING
-        Route::get('/bookings', [AdminController::class, 'bookings'])->name('admin.bookings');
+        // BOOKINGs
+        Route::prefix('bookings')->group(function () {
+            Route::get('/', [AdminController::class, 'bookings'])->name('admin.bookings');
+        });
 
-        Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
+        // SERVICES
+        Route::prefix('services')->group(function () {
+            Route::get('/', [AdminController::class, 'services'])->name('admin.services');
+        });
 
-        Route::get('/ratings', [AdminController::class, 'ratings'])->name('admin.ratings');
+        // RATINGS
+        Route::prefix('ratings')->group(function () {
+            Route::get('/', [AdminController::class, 'ratings'])->name('admin.ratings');
+        });
 
-        Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+        // SETTINGS
+        Route::prefix('settings')->group(function () {
+            Route::get('/', [AdminController::class, 'settings'])->name('admin.settings');
+        });
     });
 
     //    LOGIN

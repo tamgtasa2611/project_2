@@ -25,7 +25,7 @@ class GuestController extends Controller
         }
 
         $guests = Guest::where('first_name', 'like', '%' .  $search . '%')
-            ->orWhere('first_name', 'like', '%' .  $search . '%')
+            ->orWhere('last_name', 'like', '%' .  $search . '%')
             ->paginate($paginationNum)
             ->withQueryString();
 

@@ -1,4 +1,4 @@
-<title>Guests management - Skyrim Hotel</title>
+<title>Room Types management - Skyrim Hotel</title>
 <x-adminLayout>
     <div class="slideDown">
         @if (session('success'))
@@ -7,14 +7,14 @@
     </div>
     {{-- HEADING --}}
     <div class="text-primary mb-5">
-        <h3 class="fw-bold">Guests Management</h3>
+        <h3 class="fw-bold">Room Types Management</h3>
     </div>
     {{-- ACTION  --}}
     <div class="row d-flex justify-content-between align-items-center">
         {{-- Button  --}}
         <div class="col-12 col-md-4 mb-3 d-flex justify-content-between justify-content-md-start">
-            <a href="{{ route('admin.guests.create') }}" class="d-flex align-items-center me-3">
-                <i class="me-2 bi bi-plus-circle"></i>Add new guest
+            <a href="{{ route('admin.roomTypes.create') }}" class="d-flex align-items-center me-3">
+                <i class="me-2 bi bi-plus-circle"></i>Add new room type
             </a>
             <a href="" class="d-flex align-items-center">
                 <i class="me-2 bi bi-download"></i>Export
@@ -45,50 +45,35 @@
             </form>
         </div>
     </div>
-
-    @if (count($guests) != 0)
+    @if (count($roomTypes) != 0)
         {{-- MAIN  --}}
         <div class="overflow-x-auto">
             <table class="table align-middle mb-0 bg-white border">
                 <thead class="table-primary">
                     <tr>
                         <th>ID</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Phone number</th>
+                        <th>Type name</th>
+                        <th>Description</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($guests as $guest)
+                    @foreach ($roomTypes as $roomType)
                         <tr>
                             <td>
-                                {{ $guest->id }}
+                                {{ $roomType->id }}
                             </td>
                             <td>
-                                {{ $guest->first_name }}
+                                {{ $roomType->name }}
                             </td>
                             <td>
-                                {{ $guest->last_name }}
+                                {{ $roomType->description }}
                             </td>
-                            <td>
-                                {{ $guest->email }}
-                            </td>
-                            <td>
-                                @if ($guest->status == 1)
-                                    <span class="badge badge-success rounded-pill d-inline">
-                                        Active</span>
-                                @else
-                                    <span class="badge badge-danger rounded-pill d-inline">
-                                        Locked</span>
-                                @endif
-                            </td>
-                            <td> {{ $guest->phone_number }}</td>
+
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.guests.edit', $guest) }}" class="btn btn-tertiary me-3">
+                                    <a href="{{ route('admin.roomTypes.edit', $roomType) }}"
+                                        class="btn btn-tertiary me-3">
                                         Edit
                                     </a>
                                     <button class="btn btn-tertiary text-danger" data-mdb-ripple-init
@@ -103,7 +88,7 @@
             </table>
         </div>
         <div class="my-4">
-            {{ $guests->onEachSide(2)->links() }}
+            {{ $roomTypes->onEachSide(2)->links() }}
         </div>
 
         <!-- DeleteModal -->
@@ -122,7 +107,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light rounded-9" data-mdb-ripple-init
                             data-mdb-dismiss="modal">Cancel</button>
-                        <form method="post" action="{{ route('admin.guests.destroy', $guest) }}">
+                        <form method="post" action="{{ route('admin.roomTypes.destroy', $roomType) }}">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
