@@ -88,6 +88,11 @@
                 @endif
             </div>
 
+            {{-- Image --}}
+            <div class="mb-4">
+                <input type="file" class="form-control" id="image" name="image" />
+            </div>
+
             <div class="d-flex justify-content-between">
                 <a data-mdb-ripple-init href="{{ route('admin.guests') }}" class="btn btn-tertiary rounded-9 tran-2">
                     Back

@@ -8,7 +8,9 @@ use App\Http\Requests\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -26,8 +28,8 @@ class GuestController extends Controller
             $search = $request->search;
         }
 
-        $guests = Guest::where('first_name', 'like', '%' .  $search . '%')
-            ->orWhere('last_name', 'like', '%' .  $search . '%')
+        $guests = Guest::where('first_name', 'like', '%' . $search . '%')
+            ->orWhere('last_name', 'like', '%' . $search . '%')
             ->paginate($paginationNum)
             ->withQueryString();
 
@@ -50,6 +52,13 @@ class GuestController extends Controller
         $validated = $request->validated();
 
         if ($validated) {
+            $imagePath = "";
+            if ($request->file('image')) {
+                $imagePath = $request->file('image')->getClientOriginalName();
+            }
+            if (!Storage::exists('public/admin/guest/' . $imagePath)) {
+                Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+            }
             $data = [];
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
@@ -57,6 +66,7 @@ class GuestController extends Controller
             $data = Arr::add($data, 'password', Hash::make($request->password));
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', 1);
+            $data = Arr::add($data, 'image', $imagePath);
             Guest::create($data);
             return to_route('admin.guests')->with('success', 'Guest created successfully!');
         } else {
@@ -76,14 +86,35 @@ class GuestController extends Controller
         $validated = $request->validated();
 
         if ($validated) {
+            $imagePath = "";
+            //Kiểm tra nếu đã chọn ảnh thì Lấy tên ảnh đang được chọn
+            //không chọn ảnh thì sẽ lấy tên ảnh cũ trên db
+            if ($request->file('image')) {
+                $imagePath = $request->file('image')->getClientOriginalName();
+            } else {
+                $imagePath = $guest->image;
+            }
+            //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
+            if (!Storage::exists('public/admin/guest/' . $imagePath)) {
+                Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+            }
             $data = [];
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
             $data = Arr::add($data, 'email', $request->email);
-            $data = Arr::add($data, 'password', Hash::make($request->password));
+            //kiem tra neu password khong thay doi thi ko update password
+            if ($request->password != $guest->password) {
+                $data = Arr::add($data, 'password', Hash::make($request->password));
+            }
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', $request->status);
+            $data = Arr::add($data, 'image', $imagePath);
             $guest->update($data);
+
+//           update xong -> logout guest
+            Auth::guard('guest')->logout();
+            session()->forget('guest');
+
             return to_route('admin.guests')->with('success', 'Guest updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -104,7 +135,7 @@ class GuestController extends Controller
     {
         $guests = Guest::all();
 
-        $pdf = PDF::loadView('admin.guests.pdf', array('guests' =>  $guests))
+        $pdf = PDF::loadView('admin.guests.pdf', array('guests' => $guests))
             ->setPaper('a4', 'portrait');
 
         return $pdf->download('data.pdf');

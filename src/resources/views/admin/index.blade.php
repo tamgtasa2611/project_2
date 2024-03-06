@@ -6,6 +6,5 @@
             @include('partials.flashMsgSuccess')
         @endif
     </div>
-
     ABC
 </x-adminLayout>

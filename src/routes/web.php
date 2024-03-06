@@ -47,6 +47,7 @@ Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 Route::middleware([CheckLoginGuest::class])->group(function () {
     Route::get('/profile', [GuestController::class, 'profile'])->name('guest.profile');
     Route::get('/editAccount', [GuestController::class, 'editAccount'])->name('guest.editAccount');
+    Route::put('/editAccount', [GuestController::class, 'updateAccount'])->name('guest.updateAccount');
     Route::get('/changePassword', [GuestController::class, 'changePassword'])->name('guest.changePassword');
     Route::get('/myBooking', [GuestController::class, 'myBooking'])->name('guest.myBooking');
 });
@@ -60,7 +61,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-        //    DASHBOARD 
+        //    DASHBOARD
         Route::prefix('dashboard')->group(function () {
             Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         });
@@ -77,7 +78,7 @@ Route::prefix('admin')->group(function () {
             Route::get('downloadPdf', [AdminRoomTypeController::class, 'downloadPDF'])->name('admin.roomTypes.downloadPdf');
         });
 
-        // ROOMS 
+        // ROOMS
         Route::prefix('rooms')->group(function () {
             Route::get('/', [AdminController::class, 'rooms'])->name('admin.rooms');
         });

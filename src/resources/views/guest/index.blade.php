@@ -3,7 +3,11 @@
     {{--    HERO--}}
     <section id="hero_section" class="m-nav mb-5">
         <!-- Background image -->
-        <div class="container h-ok">
+        <div class="container h-ok position-relative">
+            {{--alert create account--}}
+            @if (session('success'))
+                @include('partials.flashMsgSuccess')
+            @endif
             <div
                 class="w-100 h-100 py-5 d-flex justify-content-start align-items-center hero-section fade-in load-hidden"
                 style="background-image: url('{{asset('images/banner.png')}}')">

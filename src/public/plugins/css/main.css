@@ -206,3 +206,11 @@ html.sr .load-hidden {
 #admin-sidenav {
     width: 250px !important;
 }
+
+.div-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center center;
+    /* background-size: cover; */
+}

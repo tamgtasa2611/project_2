@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGuestRequest;
+use App\Http\Requests\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 
 class GuestController extends Controller
@@ -25,7 +27,15 @@ class GuestController extends Controller
             'password' => ['required', 'min:6'],
         ]);
 
-        //check db
+        //check account status
+        //0 = locked
+        //1 = active
+        $guestEmail = $credentials['email'];
+        $accountStatus = Guest::where('email', '=', $guestEmail)->first()->status;
+        if ($accountStatus == 0) {
+            return to_route('guest.login')->with('failed', 'This account has been locked!')->withInput($request->input());
+        }
+        //check account trong db
         if (Auth::guard('guest')->attempt($credentials)) {
             $request->session()->regenerate();
             //Lấy thông tin của guest đang login
@@ -34,7 +44,7 @@ class GuestController extends Controller
             Auth::guard('guest')->login($guest);
             //Ném thông tin user đăng nhập lên session
             session(['guest' => $guest]);
-            return to_route('guest.home')->with('success', 'Sign in successfully!');
+            return to_route('guest.profile')->with('success', 'Sign in successfully!');
         }
         return to_route('guest.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
     }
@@ -64,6 +74,7 @@ class GuestController extends Controller
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', 1);
             Guest::create($data);
+            
             return to_route('guest.login')->with('success', 'Account created successfully!');
         } else {
             return to_route('guest.register')->with('failed', 'Something went wrong!');
@@ -90,6 +101,46 @@ class GuestController extends Controller
         return view('guest.profile.editAccount', [
             'guest' => $guest
         ]);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $guestId = Auth::guard('guest')->id();
+        $guest = Guest::find($guestId);
+
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|max:255|unique:guests,email,' . $guestId,
+            // lay id guest de bo qua unique cho email cua guest dang edit
+            'phone' => 'required|max:20',
+        ]);
+
+        if ($validated) {
+            $imagePath = "";
+            //Kiểm tra nếu đã chọn ảnh thì Lấy tên ảnh đang được chọn
+            //không chọn ảnh thì sẽ lấy tên ảnh cũ trên db
+            if ($request->file('image')) {
+                $imagePath = $request->file('image')->getClientOriginalName();
+            } else {
+                $imagePath = $guest->image;
+            }
+            //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
+            if (!Storage::exists('public/admin/guest/' . $imagePath)) {
+                Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+            }
+            $data = [];
+            $data = Arr::add($data, 'first_name', $request->first_name);
+            $data = Arr::add($data, 'last_name', $request->last_name);
+            $data = Arr::add($data, 'email', $request->email);
+            $data = Arr::add($data, 'phone_number', $request->phone);
+            $data = Arr::add($data, 'image', $imagePath);
+            $guest->update($data);
+
+            return to_route('guest.editAccount')->with('success', 'Update account successfully!');
+        } else {
+            return back()->with('failed', 'Something went wrong!');
+        }
     }
 
     public function changePassword()

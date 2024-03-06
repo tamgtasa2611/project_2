@@ -19,6 +19,7 @@ class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
         'email',
         'password',
         'phone_number',
-        'status'
+        'status',
+        'image'
     ];
 }
