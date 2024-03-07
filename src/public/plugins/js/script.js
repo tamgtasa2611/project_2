@@ -67,3 +67,29 @@ $(document).ready(function () {
         }
     });
 });
+
+// DATATABLE AJAX
+// $(document).ready(function () {
+//     $("#dataTable").DataTable({
+//         columnDefs: [
+//             {
+//                 orderable: false,
+//                 targets: 4,
+//             },
+//         ],
+//         pagingType: "full_numbers",
+//         layout: {
+//             topEnd: {
+//                 search: {
+//                     text: "Search: ",
+//                     placeholder: "Type to search...",
+//                 },
+//             },
+//             bottomEnd: {
+//                 paging: {
+//                     numbers: 3,
+//                 },
+//             },
+//         },
+//     });
+// });

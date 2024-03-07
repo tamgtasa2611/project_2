@@ -10,7 +10,7 @@
     {{-- FORM  --}}
     <div class="row d-flex justify-content-center">
         <form method="post" action="{{ route('admin.guests.update', $guest) }}" enctype="multipart/form-data"
-              class="bg-white p-5 rounded-5 border shadow-sm col-md-8">
+              class="bg-white p-5 border rounded shadow-sm col-md-8">
             @csrf
             @method('PUT')
             {{--                    heading --}}
@@ -92,21 +92,23 @@
                     </div>
 
                     <!-- status input -->
-                    <div class="mb-4 d-flex flex-column flex-md-row">
+                    <div class="mb-4 d-flex flex-column align-items-center flex-md-row">
                         <div class="w-25 mb-3 mb-md-0">
-                            Status
+                            Status:
                         </div>
-                        <div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" value="1"
+                        <div class="w-75 d-flex justify-content-center justify-content-md-end">
+                            <div class="me-3">
+                                <input class="btn-check tran-2" type="radio" name="status" value="1"
                                        id="active" {{ $guest->status == 1 ? 'checked' : '' }} />
-                                <label class="form-check-label text-success fw-bold" for="active">Active</label>
+                                <label class="btn btn-secondary tran-2 text-success fw-bold"
+                                       for="active">Active</label>
                             </div>
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" value="0"
+                            <div>
+                                <input class="btn-check tran-2" type="radio" name="status" value="0"
                                        id="locked" {{ $guest->status == 0 ? 'checked' : '' }} />
-                                <label class="form-check-label text-danger fw-bold" for="locked">Locked</label>
+                                <label class="btn btn-secondary tran-2 text-danger fw-bold"
+                                       for="locked">Locked</label>
                             </div>
                         </div>
                     </div>
@@ -127,11 +129,11 @@
             </div>
 
             <div class="d-flex justify-content-between">
-                <a data-mdb-ripple-init href="{{ route('admin.guests') }}" class="btn btn-tertiary rounded-9 tran-2">
+                <a data-mdb-ripple-init href="{{ route('admin.guests') }}" class="btn btn-tertiary tran-2">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
+                <button data-mdb-ripple-init type="submit" class="btn btn-primary tran-2">
                     Update
                 </button>
             </div>

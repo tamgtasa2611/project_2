@@ -5,64 +5,46 @@
             @include('partials.flashMsgSuccessCenter')
         @endif
     </div>
-    {{-- HEADING --}}
-    <div class="text-primary mb-5">
-        <h3 class="fw-bold">Guests Management</h3>
-    </div>
-    {{-- ACTION  --}}
-    <div class="row d-flex justify-content-between align-items-center">
-        {{-- Button  --}}
-        <div class="col-12 col-md-4 mb-3 d-flex justify-content-between justify-content-md-start">
-            <a href="{{ route('admin.guests.create') }}" class="d-flex align-items-center me-3">
-                <i class="me-2 bi bi-plus-circle"></i>Add new guest
-            </a>
-            <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
-                <i class="me-2 bi bi-download"></i>Export
-            </a>
+    <div class="row d-flex justify-content-between align-items-center mb-md-5">
+        {{-- HEADING --}}
+        <div class="col-auto text-primary mb-3 mb-md-0">
+            <h3 class="fw-bold m-0">Guests Management</h3>
         </div>
-        <div class="col-12 col-md-4 d-md-flex align-items-center justify-content-end">
-            {{-- SEARCH --}}
-            <form class="d-flex input-group me-md-3 mb-3" method="get">
-                <div class="input-group">
-                    <input type="search" class="form-control rounded-start w-auto" placeholder="Search" name="search"
-                           id="search" value="{{ $search }}" aria-label="Search"
-                           aria-describedby="search-addon"/>
-                    <input type="hidden" name="pagination_num" value="{{ $paginationNum }}" class="hidden">
-                    <button class="btn btn-primary">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
-            {{-- pagination  --}}
-            <form action="" method="get" class="mb-3">
-                <select name="pagination_num" id="ajaxSelect" class="form-select w-auto" onchange="this.form.submit()">
-                    <option value="5" {{ $paginationNum == 5 ? 'selected' : '' }}>5 records</option>
-                    <option value="10" {{ $paginationNum == 10 ? 'selected' : '' }}>10 records</option>
-                    <option value="15" {{ $paginationNum == 15 ? 'selected' : '' }}>15 records</option>
-                    <option value="20" {{ $paginationNum == 20 ? 'selected' : '' }}>20 records</option>
-                </select>
-                <input type="hidden" name="search" value="{{ $search }}" class="hidden">
-            </form>
+        {{-- ACTION  --}}
+        <div
+            class="mb-3 mb-md-0 col-auto flex-fill row d-flex align-items-center">
+            {{-- Button  --}}
+            <div
+                class="d-flex align-items-center justify-content-between justify-content-md-end">
+                <a href="{{ route('admin.guests.create') }}" class="d-flex align-items-center me-0 me-md-3">
+                    <i class="me-2 bi bi-plus-circle"></i>Add new guest
+                </a>
+                <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
+                    <i class="me-2 bi bi-download"></i>Export
+                </a>
+            </div>
         </div>
     </div>
 
     @if (count($guests) != 0)
         {{-- MAIN  --}}
-        <div class="table-responsive">
-            <table class="table table-responsive-md align-middle mb-0 bg-white border">
-                <thead class="table-primary">
+        <div>
+            <table
+                class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                id="dataTable">
+                <thead class="bg-primary-subtle">
                 <tr>
-                    <th class="align-middle">ID</th>
+                    <th class="align-middle text-center">ID</th>
                     <th class="align-middle">Name</th>
                     <th class="align-middle text-center">Account Status</th>
                     <th class="align-middle text-center">Phone number</th>
-                    <th class="text-center align-middle">Actions</th>
+                    <th class="align-middle text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($guests as $guest)
                     <tr>
-                        <td>
+                        <td class="text-center">
                             {{ $guest->id }}
                         </td>
                         <td>
@@ -117,9 +99,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="my-4">
-            {{ $guests->onEachSide(2)->links() }}
-        </div>
 
         <!-- DeleteModal -->
         <div class="modal slideUp" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
@@ -153,3 +132,29 @@
         No results
     @endif
 </x-adminLayout>
+<script>
+    $(document).ready(function () {
+        $("#dataTable").DataTable({
+            columnDefs: [
+                {
+                    orderable: false,
+                    targets: 4,
+                },
+            ],
+            pagingType: "full_numbers",
+            layout: {
+                topEnd: {
+                    search: {
+                        text: "Search: ",
+                        placeholder: "Type to search...",
+                    },
+                },
+                bottomEnd: {
+                    paging: {
+                        numbers: 3,
+                    },
+                },
+            },
+        });
+    });
+</script>

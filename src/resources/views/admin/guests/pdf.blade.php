@@ -6,37 +6,37 @@
     border-spacing: 1px;
     text-align: center;">
     <thead style="background-color: #d8e3f4">
-        <tr>
-            <th style="width: 40px">ID</th>
-            <th style="width: 120px; border-left: 1px solid #ccc">First name</th>
-            <th style="width: 120px; border-left: 1px solid #ccc">Last name</th>
-            <th style="width: 120px; border-left: 1px solid #ccc">Email</th>
-            <th style="width: 120px; border-left: 1px solid #ccc">Phone number</th>
-            <th style="border-left: 1px solid #ccc">Status</th>
-        </tr>
+    <tr>
+        <th style="width: 40px">ID</th>
+        <th style="width: 120px; border-left: 1px solid #ccc">First name</th>
+        <th style="width: 120px; border-left: 1px solid #ccc">Last name</th>
+        <th style="width: 120px; border-left: 1px solid #ccc">Email</th>
+        <th style="width: 120px; border-left: 1px solid #ccc">Phone number</th>
+        <th style="border-left: 1px solid #ccc">Status</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach ($guests as $guest)
-            <tr style="border: 1px solid #ccc">
-                <td>
-                    {{ $guest->id }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $guest->first_name }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $guest->last_name }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $guest->email }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $guest->phone_number }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $guest->status }}
-                </td>
-            </tr>
-        @endforeach
+    @foreach ($guests as $guest)
+        <tr style="border: 1px solid #ccc">
+            <td>
+                {{ $guest->id }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $guest->first_name }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $guest->last_name }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $guest->email }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $guest->phone_number }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $guest->status }}
+            </td>
+        </tr>
+    @endforeach
     </tbody>
 </table>

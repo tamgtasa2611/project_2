@@ -207,6 +207,7 @@ html.sr .load-hidden {
     width: 250px !important;
 }
 
+/*guest avt*/
 .div-img {
     width: 40px;
     height: 40px;
@@ -214,3 +215,5 @@ html.sr .load-hidden {
     object-position: center center;
     /* background-size: cover; */
 }
+
+/*datatable */

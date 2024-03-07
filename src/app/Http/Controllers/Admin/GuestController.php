@@ -18,25 +18,17 @@ class GuestController extends Controller
 {
     public function index(Request $request)
     {
-        $paginationNum = 5;
-        if ($request->pagination_num) {
-            $paginationNum = $request->pagination_num;
-        }
-
         $search = "";
         if ($request->search) {
             $search = $request->search;
         }
 
         $guests = Guest::where('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%')
-            ->paginate($paginationNum)
-            ->withQueryString();
+            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
 
         $data = [
             'guests' => $guests,
             'search' => $search,
-            'paginationNum' => $paginationNum
         ];
 
         return view('admin.guests.index', $data);
@@ -138,6 +130,7 @@ class GuestController extends Controller
         $pdf = PDF::loadView('admin.guests.pdf', array('guests' => $guests))
             ->setPaper('a4', 'portrait');
 
-        return $pdf->download('data.pdf');
+        return $pdf->stream();
+//        return $pdf->download('data.pdf');
     }
 }
