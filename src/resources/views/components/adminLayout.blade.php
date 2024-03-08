@@ -36,19 +36,20 @@
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto body-custom">
+<body class="overflow-x-hidden overflow-y-auto">
 @include('partials.adminNavbar')
 
 <div class="row h-100">
-    <div class="h-100 d-none d-lg-block col-lg-3 col-xl-2 pe-0 border border-top-0 border-bottom-0">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 border border-top-0">
         @include('partials.adminSidenav')
     </div>
-    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 bg-light">
-        <div class="p-3">
+    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 bg-light d-flex flex-column justify-content-between">
+        <div class="p-3 pb-0">
             <div class="position-relative">
                 {{ $slot }}
             </div>
         </div>
+        @include('partials.adminFooter')
     </div>
 </div>
 

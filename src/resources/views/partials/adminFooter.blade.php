@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start text-muted bg-white border-top">
+<footer class="text-center text-muted fs-7">
     <!-- Copyright -->
     <div class="text-center p-3">
         © 2024 All right reserved. Made by

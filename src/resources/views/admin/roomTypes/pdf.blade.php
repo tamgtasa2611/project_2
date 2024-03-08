@@ -4,27 +4,28 @@
 <table style="border: 1px solid #ccc;
     border-collapse: collapse;
     border-spacing: 1px;
-    text-align: center;">
+    text-align: center;
+    width: 100%">
     <thead style="background-color: #d8e3f4">
-        <tr>
-            <th style="width: 40px">ID</th>
-            <th style="width: 120px; border-left: 1px solid #ccc">Type name</th>
-            <th style="border-left: 1px solid #ccc">Description</th>
-        </tr>
+    <tr>
+        <th style="width: 40px">ID</th>
+        <th style="border-left: 1px solid #ccc">Type name</th>
+        <th style="border-left: 1px solid #ccc">Description</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach ($roomTypes as $roomType)
-            <tr style="border: 1px solid #ccc">
-                <td>
-                    {{ $roomType->id }}
-                </td>
-                <td style="border-left: 1px solid #ccc">
-                    {{ $roomType->name }}
-                </td>
-                <td style="text-align: left; border-left: 1px solid #ccc; padding: 10px">
-                    {{ $roomType->description }}
-                </td>
-            </tr>
-        @endforeach
+    @foreach ($roomTypes as $roomType)
+        <tr style="border: 1px solid #ccc">
+            <td>
+                {{ $roomType->id }}
+            </td>
+            <td style="border-left: 1px solid #ccc">
+                {{ $roomType->name }}
+            </td>
+            <td style="text-align: left; border-left: 1px solid #ccc; padding: 10px">
+                {{ $roomType->description }}
+            </td>
+        </tr>
+    @endforeach
     </tbody>
 </table>

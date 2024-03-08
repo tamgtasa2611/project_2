@@ -18,17 +18,23 @@ class GuestController extends Controller
 {
     public function index(Request $request)
     {
-        $search = "";
-        if ($request->search) {
-            $search = $request->search;
-        }
+//        $search = "";
+//        if ($request->search) {
+//            $search = $request->search;
+//        }
+//
+//        $paginationNum = 5;
+//        if ($request->pagination_num) {
+//            $paginationNum = $request->pagination_num;
+//        }
 
-        $guests = Guest::where('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
+//        $guests = Guest::where('first_name', 'like', '%' . $search . '%')
+//            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
+        $guests = Guest::all();
 
         $data = [
             'guests' => $guests,
-            'search' => $search,
+//            'search' => $search,
         ];
 
         return view('admin.guests.index', $data);
@@ -47,10 +53,11 @@ class GuestController extends Controller
             $imagePath = "";
             if ($request->file('image')) {
                 $imagePath = $request->file('image')->getClientOriginalName();
+                if (!Storage::exists('public/admin/guest/' . $imagePath)) {
+                    Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+                }
             }
-            if (!Storage::exists('public/admin/guest/' . $imagePath)) {
-                Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
-            }
+
             $data = [];
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);

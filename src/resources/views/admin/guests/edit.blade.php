@@ -4,13 +4,13 @@
         @include('partials.flashMsgFail')
     @endif
     {{-- HEADING --}}
-    <div class="text-primary mb-4">
+    <div class="text-primary mb-3">
         <h3 class="fw-bold">Guests Management</h3>
     </div>
     {{-- FORM  --}}
     <div class="row d-flex justify-content-center">
         <form method="post" action="{{ route('admin.guests.update', $guest) }}" enctype="multipart/form-data"
-              class="bg-white p-5 border rounded shadow-sm col-md-8">
+              class="bg-white p-5 border rounded-5 shadow-sm col-md-8">
             @csrf
             @method('PUT')
             {{--                    heading --}}
@@ -100,14 +100,14 @@
                             <div class="me-3">
                                 <input class="btn-check tran-2" type="radio" name="status" value="1"
                                        id="active" {{ $guest->status == 1 ? 'checked' : '' }} />
-                                <label class="btn btn-secondary tran-2 text-success fw-bold"
+                                <label class="btn btn-outline-secondary tran-2 text-success fw-bold"
                                        for="active">Active</label>
                             </div>
 
                             <div>
                                 <input class="btn-check tran-2" type="radio" name="status" value="0"
                                        id="locked" {{ $guest->status == 0 ? 'checked' : '' }} />
-                                <label class="btn btn-secondary tran-2 text-danger fw-bold"
+                                <label class="btn btn-outline-secondary tran-2 text-danger fw-bold"
                                        for="locked">Locked</label>
                             </div>
                         </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
+use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\CheckLoginGuest;
@@ -35,13 +36,13 @@ Route::get('/about', function () {
     return view('guest.about');
 })->name('guest.about');
 
-//LOGIN
+//LOGIN REGISTER LOGOUT
 Route::get('/login', [GuestController::class, 'login'])->name('guest.login');
 Route::post('/login', [GuestController::class, 'loginProcess'])->name('guest.loginProcess');
 Route::get('/signup', [GuestController::class, 'register'])->name('guest.register');
 Route::post('/signup', [GuestController::class, 'registerProcess'])->name('guest.registerProcess');
 Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
-//LOGIN
+//LOGIN REGISTER LOGOUT
 
 //PROFILE
 Route::middleware([CheckLoginGuest::class])->group(function () {
@@ -85,7 +86,14 @@ Route::prefix('admin')->group(function () {
 
         // EMPLOYEES
         Route::prefix('employees')->group(function () {
-            Route::get('/', [AdminController::class, 'employees'])->name('admin.employees');
+            Route::get('/', [AdminEmployeeController::class, 'index'])->name('admin.employees');
+            Route::get('/create', [AdminEmployeeController::class, 'create'])->name('admin.employees.create');
+            Route::post('/create', [AdminEmployeeController::class, 'store'])->name('admin.employees.store');
+            Route::get('/{employee}/edit', [AdminEmployeeController::class, 'edit'])->name('admin.employees.edit');
+            Route::put('/{employee}/edit', [AdminEmployeeController::class, 'update'])->name('admin.employees.update');
+            Route::delete('/{employee}', [AdminEmployeeController::class, 'destroy'])->name('admin.employees.destroy');
+            // PDF
+            Route::get('downloadPdf', [AdminEmployeeController::class, 'downloadPDF'])->name('admin.employees.downloadPdf');
         });
 
         // GUESTS

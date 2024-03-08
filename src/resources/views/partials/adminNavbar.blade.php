@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg sticky-top py-0 tran-2 bg-white border shadow-0">
+<nav class="navbar navbar-expand-lg sticky-top py-0 tran-2 bg-white border-bottom shadow-0">
     <div class="container-fluid p-3 justify-content-between">
         {{--        brand --}}
         <div class="w-25 d-flex">

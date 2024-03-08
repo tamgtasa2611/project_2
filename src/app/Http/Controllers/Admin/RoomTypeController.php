@@ -14,25 +14,10 @@ class RoomTypeController extends Controller
 {
     public function index(Request $request)
     {
-        $paginationNum = 5;
-        if ($request->pagination_num) {
-            $paginationNum = $request->pagination_num;
-        }
-
-        $search = "";
-        if ($request->search) {
-            $search = $request->search;
-        }
-
-        $roomTypes = RoomType::where('name', 'like', '%' .  $search . '%')
-            ->orWhere('description', 'like', '%' .  $search . '%')
-            ->paginate($paginationNum)
-            ->withQueryString();
+        $roomTypes = RoomType::all();
 
         $data = [
             'roomTypes' => $roomTypes,
-            'search' => $search,
-            'paginationNum' => $paginationNum
         ];
 
         return view('admin.roomTypes.index', $data);
@@ -95,9 +80,9 @@ class RoomTypeController extends Controller
     {
         $roomTypes = RoomType::all();
 
-        $pdf = PDF::loadView('admin.roomTypes.pdf', array('roomTypes' =>  $roomTypes))
+        $pdf = PDF::loadView('admin.roomTypes.pdf', array('roomTypes' => $roomTypes))
             ->setPaper('a4', 'portrait');
 
-        return $pdf->download('data.pdf');
+        return $pdf->stream();
     }
 }

@@ -3891,6 +3891,7 @@
                         if ($("span.dt-column-title", cell).length === 0) {
                             $("<span>")
                                 .addClass("dt-column-title")
+                                .addClass("fw-bold")
                                 .append(cell.childNodes)
                                 .appendTo(cell);
                         }
@@ -13702,11 +13703,11 @@
         container: "dt-container dt-bootstrap5",
         search: {
             // input: "form-control form-control-sm",
-            input: "form-control w-75",
+            input: "form-control w-100 m-0",
         },
         length: {
             // select: "form-select form-select-sm"
-            select: "form-select ms-2",
+            select: "form-select m-1",
         },
         processing: {
             container: "dt-processing card",
@@ -14949,11 +14950,11 @@
 
             // Empty cell in the header
             if (this.c.showWeekNumber) {
-                a.push("<th></th>");
+                a.push("<th class='fw-bold'></th>");
             }
 
             for (var i = 0; i < 7; i++) {
-                a.push("<th>" + dayName(i) + "</th>");
+                a.push("<th class='fw-bold'>" + dayName(i) + "</th>");
             }
 
             return a.join("");
@@ -20890,7 +20891,7 @@
                         .addClass(this.classes.paneButton)
                         .addClass(this.classes.countButton),
                     dtP: $$5(
-                        '<table width="100%"><thead><tr><th>' +
+                        '<table width="100%"><thead><tr><th class="fw-bold">' +
                             (this.s.colExists
                                 ? $$5(
                                       this.s.dt.column(this.s.index).header(),
