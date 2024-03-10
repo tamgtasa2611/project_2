@@ -94,8 +94,10 @@ class EmployeeController extends Controller
         }
     }
 
-    public function destroy(Employee $employee)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
+        $employee = Employee::find($id);
         //Xóa bản ghi được chọn
         $employee->delete();
         //Quay về danh sách

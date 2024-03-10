@@ -23,14 +23,7 @@ class StoreRoomTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'A name is required',
-            'name.max' => 'The maximum length is 255 characters',
+            'base_price' => 'required',
         ];
     }
 }

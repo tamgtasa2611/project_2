@@ -1,10 +1,6 @@
 <title>Admin dashboard - Skyrim Hotel</title>
 <x-adminLayout>
-    {{-- alert create account --}}
-    <div class="slideDown">
-        @if (session('success'))
-            @include('partials.flashMsgSuccess')
-        @endif
+    <div class="p-3 bg-white rounded-5 shadow-3">
+        ABC
     </div>
-    ABC
 </x-adminLayout>

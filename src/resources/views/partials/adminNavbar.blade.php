@@ -1,14 +1,18 @@
-<nav class="navbar navbar-expand-lg sticky-top py-0 tran-2 bg-white border-bottom shadow-0">
+<nav class="navbar navbar-expand-lg sticky-top py-0 tran-2 bg-white rounded border-0 shadow-sm">
     <div class="container-fluid p-3 justify-content-between">
         {{--        brand --}}
-        <div class="w-25 d-flex">
-            <a class="navbar-brand p-0" href="{{ route('guest.home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" height="24">
-            </a>
+        <div>
+            <div class="input-group rounded">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                       aria-describedby="search-addon"/>
+                <span class="input-group-text border-0" id="search-addon">
+    <i class="bi bi-search"></i>
+  </span>
+            </div>
         </div>
 
         {{--        account btn --}}
-        <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
+        <div class="d-flex justify-content-end align-items-center d-none d-lg-flex">
             <!-- Icon -->
             <div class="dropdown me-3">
                 <a class="text-reset tran-2 dropdown-toggle hidden-arrow" aria-expanded="false" id="dropdown3"
@@ -34,7 +38,7 @@
                 <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
                     aria-labelledby="dropdown4">
                     <li><a class="dropdown-item tran-2" href="{{ route('guest.home') }}">
-                            <i class="bi bi-geo-alt me-2"></i>Visit guest site</a></li>
+                            <i class="bi bi-cursor me-2"></i>Visit guest site</a></li>
                     <li>
                     <li><a class="dropdown-item tran-2" href="{{ route('guest.home') }}">
                             <i class="bi bi-gear me-2"></i>Settings</a></li>
@@ -45,6 +49,8 @@
                             <i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
                 </ul>
             </div>
+
+          
         </div>
         {{--        account btn --}}
 

@@ -26,33 +26,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    {{--    font Playfair Display --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-          rel="stylesheet">
     {{--    file css tuy chinh --}}
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto">
-@include('partials.adminNavbar')
-
+<body class="overflow-x-hidden overflow-y-auto bg-light-subtle cabin-regular">
 <div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 border border-top-0">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 shadow-3 bg-white">
         @include('partials.adminSidenav')
     </div>
-    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 bg-light d-flex flex-column justify-content-between">
+    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 d-flex flex-column justify-content-between">
         <div class="p-3 pb-0">
             <div class="position-relative">
-                {{ $slot }}
+                {{-- alert --}}
+                <div class="slideDown">
+                    @if (session('success'))
+                        @include('partials.flashMsgSuccess')
+                    @endif
+                    @if (session('failed'))
+                        @include('partials.failed')
+                    @endif
+                </div>
+                {{--------------- MAIN --------------}}
+                {{$slot}}
+                {{--------------- END MAIN --------------}}
             </div>
         </div>
         @include('partials.adminFooter')
     </div>
 </div>
-
 <script type="text/javascript" src="{{ asset('plugins/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/mdb/js/mdb.umd.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/mdb/js/mdb.es.min.js/') }}"></script>

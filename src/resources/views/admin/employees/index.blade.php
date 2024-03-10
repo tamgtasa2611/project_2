@@ -78,48 +78,49 @@
                                        class="btn btn-tertiary me-3">
                                         Edit
                                     </a>
-                                    <button class="btn btn-tertiary text-danger" data-mdb-ripple-init
-                                            data-mdb-modal-init data-mdb-target="#deleteModal{{$employee->id}}">
+                                    <a class="btn btn-tertiary text-danger dlt-btn" data-mdb-ripple-init
+                                       data-mdb-modal-init href="#deleteModal" data-id={{$employee->id}}>
                                         Delete
-                                    </button>
-                                </div>
-                                <!-- DeleteModal -->
-                                <div class="modal slideUp" id="deleteModal{{$employee->id}}" tabindex="-1"
-                                     aria-labelledby="deleteModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title text-danger" id="deleteModalLabel">
-                                                    <i class="bi bi-x-circle me-2"></i> Are you sure?
-                                                </h5>
-                                                <button type="button" class="btn-close" data-mdb-ripple-init
-                                                        data-mdb-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">You won't be able to revert this!</div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light rounded"
-                                                        data-mdb-ripple-init
-                                                        data-mdb-dismiss="modal">Cancel
-                                                </button>
-                                                <form method="post"
-                                                      action="{{ route('admin.employees.destroy', $employee) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <!-- DeleteModal -->
+                <div class="modal slideUp" id="deleteModal" tabindex="-1"
+                     aria-labelledby="deleteModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-danger" id="deleteModalLabel">
+                                    <i class="bi bi-x-circle me-2"></i> Are you sure?
+                                </h5>
+                                <button type="button" class="btn-close" data-mdb-ripple-init
+                                        data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">You won't be able to revert this!</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light rounded"
+                                        data-mdb-ripple-init
+                                        data-mdb-dismiss="modal">Cancel
+                                </button>
+                                <form method="post"
+                                      action="{{ route('admin.employees.destroy') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input id="id" name="id" hidden class="visually-hidden" value="">
+                                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @else
                 No results
             @endif

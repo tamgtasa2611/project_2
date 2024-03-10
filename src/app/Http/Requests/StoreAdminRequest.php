@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoomTypeRequest extends FormRequest
+class StoreAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,11 @@ class UpdateRoomTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'base_price' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:admins|max:255',
+            'password' => 'required|min:6',
+            'phone' => 'required|max:20',
         ];
     }
 }

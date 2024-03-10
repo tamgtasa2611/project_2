@@ -53,8 +53,8 @@ class GuestController extends Controller
             $imagePath = "";
             if ($request->file('image')) {
                 $imagePath = $request->file('image')->getClientOriginalName();
-                if (!Storage::exists('public/admin/guest/' . $imagePath)) {
-                    Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+                if (!Storage::exists('public/admin/guests/' . $imagePath)) {
+                    Storage::putFileAs('public/admin/guests/', $request->file('image'), $imagePath);
                 }
             }
 
@@ -94,8 +94,8 @@ class GuestController extends Controller
                 $imagePath = $guest->image;
             }
             //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
-            if (!Storage::exists('public/admin/guest/' . $imagePath)) {
-                Storage::putFileAs('public/admin/guest/', $request->file('image'), $imagePath);
+            if (!Storage::exists('public/admin/guests/' . $imagePath)) {
+                Storage::putFileAs('public/admin/guests/', $request->file('image'), $imagePath);
             }
             $data = [];
             $data = Arr::add($data, 'first_name', $request->first_name);
@@ -120,8 +120,10 @@ class GuestController extends Controller
         }
     }
 
-    public function destroy(Guest $guest)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
+        $guest = Guest::find($id);
         //Xóa bản ghi được chọn
         $guest->delete();
         //Quay về danh sách

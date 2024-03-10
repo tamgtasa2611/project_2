@@ -10071,7 +10071,7 @@
          * Note that the `pageLength` property will be automatically set to the
          * first value given in this array, unless `pageLength` is also provided.
          */
-        aLengthMenu: [5, 10, 20, 50],
+        aLengthMenu: [10, 20, 50, 100],
 
         /**
          * The `columns` option in the initialisation parameter allows you to define
@@ -10386,7 +10386,7 @@
          * feature enabled (`lengthChange`) then the end user will be able to override
          * this to a custom setting using a pop-up menu.
          */
-        iDisplayLength: 5,
+        iDisplayLength: 10,
 
         /**
          * Define the starting point for data display when using DataTables with

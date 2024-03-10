@@ -1,31 +1,29 @@
-<title>Room Types management - Skyrim Hotel</title>
+<title>Admins management - Skyrim Hotel</title>
 <x-adminLayout>
     <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
         <div class="text-primary">
-            <h4 class="fw-bold m-0">Room Types Management</h4>
+            <h4 class="fw-bold m-0">Admins Management</h4>
         </div>
     </div>
-    {{--------------- MAIN --------------}}
+
+    {{-- MAIN  --}}
     <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
-        <div
-            class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
+        <div class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Room Types Datatable
+                <i class="bi bi-table me-2"></i>Admins Datatable
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.roomTypes.create') }}"
-                   class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new room type
+                <a href="{{ route('admin.admins.create') }}" class="d-flex align-items-center me-3">
+                    <i class="me-2 bi bi-plus-circle"></i>Add new admin
                 </a>
-                <a href="{{ route('admin.roomTypes.downloadPdf') }}"
-                   class="d-flex align-items-center">
+                <a href="{{ route('admin.admins.downloadPdf') }}" class="d-flex align-items-center">
                     <i class="me-2 bi bi-download"></i>Export
                 </a>
             </div>
         </div>
         <div class="p-3 bg-white rounded-bottom text-muted">
-            @if (count($roomTypes) != 0)
+            @if (count($admins) != 0)
                 <table
                     class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
@@ -33,32 +31,62 @@
                     <tr>
                         <th class="align-middle text-center">ID</th>
                         <th class="align-middle">Name</th>
-                        <th class="align-middle text-center">Base price</th>
+                        <th class="align-middle text-center">Level</th>
+                        <th class="align-middle text-center">Phone number</th>
                         <th class="align-middle text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($roomTypes as $roomType)
+                    @foreach ($admins as $admin)
                         <tr>
                             <td class="text-center">
-                                {{ $roomType->id }}
+                                {{ $admin->id }}
                             </td>
-                            <td class="text-break">
-                                {{ $roomType->name }}
-                            </td>
-                            <td class="text-center text-success">
-                                ${{ $roomType->base_price }}
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="div-img overflow-hidden rounded-circle
+                                    shadow-2-strong">
+                                        <img
+                                            src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
+                                            alt="admin_avatar" class="img-fluid rounded-circle"/>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="mb-1 fw-semibold">
+                                            {{ $admin->first_name . ' ' . $admin->last_name }}
+                                            @if(session()->has('admin'))
+                                                <span class="text-success ms-1">
+                                                    <i class="bi bi-circle-fill fs-7"></i>
+                                                </span>
+                                            @endif
+                                        </p>
+                                        <p class=" text-muted mb-0"> {{ $admin->email }}</p>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.roomTypes.edit', $roomType) }}"
-                                       class="btn btn-tertiary me-3">
+                                    @if ($admin->level == 0)
+                                        <span class="badge badge-primary rounded-pill d-inline">
+                                        Owner</span>
+                                    @else
+                                        <span class="badge badge-warning rounded-pill d-inline">
+                                        Employee</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    {{ $admin->phone_number }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('admin.admins.edit', $admin) }}" class="btn btn-tertiary me-3">
                                         Edit
                                     </a>
-                                    <a class="btn btn-tertiary text-danger dlt-btn"
-                                       data-mdb-ripple-init
-                                       data-mdb-modal-init href="#deleteModal"
-                                       data-id={{$roomType->id}}>
+                                    <a class="btn btn-tertiary text-danger dlt-btn" data-mdb-ripple-init
+                                       data-mdb-modal-init href="#deleteModal" data-id={{$admin->id}}>
                                         Delete
                                     </a>
                                 </div>
@@ -88,11 +116,10 @@
                                         data-mdb-dismiss="modal">Cancel
                                 </button>
                                 <form method="post"
-                                      action="{{ route('admin.roomTypes.destroy') }}">
+                                      action="{{ route('admin.admins.destroy') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <input id="id" name="id" hidden class="visually-hidden"
-                                           value="">
+                                    <input id="id" name="id" hidden class="visually-hidden" value="">
                                     <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
                                         Delete
                                     </button>
@@ -113,7 +140,7 @@
             columnDefs: [
                 {
                     orderable: false,
-                    targets: 3,
+                    targets: 4,
                 },
             ],
             pagingType: "full_numbers",

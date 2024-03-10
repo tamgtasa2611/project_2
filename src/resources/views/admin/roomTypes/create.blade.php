@@ -1,24 +1,26 @@
 <title>Add new room type - Skyrim Hotel</title>
 <x-adminLayout>
-    @if (session('failed'))
-        @include('partials.flashMsgFail')
-    @endif
-    {{-- HEADING --}}
-    <div class="text-primary mb-3">
-        <h3 class="fw-bold">Room Types Management</h3>
+    {{--------------- MAIN --------------}}
+    <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
+        <div class="text-primary">
+            <h4 class="fw-bold m-0">Room Types Management</h4>
+        </div>
     </div>
-    {{-- FORM  --}}
-    <div class="row d-flex justify-content-center">
-        <form method="post" action="{{ route('admin.roomTypes.store') }}" enctype="multipart/form-data"
-              class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
-            @csrf
-            {{--                    heading --}}
-            <div class="d-flex justify-content-center align-items-center mb-5">
-                <h4 class="text-primary fw-bold">Add a new room type</h4>
-            </div>
 
+    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+        <div
+            class="p-3 rounded-top border-bottom">
+            <div class="text-primary">
+                <i class="bi bi-plus-circle me-2"></i>Add Room Type
+            </div>
+        </div>
+        {{-- FORM  --}}
+
+        <form method="post" action="{{ route('admin.roomTypes.store') }}" enctype="multipart/form-data"
+              class="m-0">
+            @csrf
             <!-- name input -->
-            <div class="mb-4">
+            <div class="p-3 col-12  col-lg-6 col-xl-4">
                 <div data-mdb-input-init class="form-outline">
                     <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
                            required/>
@@ -32,29 +34,32 @@
             </div>
 
             <!-- description Number input -->
-            <div class="mb-4">
+            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
                 <div data-mdb-input-init class="form-outline">
-                    <textarea id="description" name="description" class="form-control" value="{{ old('description') }}"
-                              rows="4"></textarea>
-                    <label class="form-label" for="description">Description</label>
+                    <input type="number" id="base_price" name="base_price" class="form-control"
+                           value="{{ old('base_price') }}" step="0.01"
+                           required/>
+                    <label class="form-label" for="base_price">Base price per night ($)</label>
                 </div>
-                @if ($errors->has('description'))
-                    @foreach ($errors->get('description') as $error)
+                @if ($errors->has('base_price'))
+                    @foreach ($errors->get('base_price') as $error)
                         <span class="text-danger fs-7">{{ $error }}</span>
                     @endforeach
                 @endif
             </div>
 
-            <div class="d-flex justify-content-between">
-                <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}" class="btn btn-tertiary rounded tran-2">
+            <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
+                <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}"
+                   class="btn btn-secondary rounded-9 tran-2 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
-                    Add
+                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
+                    Save
                 </button>
             </div>
         </form>
+
     </div>
 
 </x-adminLayout>
