@@ -19,7 +19,9 @@
     {{--    </div>--}}
 
     <div class="bg-image">
-        <img src="{{asset('images/logo.png')}}" alt="logo" class="img-fluid">
+        <a href="{{route('guest.home')}}">
+            <img src="{{asset('images/logo.png')}}" alt="logo" class="img-fluid">
+        </a>
     </div>
 
     {{--    SEARCH--}}

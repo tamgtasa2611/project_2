@@ -72,7 +72,8 @@
             <!-- image input -->
             <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
                 <label class="form-label" for="customFile">Room images</label>
-                <input type="file" class="form-control" multiple name="images[]"/>
+                <input type="file" class="form-control" multiple name="images[]"
+                       accept=".jpg, .jpeg, .png, .bmp, .gif, .svg, .webp"/>
                 @if ($errors->has('images[]'))
                     @foreach ($errors->get('images[]') as $error)
                         <span class="text-danger fs-7">{{ $error }}</span>

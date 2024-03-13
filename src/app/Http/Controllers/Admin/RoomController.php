@@ -58,7 +58,6 @@ class RoomController extends Controller
                         Storage::putFileAs('public/admin/rooms/', $file, $path);
                     }
 //                    $images[] = $path;
-                    $roomId = Room::max('id');
                     RoomImage::insert([
                         'path' => $path,
                         'room_id' => $roomId,
@@ -66,7 +65,7 @@ class RoomController extends Controller
                 }
 //                //           insert room image table
 //                //            1 record = multiple files
-//                $roomId = Room::max('id');
+//
 //                RoomImage::insert([
 //                    'path' => implode("|", $images),
 //                    'room_id' => $roomId,
@@ -145,10 +144,10 @@ class RoomController extends Controller
         }
     }
 
-    public function destroyImage(Room $room, RoomImage $roomImage)
+    public function destroyImage(Request $request)
     {
-        $roomImage = RoomImage::find($roomImage->id);
-        RoomImage::destroy($roomImage->id);
+        $imageId = $request->id;
+        RoomImage::destroy($imageId);
         return back()->with('success', 'Room image deleted successfully!');
     }
 
