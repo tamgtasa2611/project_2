@@ -134,7 +134,7 @@
                         <img
                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
                             alt="guest_image"
-                            class="img-fluid rounded-9">
+                            class="img-fluid rounded-9 border">
                     </div>
                 </div>
             </div>

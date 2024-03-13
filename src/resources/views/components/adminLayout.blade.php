@@ -22,6 +22,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{--    css mdb --}}
     <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">
+    {{--    bs select--}}
+  
     {{--    font Inter --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,6 +61,6 @@
 <script type="text/javascript" src="{{ asset('plugins/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/mdb/js/mdb.umd.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/mdb/js/mdb.es.min.js/') }}"></script>
-</body>
 
+</body>
 </html>

@@ -11,7 +11,7 @@
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
-                <i class="bi bi-plus-circle me-2"></i>Add Room Type
+                <i class="bi bi-plus-circle me-2"></i>Add new room type
             </div>
         </div>
         {{-- FORM  --}}
@@ -37,7 +37,7 @@
             <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
                 <div data-mdb-input-init class="form-outline">
                     <input type="number" id="base_price" name="base_price" class="form-control"
-                           value="{{ old('base_price') }}" step="0.01"
+                           value="{{ old('base_price') }}" step="0.01" min="0"
                            required/>
                     <label class="form-label" for="base_price">Base price per night ($)</label>
                 </div>

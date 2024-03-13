@@ -213,4 +213,33 @@ html.sr .load-hidden {
     /* background-size: cover; */
 }
 
-/*datatable */
+/*room img*/
+@media (width < 576px) {
+    .room-img {
+        height: 200px !important;
+    }
+}
+
+@media (575px < width < 767px) {
+    .room-img {
+        height: 300px !important;
+    }
+}
+
+@media (766px < width < 992px) {
+    .room-img {
+        height: 240px !important;
+    }
+}
+
+@media (991px < width) {
+    .room-img {
+        height: 120px !important;
+    }
+}
+
+@media (1920px < width) {
+    .room-img {
+        height: 200px !important;
+    }
+}

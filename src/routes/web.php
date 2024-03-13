@@ -93,16 +93,16 @@ Route::prefix('admin')->group(function () {
         });
 
         // EMPLOYEES =====================================================================================
-        Route::prefix('employees')->group(function () {
-            Route::get('/', [AdminEmployeeController::class, 'index'])->name('admin.employees');
-            Route::get('/create', [AdminEmployeeController::class, 'create'])->name('admin.employees.create');
-            Route::post('/create', [AdminEmployeeController::class, 'store'])->name('admin.employees.store');
-            Route::get('/{employee}/edit', [AdminEmployeeController::class, 'edit'])->name('admin.employees.edit');
-            Route::put('/{employee}/edit', [AdminEmployeeController::class, 'update'])->name('admin.employees.update');
-            Route::delete('/delete', [AdminEmployeeController::class, 'destroy'])->name('admin.employees.destroy');
-            // PDF
-            Route::get('downloadPdf', [AdminEmployeeController::class, 'downloadPDF'])->name('admin.employees.downloadPdf');
-        });
+//        Route::prefix('employees')->group(function () {
+//            Route::get('/', [AdminEmployeeController::class, 'index'])->name('admin.employees');
+//            Route::get('/create', [AdminEmployeeController::class, 'create'])->name('admin.employees.create');
+//            Route::post('/create', [AdminEmployeeController::class, 'store'])->name('admin.employees.store');
+//            Route::get('/{employee}/edit', [AdminEmployeeController::class, 'edit'])->name('admin.employees.edit');
+//            Route::put('/{employee}/edit', [AdminEmployeeController::class, 'update'])->name('admin.employees.update');
+//            Route::delete('/delete', [AdminEmployeeController::class, 'destroy'])->name('admin.employees.destroy');
+//            // PDF
+//            Route::get('downloadPdf', [AdminEmployeeController::class, 'downloadPDF'])->name('admin.employees.downloadPdf');
+//        });
 
         // ADMINISTRATORS =====================================================================================
         Route::prefix('admins')->group(function () {

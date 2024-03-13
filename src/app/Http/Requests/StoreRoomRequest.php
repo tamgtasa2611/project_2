@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoomTypeRequest extends FormRequest
+class StoreRoomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,8 @@ class UpdateRoomTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'base_price' => 'required|min:0',
+            'capacity' => 'required|min:1',
+//            'room_type_id' => 'required',
         ];
     }
 }

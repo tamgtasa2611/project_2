@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Room;
+use App\Models\RoomImage;
+use App\Models\RoomType;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::all();
+        $rooms = Room::with('roomType')->get();
 
         $data = [
             'rooms' => $rooms,
@@ -25,7 +28,11 @@ class RoomController extends Controller
 
     public function create()
     {
-        return view('admin.rooms.create');
+        $roomTypes = RoomType::all();
+        $data = [
+            'roomTypes' => $roomTypes
+        ];
+        return view('admin.rooms.create', $data);
     }
 
     public function store(StoreRoomRequest $request)
@@ -35,33 +42,93 @@ class RoomController extends Controller
         if ($validated) {
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'base_price', $request->base_price);
-
+            $data = Arr::add($data, 'capacity', $request->capacity);
+            $data = Arr::add($data, 'room_type_id', $request->room_type_id);
             Room::create($data);
-            return to_route('admin.rooms')->with('success', 'Room type created successfully!');
+
+            //            images
+            $images = [];
+//            neu co input anh
+            if ($files = $request->file('images')) {
+                foreach ($files as $file) {
+                    $path = $file->getClientOriginalName();
+//                    $file->move('image', $path);
+                    if (!Storage::exists('public/admin/rooms/' . $path)) {
+                        Storage::putFileAs('public/admin/rooms/', $file, $path);
+                    }
+                    $images[] = $path;
+                }
+                //           insert room image table
+                //            1 record = multiple files
+                $roomId = Room::max('id');
+                RoomImage::insert([
+                    'path' => implode("|", $images),
+                    'room_id' => $roomId,
+                ]);
+            }
+
+            return to_route('admin.rooms')->with('success', 'Room created successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }
     }
 
-    public function edit(Room $roomType)
+    public function edit(Room $room)
     {
-        return view('admin.rooms.edit', [
-            'roomType' => $roomType
-        ]);
+        $roomTypes = RoomType::all();
+//        lay cac images thuoc ve room hien tai
+        $roomImageRecord = RoomImage::where('room_id', '=', $room->id)->get();
+//        tao array chua nhieu anh
+        $roomImages = [];
+        foreach ($roomImageRecord as $record) {
+//            tach anh giua dau |
+            $images = explode('|', $record->path);
+//            lay tung path anh
+            foreach ($images as $image) {
+                $roomImages[] = $image;
+            }
+        }
+
+        $data = [
+            'room' => $room,
+            'roomTypes' => $roomTypes,
+            'roomImages' => $roomImages
+        ];
+        return view('admin.rooms.edit', $data);
     }
 
-    public function update(UpdateRoomRequest $request, Room $roomType)
+    public function update(UpdateRoomRequest $request, Room $room)
     {
         $validated = $request->validated();
 
         if ($validated) {
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'base_price', $request->base_price);
+            $data = Arr::add($data, 'capacity', $request->capacity);
+            $data = Arr::add($data, 'room_type_id', $request->room_type_id);
+            $room->update($data);
 
-            $roomType->update($data);
-            return to_route('admin.rooms')->with('success', 'Room type updated successfully!');
+            //            images
+            $roomId = $room->id;
+            $newImages = [];
+            //            neu co input
+            if ($files = $request->file('images')) {
+                foreach ($files as $file) {
+                    $path = $file->getClientOriginalName();
+                    if (!Storage::exists('public/admin/rooms/' . $path)) {
+                        Storage::putFileAs('public/admin/rooms/', $file, $path);
+                    }
+                    $newImages[] = $path;
+                }
+                //           insert room image table
+                //            1 record = multiple files
+                RoomImage::insert([
+                    'path' => implode("|", $newImages),
+                    'room_id' => $roomId,
+                ]);
+            }
+
+            return to_route('admin.rooms')->with('success', 'Room updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }
@@ -70,11 +137,11 @@ class RoomController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $roomType = Room::find($id);
+        $room = Room::find($id);
         //Xóa bản ghi được chọn
-        $roomType->delete();
+        $room->delete();
         //Quay về danh sách
-        return to_route('admin.rooms')->with('success', 'Room type deleted successfully!');
+        return to_route('admin.rooms')->with('success', 'Room deleted successfully!');
     }
 
     // PDF

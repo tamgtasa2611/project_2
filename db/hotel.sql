@@ -37,11 +37,16 @@ CREATE TABLE rooms (
     FOREIGN KEY (room_type_id) REFERENCES room_types(id) ON DELETE SET NULL
 );
 
-CREATE TABLE images (
+CREATE TABLE room_images (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	path TEXT NOT NULL,
     room_id INT,
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL
+);
+
+CREATE TABLE payment_methods (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE bookings (
@@ -55,9 +60,11 @@ CREATE TABLE bookings (
     room_id INT,
     guest_id INT,
     admin_id INT,
+    method_id INT,
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL,
     FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE SET NULL,
-    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL
+    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL,
+	FOREIGN KEY (method_id) REFERENCES payment_methods(id) ON DELETE SET NULL
 );
 
 CREATE TABLE ratings (
@@ -71,16 +78,7 @@ CREATE TABLE ratings (
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL
 );
 
-CREATE TABLE messages (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    message_date DATETIME,
-    subject VARCHAR(255) NOT NULL,
-    content TEXT,
-    guest_id INT,
-    admin_id INT,
-	FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE SET NULL,
-    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL
-);
+
 /*============TEST=============*/
 
 INSERT INTO admins VALUES 
