@@ -87,6 +87,8 @@ Route::prefix('admin')->group(function () {
             Route::post('/create', [AdminRoomController::class, 'store'])->name('admin.rooms.store');
             Route::get('/{room}/edit', [AdminRoomController::class, 'edit'])->name('admin.rooms.edit');
             Route::put('/{room}/edit', [AdminRoomController::class, 'update'])->name('admin.rooms.update');
+            Route::get('/{room}/edit/destroyImage/{roomImage}', [AdminRoomController::class, 'destroyImage'])->name('admin.rooms.update.destroyImage');
+            Route::get('/{room}/edit/destroyAllImages', [AdminRoomController::class, 'destroyAllImages'])->name('admin.rooms.update.destroyAllImages');
             Route::delete('/delete', [AdminRoomController::class, 'destroy'])->name('admin.rooms.destroy');
             // PDF
             Route::get('downloadPdf', [AdminRoomController::class, 'downloadPDF'])->name('admin.rooms.downloadPdf');

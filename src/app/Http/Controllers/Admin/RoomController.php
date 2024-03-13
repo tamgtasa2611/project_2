@@ -47,7 +47,8 @@ class RoomController extends Controller
             Room::create($data);
 
             //            images
-            $images = [];
+            $roomId = Room::max('id');
+//            $images = [];
 //            neu co input anh
             if ($files = $request->file('images')) {
                 foreach ($files as $file) {
@@ -56,15 +57,20 @@ class RoomController extends Controller
                     if (!Storage::exists('public/admin/rooms/' . $path)) {
                         Storage::putFileAs('public/admin/rooms/', $file, $path);
                     }
-                    $images[] = $path;
+//                    $images[] = $path;
+                    $roomId = Room::max('id');
+                    RoomImage::insert([
+                        'path' => $path,
+                        'room_id' => $roomId,
+                    ]);
                 }
-                //           insert room image table
-                //            1 record = multiple files
-                $roomId = Room::max('id');
-                RoomImage::insert([
-                    'path' => implode("|", $images),
-                    'room_id' => $roomId,
-                ]);
+//                //           insert room image table
+//                //            1 record = multiple files
+//                $roomId = Room::max('id');
+//                RoomImage::insert([
+//                    'path' => implode("|", $images),
+//                    'room_id' => $roomId,
+//                ]);
             }
 
             return to_route('admin.rooms')->with('success', 'Room created successfully!');
@@ -81,12 +87,13 @@ class RoomController extends Controller
 //        tao array chua nhieu anh
         $roomImages = [];
         foreach ($roomImageRecord as $record) {
-//            tach anh giua dau |
-            $images = explode('|', $record->path);
-//            lay tung path anh
-            foreach ($images as $image) {
-                $roomImages[] = $image;
-            }
+////            tach anh giua dau |
+//            $images = explode('|', $record->path);
+////            lay tung path anh
+//            foreach ($images as $image) {
+//                $roomImages[] = $image;
+//            }
+            $roomImages[] = $record;
         }
 
         $data = [
@@ -110,7 +117,7 @@ class RoomController extends Controller
 
             //            images
             $roomId = $room->id;
-            $newImages = [];
+//            $newImages = [];
             //            neu co input
             if ($files = $request->file('images')) {
                 foreach ($files as $file) {
@@ -118,20 +125,41 @@ class RoomController extends Controller
                     if (!Storage::exists('public/admin/rooms/' . $path)) {
                         Storage::putFileAs('public/admin/rooms/', $file, $path);
                     }
-                    $newImages[] = $path;
+//                    $newImages[] = $path;
+                    RoomImage::insert([
+                        'path' => $path,
+                        'room_id' => $roomId,
+                    ]);
                 }
-                //           insert room image table
-                //            1 record = multiple files
-                RoomImage::insert([
-                    'path' => implode("|", $newImages),
-                    'room_id' => $roomId,
-                ]);
+//                //           insert room image table
+//                //            1 record = multiple files
+//                RoomImage::insert([
+//                    'path' => implode("|", $newImages),
+//                    'room_id' => $roomId,
+//                ]);
             }
 
-            return to_route('admin.rooms')->with('success', 'Room updated successfully!');
+            return back()->with('success', 'Room updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }
+    }
+
+    public function destroyImage(Room $room, RoomImage $roomImage)
+    {
+        $roomImage = RoomImage::find($roomImage->id);
+        RoomImage::destroy($roomImage->id);
+        return back()->with('success', 'Room image deleted successfully!');
+    }
+
+    public function destroyAllImages(Room $room)
+    {
+        $roomId = $room->id;
+        $roomImageRecords = RoomImage::where('room_id', '=', $roomId)->get();
+        foreach ($roomImageRecords as $record) {
+            RoomImage::destroy($record->id);
+        }
+        return back()->with('success', 'Delete all room images successfully!');
     }
 
     public function destroy(Request $request)

@@ -90,16 +90,28 @@
                     {{--                    neu co anh --}}
                     @if(count($roomImages) != 0)
                         <div class="border m-3 rounded-5">
-                            <div class="border-bottom p-3">
-                                <i class="bi bi-image me-2"></i>Current room images
+                            <div class="border-bottom p-3 d-flex align-items-center justify-content-between">
+                                <div>
+                                    <i class="bi bi-image me-2"></i>Current room images
+                                </div>
+                                <div>
+                                    <a data-mdb-ripple-init
+                                       data-mdb-modal-init href="#deleteModal">
+                                        <i class="bi bi-trash3-fill text-danger ps-2"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div
                                 class="p-3 pt-0 row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                                @foreach($roomImages as $path)
-                                    <div class="overflow-hidden rounded-5 pt-3 h-100 room-img">
-                                        <img src="{{asset('storage/admin/rooms/' . $path)}}"
-                                             class="w-100 h-100 object-fit-cover border rounded-5"
+                                @foreach($roomImages as $image)
+                                    <div class="overflow-hidden rounded-5 pt-3 h-100 room-img position-relative">
+                                        <img src="{{asset('storage/admin/rooms/' . $image->path)}}"
+                                             class="w-100 h-100 object-fit-cover border rounded-5 "
                                              alt="room_img">
+                                        <a href="{{route('admin.rooms.update.destroyImage', [$room, $image])}}"
+                                           class="position-absolute end-0 me-3 mt-1 bg-danger overflow-hidden p-0 rounded-circle">
+                                            <i class="bi bi-x text-white p-0 fs-5"></i>
+                                        </a>
                                     </div>
                                 @endforeach
                             </div>
@@ -120,7 +132,37 @@
                 </button>
             </div>
         </form>
-
+        <!-- Delete All Images Modal -->
+        <div class="modal slideUp" id="deleteModal" tabindex="-1"
+             aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger" id="deleteModalLabel">
+                            <i class="bi bi-x-circle me-2"></i>Are you sure?
+                        </h5>
+                        <button type="button" class="btn-close" data-mdb-ripple-init
+                                data-mdb-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Do you want to delete all images of this room?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-9"
+                                data-mdb-ripple-init
+                                data-mdb-dismiss="modal">Cancel
+                        </button>
+                        <form method="get"
+                              action="{{route('admin.rooms.update.destroyAllImages', $room)}}">
+                            @csrf
+                            <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </x-adminLayout>
