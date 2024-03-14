@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
 {
@@ -22,4 +23,9 @@ class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
         'status',
         'image'
     ];
+
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

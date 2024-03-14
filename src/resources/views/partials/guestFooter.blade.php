@@ -8,11 +8,12 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
                     <!-- Content -->
-                    <div class="fs-5 fw-bold mb-4">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" height="24">
-                    </div>
+                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
+                        SKYRIM HOTEL
+                    </h6>
                     <p>
-                        Welcome to Skyrim Hotel, where luxury meets comfort and relaxation.
+                        Welcome to Skyrim Hotel, where luxury meets comfort and relaxation. Book now for unlimited
+                        offers and amazing experiences.
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -48,7 +49,7 @@
                         <a href="#!" class="text-reset">Rooms</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Services</a>
+                        <a href="#!" class="text-reset">Recruitment</a>
                     </p>
                     <p>
                         <a href="#!" class="text-reset">Contact</a>
@@ -65,10 +66,10 @@
                     <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                         Contact
                     </h6>
-                    <p>Hanoi, Vietnam</p>
-                    <p>info@skyrimhotel.com</p>
-                    <p>+ 01 234 567 88</p>
-                    <p>+ 01 234 567 89</p>
+                    <p><i class="bi bi-geo-alt me-2"></i>Hanoi, Vietnam</p>
+                    <p><i class="bi bi-envelope me-2"></i>info@skyrimhotel.com</p>
+                    <p><i class="bi bi-telephone me-2"></i>+ 01 234 567 88</p>
+                    <p><i class="bi bi-printer me-2"></i>+ 01 234 567 89</p>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -77,8 +78,74 @@
     </section>
     <!-- Section: Links  -->
 
+    <!-- Section: Social media -->
+    <section class="mb-4 text-center text-reset">
+        <!-- Facebook -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-facebook" style="color: #3b5998;"></i
+            ></a>
+
+        <!-- Tiktok -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-tiktok" style="color: #333333;"></i
+            ></a>
+
+        <!-- Instagram -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-instagram" style="color: #ac2bac;"></i
+            ></a>
+
+
+        <!-- Twitter -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-twitter-x" style="color: #333333;"></i
+            ></a>
+
+        <!-- Google -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-google" style="color: #dd4b39;"></i
+            ></a>
+
+
+        <!-- Github -->
+        <a
+            data-mdb-ripple-init
+            class="btn btn-link rounded-circle btn-lg text-body m-1 p-3 tran-3"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+        ><i class="bi bi-github" style="color: #333333;"></i
+            ></a>
+    </section>
+    <!-- Section: Social media -->
+
     <!-- Copyright -->
-    <div class="text-center p-4">
+    <div class="text-center p-4 bg-light">
         © 2024 All right reserved. Made by
         <span class="fw-bold text-primary">NguyenDucTam</span>
     </div>

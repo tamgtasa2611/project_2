@@ -179,17 +179,34 @@ html.sr .load-hidden {
 }
 
 /*home*/
-#hero_section {
+#hero {
+}
+
+.text-justify {
+    text-align: justify !important;
 }
 
 .hero-section {
     background-position: center;
     background-repeat: no-repeat;
-    height: 622px;
+    background-size: cover;
+}
+
+.mh-80 {
+    min-height: 80dvh;
+}
+
+.home-form {
+
 }
 
 .h-ok {
     height: 622px;
+}
+
+/*rooms*/
+.room-images {
+
 }
 
 /*validation*/

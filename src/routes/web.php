@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
@@ -36,6 +37,10 @@ Route::get('/contact', function () {
 Route::get('/about', function () {
     return view('guest.about');
 })->name('guest.about');
+
+//ROOMS
+Route::get('/rooms', [RoomController::class, 'index'])->name('guest.rooms');
+//END ROOMS
 
 //LOGIN REGISTER LOGOUT
 Route::get('/login', [GuestController::class, 'login'])->name('guest.login');
