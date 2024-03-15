@@ -145,7 +145,7 @@
     <!-- Section: Social media -->
 
     <!-- Copyright -->
-    <div class="text-center p-4 bg-light">
+    <div class="text-center p-4">
         © 2024 All right reserved. Made by
         <span class="fw-bold text-primary">NguyenDucTam</span>
     </div>

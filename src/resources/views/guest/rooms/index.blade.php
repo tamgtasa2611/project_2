@@ -43,7 +43,7 @@
             {{--           end form--}}
             {{--            heading--}}
             <div class="mb-5">
-                <h6 class="display-6 text-primary fw-bold">
+                <h6 class="display-6 text-primary fw-bold m-0">
                     {{$countRoom}} hotel room(s) available
                 </h6>
             </div>
@@ -66,12 +66,12 @@
                                 <div class="row gx-3">
                                     <div class="col">
                                         <label for="from" class="form-label">From</label>
-                                        <input type="number" id="from" class="form-control"
+                                        <input type="number" id="from" class="form-control" name="from_price"
                                                placeholder="$0"/>
                                     </div>
                                     <div class="col">
                                         <label for="to" class="form-label">To</label>
-                                        <input type="number" id="to" class="form-control"
+                                        <input type="number" id="to" class="form-control" name="to_price"
                                                placeholder="$1000"/>
                                     </div>
                                 </div>
@@ -92,13 +92,15 @@
                                     $starFill = 5;
                                     $star = 0;
                                 @endphp
-                                @for($rating = 5; $rating >= 1; $rating--)
+                                @for($rate = 5; $rate >= 1; $rate--)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio"
-                                               name="rating" value="{{$rating}}"
-                                               id="rating_{{$rating}}"/>
+                                               name="rating" value="{{$rate}}"
+                                               id="rating_{{$rate}}"
+                                            {{$rating == $rate ? 'checked' : ''}}
+                                        />
                                         <label class="form-check-label"
-                                               for="rating_{{$rating}}">
+                                               for="rating_{{$rate}}">
                                             @for($i = $starFill; $i >= 1; $i--)
                                                 <i class="bi bi-star-fill text-warning"></i>
                                             @endfor
@@ -126,7 +128,7 @@
                                 @foreach($roomTypes as $roomType)
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="{{$roomType->id}}"
-                                               id="roomType_{{$roomType->id}}"
+                                               id="roomType_{{$roomType->id}}" name="roomType"
                                             {{$roomType->room_quantity == 0 ? 'disabled' : ''}}/>
                                         <label class="form-check-label"
                                                for="roomType_{{$roomType->id}}">{{$roomType->name}}
@@ -189,6 +191,13 @@
                                    hidden>
                             {{--                            sort--}}
                             <input type="text" name="sort" value="{{$sort}}" class="visually-hidden" hidden>
+                            {{--                            price--}}
+                            <input type="text" name="from_price" value="{{$price['from_price']}}"
+                                   class="visually-hidden"
+                                   hidden>
+                            <input type="text" name="to_price" value="{{$price['to_price']}}"
+                                   class="visually-hidden"
+                                   hidden>
                         </form>
                         {{--                        VIEW GIRD/LIST FORM--}}
 
@@ -217,6 +226,13 @@
                                        hidden>
                                 {{--                                view--}}
                                 <input type="text" name="view" value="{{$view}}" class="visually-hidden" hidden>
+                                {{--                            price--}}
+                                <input type="text" name="from_price" value="{{$price['from_price']}}"
+                                       class="visually-hidden"
+                                       hidden>
+                                <input type="text" name="to_price" value="{{$price['to_price']}}"
+                                       class="visually-hidden"
+                                       hidden>
                             </form>
                         </div>
                         {{--                        SORTING--}}
@@ -228,34 +244,42 @@
                             @foreach($rooms as $room)
                                 <div class="col-12 col-md-6 overflow-hidden">
                                     <div class="border rounded-5 p-3 shadow-sm row m-0 mb-3 ">
-                                        <div class="col-12 p-0 overflow-hidden rounded-5" style="height: 260px">
-                                            @if(count($room->images) != 0)
-                                                <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
-                                                     alt="room_img"
-                                                     class="img-fluid shadow-sm rounded-5 tran-3"/>
-                                            @else
-                                                <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                     class="img-fluid shadow-sm rounded-5 tran-3"/>
-                                            @endif
+                                        <div class="col-12 p-0 overflow-hidden rounded-5 position-relative"
+                                             style="height: 260px">
+                                            <a href="{{route('guest.rooms.show', $room)}}">
+                                                @if(count($room->images) != 0)
+                                                    <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
+                                                         alt="room_img"
+                                                         class="img-fluid shadow-sm rounded-5 tran-3"/>
+                                                @else
+                                                    <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
+                                                         class="img-fluid shadow-sm rounded-5 tran-3"/>
+                                                @endif
+                                            </a>
+                                            <div class="position-absolute top-0 p-3">
+                                                <div class="badge badge-info rounded-pill">
+                                                    Available
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-12 row m-0 p-0 pt-3 justify-content-between flex-column">
                                             <div
                                                 class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
                                                 <div>
-                                                    <a href="">
+                                                    <a href="{{route('guest.rooms.show', $room)}}">
                                                         <h4 class="fw-bold m-0 mb-2">
                                                             Room {{$room->name}}
                                                         </h4>
-                                                        <div class="d-flex">
-                                                            <div class="badge badge-primary rounded-pill">
-                                                                <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
-                                                            </div>
-                                                            <div class="badge badge-primary rounded-pill ms-2">
-                                                                <i class="bi bi-people me-1"></i> {{$room->capacity}}
-                                                            </div>
-                                                        </div>
                                                     </a>
+                                                    <div class="d-flex">
+                                                        <div class="badge badge-primary rounded-pill">
+                                                            <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
+                                                        </div>
+                                                        <div class="badge badge-primary rounded-pill ms-2">
+                                                            <i class="bi bi-people me-1"></i> {{$room->capacity}}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <div class="text-warning mb-2">
@@ -296,7 +320,8 @@
                                                         </h5>
                                                         <div class="fs-7 ms-2">Includes taxes and fees</div>
                                                     </div>
-                                                    <a href="" class="btn btn-primary rounded-9">
+                                                    <a href="{{route('guest.rooms.show', $room)}}"
+                                                       class="btn btn-primary rounded-9">
                                                         Book now
                                                     </a></div>
                                             </div>
@@ -309,33 +334,41 @@
                         <div id="rooms_div" class="d-flex flex-column">
                             @foreach($rooms as $room)
                                 <div class="border rounded-5 p-3 shadow-sm row m-0 mb-3 overflow-hidden">
-                                    <div class="col-4 p-0 overflow-hidden rounded-5" style="height: 200px">
-                                        @if(count($room->images) != 0)
-                                            <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
-                                                 alt="room_img"
-                                                 class="img-fluid shadow-sm rounded-5 tran-3"/>
-                                        @else
-                                            <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                 class="img-fluid shadow-sm rounded-5 tran-3"/>
-                                        @endif
+                                    <div class="col-4 p-0 overflow-hidden rounded-5 position-relative"
+                                         style="height: 200px">
+                                        <a href="{{route('guest.rooms.show', $room)}}">
+                                            @if(count($room->images) != 0)
+                                                <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
+                                                     alt="room_img"
+                                                     class="img-fluid shadow-sm rounded-5 tran-3"/>
+                                            @else
+                                                <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
+                                                     class="img-fluid shadow-sm rounded-5 tran-3"/>
+                                            @endif
+                                        </a>
+                                        <div class="position-absolute top-0 p-3">
+                                            <div class="badge badge-info rounded-pill">
+                                                Available
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-8 row m-0 ps-3 pe-0 justify-content-between flex-column">
                                         <div class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
                                             <div>
-                                                <a href="">
+                                                <a href="{{route('guest.rooms.show', $room)}}">
                                                     <h4 class="fw-bold m-0 mb-2">
                                                         Room {{$room->name}}
                                                     </h4>
-                                                    <div class="d-flex">
-                                                        <div class="badge badge-primary rounded-pill">
-                                                            <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
-                                                        </div>
-                                                        <div class="badge badge-primary rounded-pill ms-2">
-                                                            <i class="bi bi-people me-1"></i> {{$room->capacity}}
-                                                        </div>
-                                                    </div>
                                                 </a>
+                                                <div class="d-flex">
+                                                    <div class="badge badge-primary rounded-pill">
+                                                        <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
+                                                    </div>
+                                                    <div class="badge badge-primary rounded-pill ms-2">
+                                                        <i class="bi bi-people me-1"></i> {{$room->capacity}}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="text-warning mb-2">
@@ -376,7 +409,8 @@
                                                     </h5>
                                                     <div class="fs-7 ms-2">Includes taxes and fees</div>
                                                 </div>
-                                                <a href="" class="btn btn-primary rounded-9">
+                                                <a href="{{route('guest.rooms.show', $room)}}"
+                                                   class="btn btn-primary rounded-9">
                                                     Book now
                                                 </a></div>
                                         </div>

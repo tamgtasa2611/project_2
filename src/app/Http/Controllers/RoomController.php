@@ -14,20 +14,20 @@ class RoomController extends Controller
         $search = [
             'checkin' => $request->checkin,
             'checkout' => $request->checkout,
-            'guest_num' => $request->guest_num,
+            'guest_num' => $request->guest_num ?? 1,
         ];
+        $price = [
+            'from_price' => $request->from_price ?? 0,
+            'to_price' => $request->to_price ?? 1000,
+        ];
+        $rating = $request->rating ?? 0;
 
-        $view = "grid";
-        if ($request->view) {
-            $view = $request->view;
-        }
-        $sort = 0;
-        if ($request->sort) {
-            $sort = $request->sort;
-        }
+        $view = $request->view ?? "grid";
+
+        $sort = $request->sort ?? 0;
 
 //        get rooms
-        $roomList = Room::getRooms($search, $sort);
+        $roomList = Room::getRooms($search, $price, $sort);
         //        get total rooms available based on search/filter
         $countRoom = count($roomList->get());
         $roomsPaginated = $roomList->paginate(10)->withQueryString();
@@ -40,6 +40,8 @@ class RoomController extends Controller
             'search' => $search,
             'rooms' => $roomsPaginated,
             'countRoom' => $countRoom,
+            'price' => $price,
+            'rating' => $rating,
             'view' => $view,
             'sort' => $sort,
             'roomTypes' => $roomTypes
@@ -47,8 +49,12 @@ class RoomController extends Controller
         return view('guest.rooms.index', $data);
     }
 
-    public function search()
+    public function show(Room $room)
     {
-
+        $roomImages = RoomImage::where('room_id', '=', $room->id)->get();
+        return view('guest.rooms.show', [
+            'room' => $room,
+            'roomImages' => $roomImages
+        ]);
     }
 }

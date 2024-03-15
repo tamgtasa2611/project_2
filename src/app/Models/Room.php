@@ -71,18 +71,14 @@ class Room extends Model
         }
     }
 
-    public static function roomFilter()
-    {
-
-    }
-
-    public static function getRooms(array $search, int $sort)
+    public static function getRooms(array $search, array $price, int $sort)
     {
         $order = Room::roomSort($sort);
         return Room::with('roomType')->with('images')
             ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
             ->select('rooms.*', 'room_types.base_price')
             ->where('capacity', '>=', $search['guest_num'] ?? 1)
+            ->whereBetween('base_price', [$price['from_price'], $price['to_price']])
             ->orderBy($order['by'], $order['direction']);
     }
 }
