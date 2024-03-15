@@ -40,6 +40,7 @@ Route::get('/about', function () {
 
 //ROOMS
 Route::get('/rooms', [RoomController::class, 'index'])->name('guest.rooms');
+Route::post('/rooms', [RoomController::class, 'index'])->name('guest.rooms.search');
 //END ROOMS
 
 //LOGIN REGISTER LOGOUT

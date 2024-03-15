@@ -4,7 +4,7 @@
     <section id="hero" class="m-nav mb-5">
         <div
             class="fade-in load-hidden hero-section"
-            style="background-image: url('{{asset('images/home.jpg')}}')">
+            style="background-image: url('{{asset('images/home2.jpg')}}')">
             <div class="container mh-80">
                 <div class="row mh-80 border-0 m-0 text-white">
                     <div
@@ -20,8 +20,10 @@
                         </a>
                     </div>
                     <div class="col-12 col-md-6 p-0 mh-80 d-flex align-items-center justify-content-center">
-                        <form
-                            class="border rounded-5 shadow-lg p-4 bg-white m-0 fade-right fade-in load-hidden">
+                        <form method="post" action="{{route('guest.rooms.search')}}"
+                              class="border rounded-5 shadow-lg p-4 bg-white m-0 fade-right fade-in load-hidden">
+                            @csrf
+                            @method('POST')
                             <h2 class="text-primary fw-bold mb-4 text-capitalize text-center">
                                 Stay somewhere great
                             </h2>
