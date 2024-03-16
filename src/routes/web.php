@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\GuestController;
@@ -39,9 +40,18 @@ Route::get('/about', function () {
 })->name('guest.about');
 
 //ROOMS
-Route::get('/rooms', [RoomController::class, 'index'])->name('guest.rooms');
-Route::post('/rooms', [RoomController::class, 'index'])->name('guest.rooms.search');
-Route::get('/rooms/{room}', [RoomController::class, 'show'])->name('guest.rooms.show');
+Route::prefix('/rooms')->group(function () {
+    Route::get('/', [RoomController::class, 'index'])->name('guest.rooms');
+    Route::post('/', [RoomController::class, 'index'])->name('guest.rooms.search');
+    Route::get('/{room}', [RoomController::class, 'show'])->name('guest.rooms.show');
+    Route::post('/{room}', [RoomController::class, 'postBookingInfo'])->name('guest.rooms.postBookingInfo');
+});
+
+//BOOKING
+Route::prefix('/booking')->group(function () {
+    Route::post('/', [BookingController::class, 'bookRoom'])->name('guest.bookRoom');
+});
+
 //END ROOMS
 
 //LOGIN REGISTER LOGOUT

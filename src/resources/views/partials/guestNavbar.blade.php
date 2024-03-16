@@ -18,7 +18,8 @@
                 </li>
                 {{--                rooms--}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link tran-2" href="{{route('guest.rooms')}}"
+                    <a class="nav-link tran-2  {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
+                       href="{{route('guest.rooms')}}"
                        aria-expanded="false" id="dropdown2"
                        data-mdb-toggle="dropdown">
                         Rooms <i class="bi bi-caret-down-fill fs-7 ms-1"></i>

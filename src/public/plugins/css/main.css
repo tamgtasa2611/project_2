@@ -206,7 +206,8 @@ html.sr .load-hidden {
 
 /*rooms*/
 .room-images {
-
+    object-fit: cover;
+    object-position: center center;
 }
 
 /*validation*/

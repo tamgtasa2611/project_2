@@ -67,11 +67,87 @@ $(document).ready(function () {
         }
     });
 
-    // bs select
-});
+    // DELETE MODAL
+    $(document).on("click", ".dlt-btn", function () {
+        let id = $(this).attr("data-id");
+        $("#id").val(id);
+    });
+    $(document).on("click", ".modalBtn", function () {
+        let id = $(this).attr("data-id");
+        $("#id").val(id);
+    });
 
-// DELETE MODAL
-$(document).on("click", ".dlt-btn", function () {
-    let id = $(this).attr("data-id");
-    $("#id").val(id);
+    //ROOM BOOKING
+    let checkIn = $("#checkin");
+    let checkOut = $("#checkout");
+    let checkValid = true;
+    let dateError = $("#dateError");
+    let dayBooked = 0;
+    let basePrice = $("#basePriceModal").val();
+    let amount = 0;
+    let bookBtn = $("#bookBtn");
+    let currentDate = new Date().toJSON().slice(0, 10);
+
+    function dateErrorAction() {
+        dateError.removeClass("d-none");
+        bookBtn.removeAttr("type").attr("type", "button");
+    }
+
+    function dateValidAction() {
+        dateError.addClass("d-none");
+        dateError.html();
+        bookBtn.removeAttr("type").attr("type", "submit");
+
+        let date1 = new Date(checkIn.val()).getTime();
+        let date2 = new Date(checkOut.val()).getTime();
+        dayBooked = Math.round((date2 - date1) / (1000 * 3600 * 24));
+        if (dayBooked === 1) {
+            $("#dayBooked").html(`1 day`);
+            $("#amount").html(`${basePrice}`);
+        } else {
+            if (isNaN(dayBooked)) {
+                $("#dayBooked").html(`0 day`);
+                $("#amount").html(`0.00`);
+            } else {
+                $("#dayBooked").html(`${dayBooked} days`);
+                $("#amount").html(`${basePrice * dayBooked}`);
+            }
+        }
+    }
+
+    checkIn.on("change", function () {
+        // neu ngay check in o trong qua khu
+        if (checkIn.val() < currentDate) {
+            dateErrorAction();
+            dateError.html(
+                `<i class="bi bi-emoji-frown me-2"></i>You can't choose a date from the past!`,
+            );
+        } else {
+            // kiem tra hop le
+            checkValid = checkIn.val() < checkOut.val();
+            if (checkValid === false && checkOut.val() !== "") {
+                dateErrorAction();
+                dateError.html(
+                    `<i class="bi bi-emoji-frown me-2"></i>The check-out date must be after the check-in date!`,
+                );
+            } else {
+                dateValidAction();
+            }
+        }
+    });
+
+    checkOut.on("change", function () {
+        // kiem tra hop le
+        checkValid = checkIn.val() < checkOut.val();
+        // let dayBooked = checkOut.val() - checkIn.val();
+
+        if (checkValid === false) {
+            dateErrorAction();
+            dateError.html(
+                `<i class="bi bi-emoji-frown me-2"></i>The check-out date must be after the check-in date!`,
+            );
+        } else {
+            dateValidAction();
+        }
+    });
 });

@@ -44,11 +44,6 @@ CREATE TABLE room_images (
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL
 );
 
-CREATE TABLE payment_methods (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE bookings (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     created_date DATETIME,
@@ -60,11 +55,20 @@ CREATE TABLE bookings (
     room_id INT,
     guest_id INT,
     admin_id INT,
-    method_id INT,
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL,
     FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE SET NULL,
-    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL,
-	FOREIGN KEY (method_id) REFERENCES payment_methods(id) ON DELETE SET NULL
+    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL
+);
+
+CREATE TABLE payments (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATETIME,
+    amount DECIMAL(10,2),
+    status INT,
+    guest_id INT,
+    booking_id INT,
+	FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE SET NULL,
+	FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE SET NULL
 );
 
 CREATE TABLE ratings (
@@ -83,3 +87,14 @@ CREATE TABLE ratings (
 
 INSERT INTO admins VALUES 
 (1, 'Cristiano', 'Ronaldo', 'admin1@gmail.com', '$2y$12$SfmNR/IjTz2B67dLQ4yk5eVwcBkJyP8Dxd/hr3dZ8AfyamPFreJUq', '+84123456789', 0, '');
+
+
+USE project2;
+
+select room_types.*, count(rooms.room_type_id) from room_types
+inner join rooms on room_types.id = rooms.room_type_id
+group by id;
+
+delete from room_images;
+select * from room_images;
+

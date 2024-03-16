@@ -36,8 +36,6 @@
                             </button>
                         </div>
                     </div>
-
-
                 </form>
             </div>
             {{--           end form--}}
@@ -282,7 +280,7 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div class="text-warning mb-2">
+                                                    <div class="text-warning mb-2 text-end">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -316,7 +314,6 @@
                                                         <h5 class="m-0 fw-bold text-success ">
                                                             ${{$room->roomType->base_price}}<span
                                                                 class="text-muted fs-7">/night</span>
-                                                            <span class="text-secondary"></span>
                                                         </h5>
                                                         <div class="fs-7 ms-2">Includes taxes and fees</div>
                                                     </div>
@@ -371,7 +368,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <div class="text-warning mb-2">
+                                                <div class="text-warning mb-2 text-end">
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>

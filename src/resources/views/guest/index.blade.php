@@ -32,14 +32,14 @@
                                     <!-- checkin input -->
                                     <div class="mb-4 tran-3">
                                         <label class="form-label" for="checkin">Check-in date</label>
-                                        <input type="date" id="checkin" name="checkin" class="form-control" required/>
+                                        <input type="date" id="checkin" name="checkin" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- checkout input -->
                                     <div class="mb-4 tran-3">
                                         <label class="form-label" for="checkout">Check-out date</label>
-                                        <input type="date" id="checkout" name="checkout" class="form-control" required/>
+                                        <input type="date" id="checkout" name="checkout" class="form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                             <div class="mb-4 tran-3">
                                 <label class="form-label" for="guest_num">Number of guests</label>
                                 <input type="number" id="guest_num" name="guest_num" class="form-control"
-                                       step="1" min="1" max="10" required/>
+                                       step="1" min="1" max="10"/>
                             </div>
 
                             <!-- Submit button -->

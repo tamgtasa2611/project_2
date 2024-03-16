@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class GuestController extends Controller
@@ -17,6 +18,10 @@ class GuestController extends Controller
     //    login logout register
     public function login()
     {
+//        lay url chuyen huong sang login
+        session([
+            'myUrl' => url()->previous()
+        ]);
         return view('guest.login');
     }
 
@@ -44,6 +49,17 @@ class GuestController extends Controller
             Auth::guard('guest')->login($guest);
             //Ném thông tin user đăng nhập lên session
             session(['guest' => $guest]);
+
+//            lay thong tin url truoc do de chuyen guest ve
+            $url = Str::replace(url('/'), '', session('myUrl'));
+            //tu register sang
+            if (Str::contains($url, 'signup')) {
+                return to_route('guest.home')->with('success', 'Sign in successfully!');
+            } //tu rooms sang
+            else if (Str::contains($url, 'rooms')) {
+                $roomId = Str::replace('/rooms/', '', $url);
+                return to_route('guest.rooms.show', $roomId)->with('success', 'Sign in successfully!');
+            }
             return to_route('guest.profile')->with('success', 'Sign in successfully!');
         }
         return to_route('guest.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
@@ -74,7 +90,7 @@ class GuestController extends Controller
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', 1);
             Guest::create($data);
-            
+
             return to_route('guest.login')->with('success', 'Account created successfully!');
         } else {
             return to_route('guest.register')->with('failed', 'Something went wrong!');
