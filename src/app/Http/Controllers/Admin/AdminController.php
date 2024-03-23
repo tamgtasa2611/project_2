@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Activity;
 use App\Models\Admin;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AdminController extends Controller
 {
@@ -36,9 +39,13 @@ class AdminController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6'],
         ]);
-
+        $loginData = [
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
+        ];
+//        $admin = Admin::where('email', $loginData['email'])->first();
         //check db
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($loginData)) {
             $request->session()->regenerate();
             //Lấy thông tin của admin đang login
             $admin = Auth::guard('admin')->user();
@@ -46,6 +53,9 @@ class AdminController extends Controller
             Auth::guard('admin')->login($admin);
             //Ném thông tin user đăng nhập lên session
             session(['admin' => $admin]);
+
+            //log activity
+            Activity::saveActivity($admin->id, 'login into the system');
             return to_route('admin.dashboard')->with('success', 'Sign in successfully!');
         }
         return to_route('admin.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
@@ -53,8 +63,12 @@ class AdminController extends Controller
 
     public function logout(Request $request)
     {
+        //log activity
+        Activity::saveActivity(Auth::guard('admin')->id(), 'logout of the system');
+
         Auth::guard('admin')->logout();
         session()->forget('admin');
+
         return to_route('admin.login')->with('success', 'You have been logged out successfully!');
     }
 
@@ -96,6 +110,9 @@ class AdminController extends Controller
             $data = Arr::add($data, 'level', 1);
             $data = Arr::add($data, 'image', $imagePath);
             Admin::create($data);
+
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new admin account');
             return to_route('admin.admins')->with('success', 'Admin created successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -130,19 +147,13 @@ class AdminController extends Controller
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
             $data = Arr::add($data, 'email', $request->email);
-            //kiem tra neu password khong thay doi thi ko update password
-            if ($request->password != $admin->password) {
-                $data = Arr::add($data, 'password', Hash::make($request->password));
-            }
             $data = Arr::add($data, 'phone_number', $request->phone);
-            $data = Arr::add($data, 'level', $request->level);
+            $data = Arr::add($data, 'level', $admin->level);
             $data = Arr::add($data, 'image', $imagePath);
             $admin->update($data);
 
-////           update xong -> logout admin
-//            Auth::guard('admin')->logout();
-//            session()->forget('admin');
-
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'updated an admin account');
             return to_route('admin.admins')->with('success', 'Admin updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -155,6 +166,8 @@ class AdminController extends Controller
         $admin = Admin::find($id);
         //Xóa bản ghi được chọn
         $admin->delete();
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted an admin account');
         //Quay về danh sách
         return to_route('admin.admins')->with('success', 'Admin deleted successfully!');
     }

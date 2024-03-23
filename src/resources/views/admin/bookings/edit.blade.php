@@ -1,9 +1,9 @@
-<title>Add new room type - Skyrim Hotel</title>
+<title>Booking information - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
     <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
         <div class="text-primary">
-            <h4 class="fw-bold m-0">Room Types Management</h4>
+            <h4 class="fw-bold m-0">Bookings Management</h4>
         </div>
     </div>
 
@@ -11,19 +11,20 @@
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
-                <i class="bi bi-plus-circle me-2"></i>Add new room type
+                <i class="bi bi-pencil-square me-2"></i>Edit booking
             </div>
         </div>
         {{-- FORM  --}}
 
-        <form method="post" action="{{ route('admin.roomTypes.store') }}" enctype="multipart/form-data"
+        <form method="post" action="{{ route('admin.roomTypes.update', $booking) }}" enctype="multipart/form-data"
               class="m-0">
             @csrf
+            @method('PUT')
             <!-- name input -->
             <div class="p-3 col-12  col-lg-6 col-xl-4">
                 <div data-mdb-input-init class="form-outline">
-                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
-                           required/>
+                    <input type="text" id="name" name="name" class="form-control"
+                           value="{{ $booking->name }}" required/>
                     <label class="form-label" for="name">Type name</label>
                 </div>
                 @if ($errors->has('name'))
@@ -37,7 +38,7 @@
             <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
                 <div data-mdb-input-init class="form-outline">
                     <input type="number" id="base_price" name="base_price" class="form-control"
-                           value="{{ old('base_price') }}" step="0.01" min="0"
+                           value="{{ $booking->base_price }}" step="0.01" min="0"
                            required/>
                     <label class="form-label" for="base_price">Base price per night ($)</label>
                 </div>
@@ -55,7 +56,7 @@
                 </a>
                 <!-- Submit button -->
                 <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
-                    Save
+                    Update
                 </button>
             </div>
         </form>

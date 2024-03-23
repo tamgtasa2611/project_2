@@ -24,6 +24,11 @@ class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
         'image'
     ];
 
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class);

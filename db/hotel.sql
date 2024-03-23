@@ -64,6 +64,7 @@ CREATE TABLE payments (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     date DATETIME,
     amount DECIMAL(10,2),
+    method VARCHAR(255),
     status INT,
     guest_id INT,
     booking_id INT,
@@ -82,11 +83,20 @@ CREATE TABLE ratings (
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL
 );
 
-
+CREATE TABLE activities (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	date DATETIME,
+    detail TEXT,
+    admin_id INT,
+	FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL
+);
 /*============TEST=============*/
 
 INSERT INTO admins VALUES 
-(1, 'Cristiano', 'Ronaldo', 'admin1@gmail.com', '$2y$12$SfmNR/IjTz2B67dLQ4yk5eVwcBkJyP8Dxd/hr3dZ8AfyamPFreJUq', '+84123456789', 0, '');
+(1, 'OWNER', 'OWNER', 'ductamvstn@gmail.com', '$2y$10$A/750cSQNbGRx3fn4wJ1WOzguMbCK.3uS9g6USAJSlGr7c6Fy1ERi', '+84123456789', 0, '');
+select * from admins;
+
+delete from activities;
 
 
 USE project2;

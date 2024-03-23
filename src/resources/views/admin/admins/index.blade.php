@@ -7,7 +7,7 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
         <div class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Admins Datatable
@@ -25,7 +25,7 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($admins) != 0)
                 <table
-                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -54,11 +54,6 @@
                                     <div class="ms-3">
                                         <p class="mb-1 fw-semibold">
                                             {{ $admin->first_name . ' ' . $admin->last_name }}
-                                            @if(session()->has('admin'))
-                                                <span class="text-success ms-1">
-                                                    <i class="bi bi-circle-fill fs-7"></i>
-                                                </span>
-                                            @endif
                                         </p>
                                         <p class=" text-muted mb-0"> {{ $admin->email }}</p>
                                     </div>

@@ -3,12 +3,15 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
+use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
+use App\Http\Middleware\CheckAdminLevel;
 use App\Http\Middleware\CheckLoginGuest;
 use Illuminate\Support\Facades\Route;
 
@@ -78,40 +81,43 @@ Route::middleware([CheckLoginGuest::class])->group(function () {
 //ADMIN---------------------------------------------------------
 Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::middleware([CheckAdminLevel::class])->group(function () {
+            //    DASHBOARD =====================================================================================
+            Route::prefix('dashboard')->group(function () {
+                Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+            });
 
-        //    DASHBOARD =====================================================================================
-        Route::prefix('dashboard')->group(function () {
-            Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-        });
+            // ACTIVITIES =====================================================================================
+            Route::get('/activities', [AdminActivityController::class, 'index'])->name('admin.activities');
+            Route::get('/activities/downloadPdf', [AdminActivityController::class, 'downloadPDF'])->name('admin.activities.downloadPdf');
 
-        // ROOM TYPES =====================================================================================
-        Route::prefix('roomTypes')->group(function () {
-            Route::get('/', [AdminRoomTypeController::class, 'index'])->name('admin.roomTypes');
-            Route::get('/create', [AdminRoomTypeController::class, 'create'])->name('admin.roomTypes.create');
-            Route::post('/create', [AdminRoomTypeController::class, 'store'])->name('admin.roomTypes.store');
-            Route::get('/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('admin.roomTypes.edit');
-            Route::put('/{roomType}/edit', [AdminRoomTypeController::class, 'update'])->name('admin.roomTypes.update');
-            Route::delete('/delete', [AdminRoomTypeController::class, 'destroy'])->name('admin.roomTypes.destroy');
-            // PDF
-            Route::get('downloadPdf', [AdminRoomTypeController::class, 'downloadPDF'])->name('admin.roomTypes.downloadPdf');
-        });
+            // ROOM TYPES =====================================================================================
+            Route::prefix('roomTypes')->group(function () {
+                Route::get('/', [AdminRoomTypeController::class, 'index'])->name('admin.roomTypes');
+                Route::get('/create', [AdminRoomTypeController::class, 'create'])->name('admin.roomTypes.create');
+                Route::post('/create', [AdminRoomTypeController::class, 'store'])->name('admin.roomTypes.store');
+                Route::get('/{roomType}/edit', [AdminRoomTypeController::class, 'edit'])->name('admin.roomTypes.edit');
+                Route::put('/{roomType}/edit', [AdminRoomTypeController::class, 'update'])->name('admin.roomTypes.update');
+                Route::delete('/delete', [AdminRoomTypeController::class, 'destroy'])->name('admin.roomTypes.destroy');
+                // PDF
+                Route::get('downloadPdf', [AdminRoomTypeController::class, 'downloadPDF'])->name('admin.roomTypes.downloadPdf');
+            });
 
-        // ROOMS =====================================================================================
-        Route::prefix('rooms')->group(function () {
-            Route::get('/', [AdminRoomController::class, 'index'])->name('admin.rooms');
-            Route::get('/create', [AdminRoomController::class, 'create'])->name('admin.rooms.create');
-            Route::post('/create', [AdminRoomController::class, 'store'])->name('admin.rooms.store');
-            Route::get('/{room}/edit', [AdminRoomController::class, 'edit'])->name('admin.rooms.edit');
-            Route::put('/{room}/edit', [AdminRoomController::class, 'update'])->name('admin.rooms.update');
-            Route::get('/{room}/edit/destroyImage', [AdminRoomController::class, 'destroyImage'])->name('admin.rooms.update.destroyImage');
-            Route::get('/{room}/edit/destroyAllImages', [AdminRoomController::class, 'destroyAllImages'])->name('admin.rooms.update.destroyAllImages');
-            Route::delete('/delete', [AdminRoomController::class, 'destroy'])->name('admin.rooms.destroy');
-            // PDF
-            Route::get('downloadPdf', [AdminRoomController::class, 'downloadPDF'])->name('admin.rooms.downloadPdf');
-        });
+            // ROOMS =====================================================================================
+            Route::prefix('rooms')->group(function () {
+                Route::get('/', [AdminRoomController::class, 'index'])->name('admin.rooms');
+                Route::get('/create', [AdminRoomController::class, 'create'])->name('admin.rooms.create');
+                Route::post('/create', [AdminRoomController::class, 'store'])->name('admin.rooms.store');
+                Route::get('/{room}/edit', [AdminRoomController::class, 'edit'])->name('admin.rooms.edit');
+                Route::put('/{room}/edit', [AdminRoomController::class, 'update'])->name('admin.rooms.update');
+                Route::get('/{room}/edit/destroyImage', [AdminRoomController::class, 'destroyImage'])->name('admin.rooms.update.destroyImage');
+                Route::get('/{room}/edit/destroyAllImages', [AdminRoomController::class, 'destroyAllImages'])->name('admin.rooms.update.destroyAllImages');
+                Route::delete('/delete', [AdminRoomController::class, 'destroy'])->name('admin.rooms.destroy');
+                // PDF
+                Route::get('downloadPdf', [AdminRoomController::class, 'downloadPDF'])->name('admin.rooms.downloadPdf');
+            });
 
-        // EMPLOYEES =====================================================================================
+            // EMPLOYEES =====================================================================================
 //        Route::prefix('employees')->group(function () {
 //            Route::get('/', [AdminEmployeeController::class, 'index'])->name('admin.employees');
 //            Route::get('/create', [AdminEmployeeController::class, 'create'])->name('admin.employees.create');
@@ -123,16 +129,39 @@ Route::prefix('admin')->group(function () {
 //            Route::get('downloadPdf', [AdminEmployeeController::class, 'downloadPDF'])->name('admin.employees.downloadPdf');
 //        });
 
-        // ADMINISTRATORS =====================================================================================
-        Route::prefix('admins')->group(function () {
-            Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
-            Route::get('/create', [AdminController::class, 'create'])->name('admin.admins.create');
-            Route::post('/create', [AdminController::class, 'store'])->name('admin.admins.store');
-            Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('admin.admins.edit');
-            Route::put('/{admin}/edit', [AdminController::class, 'update'])->name('admin.admins.update');
-            Route::delete('/delete', [AdminController::class, 'destroy'])->name('admin.admins.destroy');
+            // ADMINISTRATORS =====================================================================================
+            Route::prefix('admins')->group(function () {
+                Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
+                Route::get('/create', [AdminController::class, 'create'])->name('admin.admins.create');
+                Route::post('/create', [AdminController::class, 'store'])->name('admin.admins.store');
+                Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('admin.admins.edit');
+                Route::put('/{admin}/edit', [AdminController::class, 'update'])->name('admin.admins.update');
+                Route::delete('/delete', [AdminController::class, 'destroy'])->name('admin.admins.destroy');
+                // PDF
+                Route::get('downloadPdf', [AdminController::class, 'downloadPDF'])->name('admin.admins.downloadPdf');
+            });
+
+            // RATINGS
+            Route::prefix('ratings')->group(function () {
+                Route::get('/', [AdminController::class, 'ratings'])->name('admin.ratings');
+            });
+        });
+
+        // BOOKINGs
+        Route::prefix('bookings')->group(function () {
+            Route::get('/', [AdminBookingController::class, 'index'])->name('admin.bookings');
+            Route::get('/create', [AdminBookingController::class, 'create'])->name('admin.bookings.create');
+            Route::post('/create', [AdminBookingController::class, 'store'])->name('admin.bookings.store');
+            Route::get('/{booking}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
+            Route::put('/{booking}/edit', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
+            Route::delete('/delete', [AdminBookingController::class, 'destroy'])->name('admin.bookings.destroy');
             // PDF
-            Route::get('downloadPdf', [AdminController::class, 'downloadPDF'])->name('admin.admins.downloadPdf');
+            Route::get('downloadPdf', [AdminBookingController::class, 'downloadPDF'])->name('admin.bookings.downloadPdf');
+        });
+
+        // PAYMENTS
+        Route::prefix('payments')->group(function () {
+            Route::get('/', [AdminController::class, 'bookings'])->name('admin.payments');
         });
 
         // GUESTS =====================================================================================
@@ -147,27 +176,11 @@ Route::prefix('admin')->group(function () {
             Route::get('downloadPdf', [AdminGuestController::class, 'downloadPDF'])->name('admin.guests.downloadPdf');
         });
 
-        // BOOKINGs
-        Route::prefix('bookings')->group(function () {
-            Route::get('/', [AdminController::class, 'bookings'])->name('admin.bookings');
-        });
-
-        // SERVICES
-        Route::prefix('services')->group(function () {
-            Route::get('/', [AdminController::class, 'services'])->name('admin.services');
-        });
-
-        // RATINGS
-        Route::prefix('ratings')->group(function () {
-            Route::get('/', [AdminController::class, 'ratings'])->name('admin.ratings');
-        });
-
         // SETTINGS
         Route::prefix('settings')->group(function () {
             Route::get('/', [AdminController::class, 'settings'])->name('admin.settings');
         });
     });
-
     //    LOGIN
     Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'loginProcess'])->name('admin.loginProcess');

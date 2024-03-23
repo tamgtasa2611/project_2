@@ -7,7 +7,7 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
         <div class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Guests Datatable
@@ -25,7 +25,7 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>

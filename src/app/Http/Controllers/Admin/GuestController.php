@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
+use App\Models\Activity;
 use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -67,6 +68,9 @@ class GuestController extends Controller
             $data = Arr::add($data, 'status', 1);
             $data = Arr::add($data, 'image', $imagePath);
             Guest::create($data);
+
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new guest account');
             return to_route('admin.guests')->with('success', 'Guest created successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -114,6 +118,8 @@ class GuestController extends Controller
             Auth::guard('guest')->logout();
             session()->forget('guest');
 
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a guest account');
             return to_route('admin.guests')->with('success', 'Guest updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -126,6 +132,8 @@ class GuestController extends Controller
         $guest = Guest::find($id);
         //Xóa bản ghi được chọn
         $guest->delete();
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted a guest account');
         //Quay về danh sách
         return to_route('admin.guests')->with('success', 'Guest deleted successfully!');
     }

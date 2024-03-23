@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
@@ -63,23 +63,6 @@
                         @endif
                     </div>
 
-                    <!-- password input -->
-                    <div class="p-3 pt-0">
-                        <div data-mdb-input-init class="form-outline input-group" id="show_hide_password">
-                            <input type="password" id="password" name="password" class="form-control"
-                                   value="{{ $admin->password }}" required minlength="6"/>
-                            <a href="#!" class="input-group-text">
-                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
-                            </a>
-                            <label class="form-label" for="password">Password</label>
-                        </div>
-                        @if ($errors->has('password'))
-                            @foreach ($errors->get('password') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-
                     {{--            phone number--}}
                     <div class="p-3 pt-0">
                         <div data-mdb-input-init class="form-outline">
@@ -97,25 +80,15 @@
 
                     {{--            status --}}
                     <div class="p-3 pt-0">
-                        <div class="d-flex flex-column align-items-center flex-md-row">
+                        <div class="d-flex flex-column align-items-center justify-content-between flex-md-row">
                             <div class="mb-3 mb-md-0">
-                                Status
+                                Level
                             </div>
-                            <div class="w-100 d-flex justify-content-between justify-content-md-end">
-                                <div class="me-3">
-                                    <input class="btn-check tran-2" type="radio" name="level" value="0"
-                                           id="owner" {{ $admin->level == 0 ? 'checked' : '' }} />
-                                    <label class="btn btn-outline-light rounded-9 tran-2 text-primary fw-bold"
-                                           for="owner">Owner</label>
-                                </div>
-
-                                <div>
-                                    <input class="btn-check tran-2" type="radio" name="level" value="1"
-                                           id="employee" {{ $admin->level == 1 ? 'checked' : '' }} />
-                                    <label class="btn btn-outline-light rounded-9 tran-2 text-warning fw-bold"
-                                           for="employee">Employee</label>
-                                </div>
-                            </div>
+                            @if($admin->level == 0)
+                                <a class="badge badge-primary">Owner</a>
+                            @else
+                                <a class="badge badge-warning">Employee</a>
+                            @endif
                         </div>
                         @if ($errors->has('level'))
                             @foreach ($errors->get('level') as $error)

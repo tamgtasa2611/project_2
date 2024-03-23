@@ -6,7 +6,7 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
         <div
             class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
@@ -27,12 +27,12 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($roomTypes) != 0)
                 <table
-                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle">Name</th>
+                        <th class="align-middle text-center">Name</th>
                         <th class="align-middle text-center">Base price</th>
                         <th class="align-middle text-center">Actions</th>
                     </tr>
@@ -43,7 +43,7 @@
                             <td class="text-center">
                                 {{ $roomType->id }}
                             </td>
-                            <td class="text-break">
+                            <td class="text-break text-center">
                                 {{ $roomType->name }}
                             </td>
                             <td class="text-center text-success">

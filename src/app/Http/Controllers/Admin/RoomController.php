@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\Activity;
 use App\Models\Room;
 use App\Models\RoomImage;
 use App\Models\RoomType;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
@@ -72,6 +74,8 @@ class RoomController extends Controller
 //                ]);
             }
 
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new room');
             return to_route('admin.rooms')->with('success', 'Room created successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -138,6 +142,8 @@ class RoomController extends Controller
 //                ]);
             }
 
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
             return back()->with('success', 'Room updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
@@ -148,6 +154,9 @@ class RoomController extends Controller
     {
         $imageId = $request->id;
         RoomImage::destroy($imageId);
+
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
         return back()->with('success', 'Room image deleted successfully!');
     }
 
@@ -158,6 +167,9 @@ class RoomController extends Controller
         foreach ($roomImageRecords as $record) {
             RoomImage::destroy($record->id);
         }
+
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
         return back()->with('success', 'Delete all room images successfully!');
     }
 
@@ -167,6 +179,9 @@ class RoomController extends Controller
         $room = Room::find($id);
         //Xóa bản ghi được chọn
         $room->delete();
+
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted a room');
         //Quay về danh sách
         return to_route('admin.rooms')->with('success', 'Room deleted successfully!');
     }

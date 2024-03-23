@@ -2004,7 +2004,7 @@ progress {
     --mdb-table-border-color: var(--mdb-border-color);
     --mdb-table-accent-bg: transparent;
     --mdb-table-striped-color: var(--mdb-body-color);
-    --mdb-table-striped-bg: rgba(0, 0, 0, 0.02);
+    --mdb-table-striped-bg: rgba(0, 0, 0, 0.01);
     --mdb-table-active-color: var(--mdb-body-color);
     --mdb-table-active-bg: rgba(var(--mdb-emphasis-color-rgb), 0.1);
     --mdb-table-hover-color: var(--mdb-body-color);

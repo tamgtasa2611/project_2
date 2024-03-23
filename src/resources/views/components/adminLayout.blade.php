@@ -23,7 +23,7 @@
     {{--    css mdb --}}
     <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">
     {{--    bs select--}}
-  
+
     {{--    font Inter --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,10 +33,10 @@
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto bg-light-subtle cabin-regular">
+<body class="overflow-x-hidden overflow-y-auto bg-light cabin-regular">
 <div class="row h-100">
     <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 shadow-3 bg-white">
-        @include('partials.adminSidenav')
+        @include('partials.admin.adminSidenav')
     </div>
     <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 d-flex flex-column justify-content-between">
         <div class="p-3 pb-0">
@@ -55,7 +55,7 @@
                 {{--------------- END MAIN --------------}}
             </div>
         </div>
-        @include('partials.adminFooter')
+        @include('partials.admin.adminFooter')
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('plugins/js/script.js') }}"></script>

@@ -9,7 +9,7 @@
             <div class="row py-5 justify-content-center">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3 p-4 border rounded-5 shadow-sm">
-                    @include('partials.guestProfile')
+                    @include('partials.guest.guestProfile')
                 </div>
                 {{--                MENU--}}
 

@@ -30,9 +30,9 @@
     <title>Project 2 - Tam</title>
 </head>
 <body class="overflow-x-hidden overflow-y-auto h-100 body-custom">
-@include('partials.guestNavbar')
+@include('partials.guest.guestNavbar')
 {{$slot}}
-@include('partials.guestFooter')
+@include('partials.guest.guestFooter')
 <script
     type="text/javascript"
     src="{{asset('plugins/js/script.js')}}"

@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
