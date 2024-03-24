@@ -1,16 +1,16 @@
 <title>About Us - Skyrim Hotel</title>
 <x-guestLayout>
-    <section id="about-section" class="m-nav py-5">
-        <div class="container h-auto">
-            <div class="w-100 d-flex flex-column align-items-center justify-content-center
-             load-hidden fade-in fade-bottom">
+    <section id="about-section" class="m-nav">
+        <div class="container mh-screen">
+            <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center
+             load-hidden fade-in">
                 {{--                    heading--}}
                 <div class="d-flex justify-content-center align-items-center mb-3">
                     <h6 class="display-6 text-primary fw-bold">Our Story</h6>
                 </div>
 
-                <div class="mb-3">
-                    <p class="fs-6 col-12 text-center">
+                <div class="mb-3 d-flex flex-column align-items-center">
+                    <p class="fs-6 col-8 text-center">
                         Our hotel company was founded in 2024 by the one and only Tam Nguyen, who has a passion
                         for hospitality and travel. He started with a small guesthouse in Hanoi, where they
                         offered comfortable rooms, friendly service, and authentic Vietnamese cuisine. Over the

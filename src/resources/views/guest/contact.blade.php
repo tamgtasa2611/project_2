@@ -1,12 +1,10 @@
 <title>Contact - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="login-section" class="m-nav">
-        <div class="container h-ok">
-            <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section
-             "
-                 style="background-image: url('{{asset('images/contact.png')}}')">
-                <form class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4
-                load-hidden fade-in fade-bottom">
+        <div class="container mh-screen">
+            <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section">
+                <form class="bg-white p-5 rounded-5 border shadow col-md-8 col-lg-6 col-xl-4
+                load-hidden fade-in">
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
                         <h6 class="display-6 text-primary fw-bold">Contact Us</h6>
@@ -32,7 +30,7 @@
 
                     <!-- Submit button -->
                     <button data-mdb-ripple-init type="button"
-                            class="btn btn-primary rounded-9 btn-block mb-4">Send
+                            class="btn btn-primary rounded-0 btn-block mb-4">Send
                     </button>
 
                 </form>

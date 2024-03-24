@@ -1,62 +1,37 @@
-<nav class="navbar navbar-expand-lg fixed-top py-0 tran-2 bg-white border border-white shadow-0"
+<nav class="navbar navbar-expand-lg navbar-dark bg-black nav-underline fixed-top py-0 tran-2 shadow-sm"
      id="navbar">
     <div class="container py-3">
         {{--        brand--}}
         <div class="w-25">
-            <a class="navbar-brand p-0" href="/home">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" height="24">
+            <a class="navbar-brand p-0 font-2 text-uppercase" href="/home">
+                SkyrimHotel
             </a>
         </div>
+
         {{--        navigation --}}
-        <div class="justify-content-center w-50	d-none d-lg-flex">
+        <div class="justify-content-center col-4 d-none d-lg-flex">
             <ul class="navbar-nav mb-lg-0 w-100 justify-content-between">
                 {{--                home--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2
+                    <a class="nav-link tran-2 text-uppercase
                     {{request()->routeIs('guest.home') ? 'active' : ''}}"
                        href="{{route('guest.home')}}">Home</a>
                 </li>
-                {{--                rooms--}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link tran-2  {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
-                       href="{{route('guest.rooms')}}"
-                       aria-expanded="false" id="dropdown2"
-                       data-mdb-toggle="dropdown">
-                        Rooms <i class="bi bi-caret-down-fill fs-7 ms-1"></i>
-                    </a>
-                    <ul class="dropdown-menu mt-0 tran-3 bg-white border shadow-sm animate slideIn"
-                        aria-labelledby="dropdown2">
-                        <li><a class="dropdown-item tran-2" href="#">Single Room</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Double Room</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Triple Room</a></li>
-                    </ul>
-                </li>
-                {{--services--}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link tran-2" href="/"
-                       aria-expanded="false" id="dropdown2"
-                       data-mdb-toggle="dropdown">
-                        Services <i class="bi bi-caret-down-fill fs-7 ms-1"></i>
-                    </a>
-                    <ul class="dropdown-menu mt-0 tran-3 bg-white border shadow-sm animate slideIn"
-                        aria-labelledby="dropdown2">
-                        <li><a class="dropdown-item tran-2" href="#">Guided tour</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Event planning</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Restaurant</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Fitness center</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Spa & Massage</a></li>
-                        <li><a class="dropdown-item tran-2" href="#">Laundry</a></li>
-                    </ul>
+                {{--Rooms--}}
+                <li class="nav-item">
+                    <a class="nav-link tran-2 text-uppercase
+                   {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
+                       href="{{route('guest.rooms')}}">Rooms</a>
                 </li>
                 {{--contact--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2
+                    <a class="nav-link tran-2 text-uppercase
                     {{request()->routeIs('guest.contact') ? 'active' : ''}}"
                        href="{{route('guest.contact')}}">Contact</a>
                 </li>
                 {{--about--}}
                 <li class="nav-item">
-                    <a class="nav-link tran-2
+                    <a class="nav-link tran-2 text-uppercase
                     {{request()->routeIs('guest.about') ? 'active' : ''}}"
                        href="{{route('guest.about')}}">About Us</a>
                 </li>
@@ -67,11 +42,12 @@
         @guest('guest')
             {{--        login btn--}}
             <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-                <a class="btn btn-tertiary px-3 tran-2 me-2 rounded-9" href="{{route('guest.login')}}"
+                <a class="btn btn-tertiary text-primary px-3 tran-2 me-2 rounded-0"
+                   href="{{route('guest.login')}}"
                    data-mdb-ripple-init>
                     Log in
                 </a>
-                <a class="btn btn-primary px-3 tran-2 rounded-9" href="{{route('guest.register')}}"
+                <a class="btn btn-primary px-3 tran-2 rounded-0" href="{{route('guest.register')}}"
                    data-mdb-ripple-init>
                     Sign up
                 </a>
@@ -80,7 +56,7 @@
 
         @auth('guest')
             {{--        account btn--}}
-            <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
+            <div class="w-25 d-flex justify-content-end	d-none d-lg-flex text-white">
                 <!-- Icon -->
                 <div class="dropdown me-3">
                     <a class="text-reset tran-2 dropdown-toggle hidden-arrow"
@@ -89,7 +65,7 @@
                         <i class="bi bi-bell"></i>
                         <span class="badge rounded-pill badge-notification bg-danger">1</span>
                     </a>
-                    <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
+                    <ul class="end-0 dropdown-menu dropright mt-0 rounded-0 tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown3">
                         <li><a class="dropdown-item tran-2" href="#">Welcome back!</a></li>
                         <li><a class="dropdown-item tran-2" href="#">Book a room now for 20% sales off!</a>
@@ -105,7 +81,7 @@
                        data-mdb-toggle="dropdown" href="#" role="button">
                         <i class="bi bi-person"></i>
                     </a>
-                    <ul class="end-0 dropdown-menu dropright mt-0 tran-3 bg-white border shadow-sm animate slideIn"
+                    <ul class="end-0 dropdown-menu dropright mt-0 rounded-0 tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown4">
                         <li><a class="dropdown-item tran-2" href="{{route('guest.profile')}}">
                                 <i class="bi bi-info-circle me-2"></i>My profile</a></li>
@@ -246,11 +222,11 @@
                 @guest('guest')
                     {{--                LOGIN--}}
                     <div class="w-100 d-flex flex-column justify-content-between align-items-end">
-                        <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-9 w-100"
+                        <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-0 w-100"
                            href="{{route('guest.login')}}">
                             Log in
                         </a>
-                        <a class="btn btn-primary px-3 tran-2 rounded-9 w-100" href="{{route('guest.register')}}">
+                        <a class="btn btn-primary px-3 tran-2 rounded-0 w-100" href="{{route('guest.register')}}">
                             Sign up
                         </a>
                     </div>

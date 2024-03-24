@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Room;
 use App\Models\RoomImage;
 use App\Models\RoomType;
@@ -55,9 +56,47 @@ class RoomController extends Controller
     {
         $roomImages = RoomImage::where('room_id', '=', $room->id)->get();
 
+        //calendar
+        $events = [];
+        $bookings = Booking::where('room_id', '=', $room->id)->get();
+        foreach ($bookings as $booking) {
+            $checkInDate = $booking->checkin_date;
+            $checkOutDate = $booking->checkout_date;
+            //days booked
+            $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
+            $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate)->addDay();
+
+            if ($booking->guest_id == Auth::guard('guest')->id()) {
+                $events[] = [
+                    'id' => $booking->id,
+                    'title' => 'Your Booking',
+                    'allDay' => true,
+                    'start' => $dateIn,
+                    'end' => $dateOut,
+                ];
+            } else {
+                $events[] = [
+                    'id' => $booking->id,
+                    'title' => 'Booked',
+                    'allDay' => true,
+                    'start' => $dateIn,
+                    'end' => $dateOut,
+                    'color' => 'red',
+                ];
+            }
+        }
+
+        $similarRooms = Room::where('room_type_id', '=', $room->roomType->id)
+            ->where('id', '!=', $room->id)
+            ->with('images')
+            ->limit(6)
+            ->get();
+
         return view('guest.rooms.show', [
             'room' => $room,
-            'roomImages' => $roomImages
+            'roomImages' => $roomImages,
+            'events' => $events,
+            'similarRooms' => $similarRooms,
         ]);
     }
 
@@ -69,12 +108,14 @@ class RoomController extends Controller
         $checkOutDate = $request->checkout;
 
         //days booked
-        $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
-        $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
-        $daysBooked = $dateIn->diffInDays($dateOut);
+//        $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
+//        $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
+//        $daysBooked = $dateIn->diffInDays($dateOut);
 
         $basePrice = $room->roomType->base_price;
         $totalPrice = $basePrice * $daysBooked;
+
+        dd($checkInDate, $checkOutDate, $daysBooked, $basePrice, $totalPrice);
 
         $validated = $request->validate([
             'checkin' => 'required|date|before:checkout|after:yesterday',

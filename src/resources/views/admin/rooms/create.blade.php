@@ -24,7 +24,7 @@
                 <div data-mdb-input-init class="form-outline">
                     <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
                            required/>
-                    <label class="form-label" for="name">Room name</label>
+                    <label class="form-label" for="name">Room name <span class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('name'))
                     @foreach ($errors->get('name') as $error)
@@ -39,7 +39,7 @@
                     <input type="number" id="capacity" name="capacity" class="form-control"
                            value="{{ old('capacity') }}" min="1" max="10"
                            required/>
-                    <label class="form-label" for="capacity">Capacity</label>
+                    <label class="form-label" for="capacity">Capacity <span class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('capacity'))
                     @foreach ($errors->get('capacity') as $error)
@@ -87,10 +87,17 @@
                    class="btn btn-secondary rounded-9 tran-2 me-3">
                     Back
                 </a>
-                <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
-                    Save
-                </button>
+                @if(count($roomTypes) == 0)
+                    <a data-mdb-ripple-init href="{{ route('admin.roomTypes.create') }}"
+                       class="btn btn-primary rounded-9 tran-2 me-3">
+                        Add Room Type
+                    </a>
+                @else
+                    <!-- Submit button -->
+                    <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
+                        Save
+                    </button>
+                @endif
             </div>
         </form>
     </div>

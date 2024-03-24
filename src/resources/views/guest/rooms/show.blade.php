@@ -1,300 +1,442 @@
 <title>Room {{$room->name}} - Skyrim Hotel</title>
-{{--<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>--}}
+{{--calendar--}}
 <script src="{{asset('plugins/calendar/index.global.min.js')}}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
-        });
-        calendar.render();
-    });
-</script>
 <x-guestLayout>
+    {{--            alert--}}
+    {{--alert login thanh cong--}}
+    @if (session('success'))
+        @include('partials.flashMsgSuccess')
+    @endif
+    {{--alert book fail--}}
+    @if (session('failed'))
+        @include('partials.flashMsgFail')
+    @endif
+    @if ($errors->has('checkin'))
+        @foreach ($errors->get('checkin') as $error)
+            {{session()->flash('failed', $error)}}
+            @include('partials.flashMsgFail')
+            {{session()->forget('failed')}}
+        @endforeach
+    @endif
+    @if ($errors->has('checkout'))
+        @foreach ($errors->get('checkout') as $error)
+            {{session()->flash('failed', $error)}}
+            @include('partials.flashMsgFail')
+            {{session()->forget('failed')}}
+        @endforeach
+    @endif
+    @if ($errors->has('guest_num'))
+        @foreach ($errors->get('guest_num') as $error)
+            {{session()->flash('failed', $error)}}
+            @include('partials.flashMsgFail')
+            {{session()->forget('failed')}}
+        @endforeach
+    @endif
+
     <section id="rooms" class="m-nav">
-        <div class="container">
-            <div class="pt-3 mb-3 position-relative">
-                {{--alert login thanh cong--}}
-                @if (session('success'))
-                    @include('partials.flashMsgSuccess')
-                @endif
-                {{--alert book fail--}}
-                @if (session('failed'))
-                    @include('partials.flashMsgFail')
-                @endif
-                @if ($errors->has('checkin'))
-                    @foreach ($errors->get('checkin') as $error)
-                        {{session()->flash('failed', $error)}}
-                        @include('partials.flashMsgFail')
-                        {{session()->forget('failed')}}
-                    @endforeach
-                @endif
-                @if ($errors->has('checkout'))
-                    @foreach ($errors->get('checkin') as $error)
-                        {{session()->flash('failed', $error)}}
-                        @include('partials.flashMsgFail')
-                        {{session()->forget('failed')}}
-                    @endforeach
-                @endif
-                @if ($errors->has('guest_num'))
-                    @foreach ($errors->get('checkin') as $error)
-                        {{session()->flash('failed', $error)}}
-                        @include('partials.flashMsgFail')
-                        {{session()->forget('failed')}}
-                    @endforeach
-                @endif
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{route('guest.home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('guest.rooms')}}">Rooms</a></li>
-                    </ol>
-                </nav>
-            </div>
+        <div class="container load-hidden fade-in">
             {{--            room detail--}}
-            <div class="mb-5 row g-3 h-auto">
-                {{--                room info--}}
-                <div class="col-12 col-lg-6">
-                    <div class="w-100 h-100 d-flex flex-column border rounded-5 overflow-hidden shadow-sm">
-                        @if(count($roomImages) > 1)
-                            <!-- Carousel wrapper -->
-                            <div id="carouselMaterialStyle"
-                                 class="carousel slide carousel-fade w-100 overflow-hidden rounded-5"
-                                 data-mdb-ride="carousel"
-                                 data-mdb-carousel-init>
-                                <!-- Indicators -->
-                                <div class="carousel-indicators">
+            <div class="mb-5">
+                {{--                room image--}}
+                <div class="mb-5 rounded-0 overflow-hidden shadow ratio ratio-21x9">
+                    @if(count($roomImages) > 1)
+                        <!-- Carousel wrapper -->
+                        <div id="carouselMaterialStyle"
+                             class="carousel slide carousel-fade overflow-hidden rounded-0 "
+                             data-mdb-ride="carousel"
+                             data-mdb-carousel-init>
+                            <!-- Indicators -->
+                            <div class="carousel-indicators">
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach($roomImages as $image)
+
+                                    <button type="button" data-mdb-target="#carouselMaterialStyle"
+                                            data-mdb-slide-to="{{$i}}"
+                                            class="{{$image == $roomImages[0] ? 'active' : '' }}"
+                                            aria-current="{{$image == $roomImages[0] ? 'true' : '' }}"
+                                            aria-label="Slide {{$i}}"></button>
                                     @php
-                                        $i = 0;
+                                        $i++;
                                     @endphp
-                                    @foreach($roomImages as $image)
-
-                                        <button type="button" data-mdb-target="#carouselMaterialStyle"
-                                                data-mdb-slide-to="{{$i}}"
-                                                class="{{$image == $roomImages[0] ? 'active' : '' }}"
-                                                aria-current="{{$image == $roomImages[0] ? 'true' : '' }}"
-                                                aria-label="Slide {{$i}}"></button>
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </div>
-
-                                <!-- Inner -->
-                                <div class="carousel-inner w-100 rounded-5 shadow-sm overflow-hidden">
-                                    <!--  item -->
-                                    @foreach($roomImages as $image)
-                                        <div
-                                            class="carousel-item overflow-hidden ratio ratio-16x9 rounded-5 {{$image == $roomImages[0] ? 'active' : '' }}">
-                                            <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                 class="w-100 object-fit-cover d-block tran-3 rounded-5"/>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <!-- Inner -->
-
-                                <!-- Controls -->
-                                <button class="carousel-control-prev" type="button"
-                                        data-mdb-target="#carouselMaterialStyle"
-                                        data-mdb-slide="prev">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-left fs-2"></i>
-                                </span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                        data-mdb-target="#carouselMaterialStyle"
-                                        data-mdb-slide="next">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-right fs-2"></i>
-                                </span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
+                                @endforeach
                             </div>
-                            <!-- Carousel wrapper -->
-                        @else
-                            <div class="rounded-5 shadow-sm overflow-hidden">
+
+                            <!-- Inner -->
+                            <div class="carousel-inner w-100 rounded-0 shadow-sm overflow-hidden">
                                 <!--  item -->
                                 @foreach($roomImages as $image)
                                     <div
-                                        class="carousel-item overflow-hidden ratio ratio-16x9 rounded-5  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                        class="carousel-item overflow-hidden ratio ratio-16x9 rounded-0  {{$image == $roomImages[0] ? 'active' : '' }}">
                                         <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                             class="w-100 object-fit-cover d-block tran-3 rounded-5"/>
+                                             class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
                                     </div>
                                 @endforeach
                             </div>
-                        @endif
-                        <div class="d-flex flex-column flex-fill overflow-hidden">
-                            <div class="p-3 pb-0 d-flex justify-content-between">
-                                <div>
-                                    <h3 class="mb-2 fw-bold text-primary">
-                                        Room {{$room->name}}
-                                    </h3>
-                                    <div class="d-flex">
-                                        <div class=" badge  badge-primary rounded-pill">
-                                            <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
-                                        </div>
-                                        <div class=" badge  badge-primary rounded-pill ms-2">
-                                            <i class="bi bi-people me-1"></i> {{$room->capacity}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="text-warning mb-2 text-end">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                    </div>
-                                    <div class=" badge  badge-warning rounded-pill">
-                                        <i class="bi bi-hand-thumbs-up me-1"></i> 100 reviews
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-3 flex-fill d-flex align-items-end">
+                            <!-- Inner -->
+
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button"
+                                    data-mdb-target="#carouselMaterialStyle"
+                                    data-mdb-slide="prev">
+                                <span aria-hidden="true">
+                                    <i class="bi bi-chevron-left fs-2"></i>
+                                </span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                    data-mdb-target="#carouselMaterialStyle"
+                                    data-mdb-slide="next">
+                                <span aria-hidden="true">
+                                    <i class="bi bi-chevron-right fs-2"></i>
+                                </span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <!-- Carousel wrapper -->
+                    @elseif(count($roomImages) == 1)
+                        <div class="rounded-0 shadow-sm overflow-hidden">
+                            <!--  item -->
+                            @foreach($roomImages as $image)
                                 <div
-                                    class="col-12 p-0 h-100 d-flex justify-content-between align-items-end">
-                                    <div class="d-flex align-items-end mb-2 mb-md-0">
-                                        <h3 class="m-0 fw-bold text-success">
-                                            ${{$room->roomType->base_price}}<span
-                                                class="text-muted fs-6">/night</span>
-                                            <p class="fs-7 text-muted m-0">
-                                                Includes taxes and fees
-                                            </p>
-                                        </h3>
+                                    class="carousel-item overflow-hidden ratio ratio-16x9 rounded-0  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                    <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
+                                         class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="rounded-0 shadow-sm overflow-hidden">
+                            <!--  item -->
+                            <div
+                                class="overflow-hidden ratio ratio-16x9 rounded-0 ">
+                                <img src="{{asset('images/noimage.jpg')}}"
+                                     class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="row g-5">
+                    {{--                calendar--}}
+                    <div class="col-12 col-lg-8 h-100">
+                        <div class="bg-white p-4 pb-4">
+                            <div class="mb-4 d-flex justify-content-between">
+                                <div>
+                                    <h1 class="m-0 fw-bold text-primary">Room {{$room->name}}</h1>
+                                    <div class="fw-bold">{{$room->roomType->name}}/{{$room->capacity}} guests</div>
+                                </div>
+                                <a href="#calendar" class="btn btn-tertiary">Check availability <i
+                                        class="bi bi-info-circle"></i></a>
+                            </div>
+                            <div class="mb-4">
+                                <p class="">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                    nascetur ridiculus mus.
+                                </p>
+                                <p class="">
+                                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat
+                                    massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+                                    In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
+                                    eu pede mollis pretium. Integer tincidunt.
+                                </p>
+                            </div>
+                            <div class="mb-4">
+                                <h4 class="mb-3 text-primary">Family-friendly Amenities</h4>
+                                <div class="row g-4">
+                                    <div class="col-4">
+                                        <div class="bg-light border fs-6 p-4 text-center">Kids Swimming Pool</div>
                                     </div>
-                                    @auth('guest')
-                                        <a class="btn btn-primary rounded-9 modalBtn" data-mdb-ripple-init
-                                           data-mdb-modal-init href="#bookModal"
-                                           data-id={{$room->id}}>
-                                            BOOK now
-                                        </a>
-                                    @endauth
-                                    @guest('guest')
-                                        <div class="d-flex align-items-end">
-                                            <div>
-                                                Please
-                                                <a href="{{route('guest.login')}}" class="text-decoration-underline">sign
-                                                    in</a>
-                                                to book a reservation
-                                            </div>
+                                    <div class="col-4">
+                                        <div class="bg-light border fs-6 p-4 text-center">Extra Beds/Baby Crib
                                         </div>
-                                    @endguest
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="bg-light border fs-6 p-4 text-center">Washing Machine</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
+                                    <ul class="list-group list-group-light list-group-numbered">
+                                        <li class="list-group-item p-3">
+                                            Amazing balcony
+                                        </li>
+                                        <li class="list-group-item p-3">
+                                            Seat beside the panoramic window
+                                        </li>
+                                        <li class="list-group-item p-3">
+                                            TV for watching mountaineering films
+                                        </li>
+                                        <li class="list-group-item p-3">
+                                            Writing desk with USB ports for documenting your adventures
+                                        </li>
+                                        <li class="list-group-item p-3">
+                                            Bathroom with rain shower
+                                        </li>
+                                        <li class="list-group-item p-3">
+                                            Comfortable terry towels and bathrobes
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <h4 class="mb-3 text-primary">Check Availability</h4>
+                                    <div id='calendar'></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{--                room calendar--}}
-                <div class="col-12 col-lg-6">
-                    <div
-                        class="bg-white rounded-5 border p-3 shadow-sm h-100 w-100 row justify-content-between m-0">
-                        <div class="col-12 p-0">
-                            <div id='calendar'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BookModal -->
-            <div class="modal slideUp" id="bookModal" style="min-width: fit-content !important;"
-                 tabindex="-1"
-                 aria-labelledby="bookModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="min-width: fit-content !important;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fw-bold text-primary text-capitalize" id="bookModalLabel">
-                                <i class="bi bi-pencil-square me-2"></i>Booking Details
-                            </h5>
-                            <div class="">
-                                <button type="button" class="btn-close" data-mdb-ripple-init
-                                        data-mdb-dismiss="modal"
-                                        aria-label="Close"></button>
+                    {{--                calendar--}}
+                    {{--               booking details--}}
+                    <div class="col-12 col-lg-4 h-100">
+                        <form method="post"
+                              class="bg-white p-4 m-0 shadow-sm" action="{{route('guest.bookRoom')}}">
+                            @csrf
+                            @method('POST')
+                            <input type="text" name="room_id" value="{{$room->id}}" hidden class="visually-hidden">
+                            <div class="mb-4 d-flex justify-content-between align-items-center">
+                                <h5 class="m-0 fw-bold text-primary">RESERVE</h5>
+                                <div class="fs-6">From <span
+                                        class="text-success fw-bold">${{$room->roomType->base_price}}</span>/night
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-body row">
-                            <form class="col-12" method="post"
-                                  action="{{route('guest.bookRoom')}}">
-                                @csrf
-                                @method('POST')
-                                <div class="row gx-3">
-                                    <div class="col col-md-6 mb-4"> <!-- checkin input -->
-                                        <div class="tran-3">
-                                            <label class="form-label" for="checkin">Check-in date</label>
-                                            <input type="date" id="checkin" name="checkin" value="today"
-                                                   class="form-control" required/>
-                                        </div>
-                                    </div>
-                                    <div class="col col-md-6 mb-4">  <!-- checkout input -->
-                                        <div class="tran-3">
-                                            <label class="form-label" for="checkout">Check-out date</label>
-                                            <input type="date" id="checkout" name="checkout"
-                                                   class="form-control" required/>
-                                        </div>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <!-- checkin input -->
+                                    <div data-mdb-input-init class="form-outline ">
+                                        <i class="bi bi-calendar-plus trailing"></i>
+                                        <input id="checkin" name="checkin" type="text"
+                                               placeholder="Check In"
+                                               class="my-input form-control form-icon-trailing form-control-lg"
+                                               value=""
+                                               required
+                                               autocomplete="one-time-code"
+                                        >
                                     </div>
                                 </div>
-                                <div class="d-none mb-4 bg-danger-subtle text-danger rounded-5 p-3" id="dateError">
-
+                                <div class="col-12">
+                                    <!-- checkout input -->
+                                    <div data-mdb-input-init class="form-outline ">
+                                        <i class="bi bi-calendar-plus trailing"></i>
+                                        <input id="checkout" name="checkout" type="text"
+                                               placeholder="Check Out"
+                                               value=""
+                                               class="my-input form-control form-icon-trailing form-control-lg"
+                                               required
+                                               autocomplete="one-time-code"
+                                        >
+                                    </div>
                                 </div>
-                                <div class="w-100 mb-4">     <!-- guest num input -->
-                                    <div class="tran-3">
-                                        <label class="form-label" for="guest_num">Number of guests</label>
+                                <div id="dateError" class="col-12 d-none fs-6 text-danger"></div>
+                                <div class="col-12">
+                                    <!-- guest num input -->
+                                    <div class="form-outline" data-mdb-input-init>
                                         <input type="number" id="guest_num" name="guest_num"
-                                               value="{{$room->capacity}}"
-                                               class="form-control" placeholder="1 guest"
-                                               step="1" min="1" max="10" required/>
+                                               class="my-input form-control form-control-lg"
+                                               step="1" min="1" max="10" placeholder="Guests"
+                                               value=""
+                                               required/>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            Days booked:
-                                        </div>
-                                        <div id="dayBooked">
-                                            0 day
+                            </div>
+                            <h5 class="m-0 fw-bold text-primary my-4">SUMMARY</h5>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class=" fs-6">
+                                    Days booked
+                                </div>
+                                <div id="dayBooked" class="fw-bold fs-6">
+                                    0 day
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class=" fs-6">
+                                    Amount
+                                </div>
+                                <div class="text-success fw-bold">
+                                    <input class="visually-hidden" hidden id="basePriceValue"
+                                           value="{{$room->roomType->base_price}}">
+                                    $<span id="amount" class="fw-bold fs-6">0.00</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                @auth('guest')
+                                    <!-- Submit button -->
+                                    <button data-mdb-ripple-init type="submit" id="bookBtn"
+                                            class="btn btn-lg btn-primary rounded-0 tran-3 btn-block">
+                                        BOOK
+                                    </button>
+                                @endauth
+                                @guest('guest')
+                                    <div class="d-flex align-items-end">
+                                        <div class="text-center w-100">
+                                            Please
+                                            <a href="{{route('guest.login')}}"
+                                               class="text-decoration-underline">sign
+                                                in</a>
+                                            to book a reservation
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            Amount:
-                                        </div>
-                                        <div class="text-success">
-                                            <input class="visually-hidden" hidden id="basePriceModal"
-                                                   value="{{$room->roomType->base_price}}">
-                                            $<span id="amount">0.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3 fs-7 text-center">
-                                    The booking guest's details will be your account information
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="w-100">
-                                        <input id="id" name="id" hidden class="visually-hidden"
-                                               value="">
-                                        <button class="btn btn-primary btn-block rounded-9"
-                                                id="bookBtn" type="submit"
-                                                data-mdb-ripple-init>
-                                            BOOK
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </form>
+                                @endguest
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal slideUp" id="calendarModal" tabindex="-1"
+                 aria-labelledby="calendarModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body h-100">
+                            <div id='calendar' class="fs-7"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
             {{--            rating--}}
-            <div class="mb-5">
-                <h4 class="fw-bold text-primary">Reviews & Ratings</h4>
+            <div class="mb-5 bg-white p-4 shadow-sm" id="rating">
+                <h4 class="m-0 fw-bold text-primary">Reviews & Ratings</h4>
+            </div>
+
+            {{--            SIMILAR ROOMS--}}
+            <div class="mb-5 bg-white p-4 shadow-sm">
+                <h4 class="mb-4 fw-bold text-primary">Similar Rooms</h4>
+                <div class="row row-cols-3 g-4">
+                    @foreach($similarRooms as $sRoom)
+                        <div class="col">
+                            <div class="shadow-sm">
+                                <div class="ratio ratio-16x9">
+                                    @if(count($sRoom->images)== 0)
+                                        <img src="{{asset('images/noimage.jpg')}}" class="img-fluid" alt="s_room_img">
+                                    @else
+                                        <img src="{{asset('storage/admin/rooms/'.$sRoom->images[0]->path)}}"
+                                             alt="s_room_img" class="img-fluid">
+                                    @endif
+                                </div>
+                                <div class="p-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="text-primary">Room {{$sRoom->name}}</h5>
+                                    <a href="{{route('guest.rooms.show', $sRoom)}}" class="btn btn-primary rounded-0"
+                                       data-mdb-ripple-init>VIEW</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
     <script src="{{asset('plugins/calendar/moment.min.js')}}"></script>
     <script>
         moment().format();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                validRange: {
+                    start: new Date(),
+                    end: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+                },
+                themeSystem: 'bootstrap5',
+                events: @json($events),
+
+            });
+            calendar.render();
+        });
+    </script>
+    {{--        mcdatepicker--}}
+    <script>
+        const datePicker1 = MCDatepicker.create({
+            el: '#checkin',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        const datePicker2 = MCDatepicker.create({
+            el: '#checkout',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        let checkValid = true;
+        let dateError = $("#dateError");
+        let dayBooked = 0;
+        let basePrice = $("#basePriceValue").val();
+        let amount = 0;
+        let bookBtn = $("#bookBtn");
+        let currentDate = new Date().toJSON().slice(0, 10);
+
+        // check date 1 < date 2
+        datePicker1.onSelect(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onSelect(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        function dateErrorAction() {
+            dateError.removeClass("d-none");
+            dateError.html('<i class="bi bi-emoji-frown"></i> Check Out date must be after Check In date!');
+            bookBtn.removeAttr("type").attr("type", "button");
+            $("#dayBooked").html(`0 day`);
+            $("#amount").html(`0.00`);
+        }
+
+        function dateValidAction() {
+            dateError.addClass("d-none");
+            dateError.html();
+            bookBtn.removeAttr("type").attr("type", "submit");
+            // lam tron ngay
+            dayBooked = Math.round((datePicker2.getFullDate() - datePicker1.getFullDate()) / (1000 * 3600 * 24));
+
+            if (dayBooked === 1) {
+                $("#dayBooked").html(`1 day`);
+                $("#amount").html(`${basePrice}`);
+            } else {
+                if (isNaN(dayBooked)) {
+                    $("#dayBooked").html(`0 day`);
+                    $("#amount").html(`0.00`);
+                } else {
+                    $("#dayBooked").html(`${dayBooked} days`);
+                    $("#amount").html(`${basePrice * dayBooked}`);
+                }
+            }
+        }
     </script>
 </x-guestLayout>

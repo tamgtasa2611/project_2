@@ -21,21 +21,33 @@ class BookingController extends Controller
         ]);
 
         if ($validated) {
-            $room = Room::find($request->id);
+            $room = Room::find($request->room_id);
             $created_date = date('Y-m-d H:i:s');
             $guest_id = Auth::guard('guest')->id();
             $admin_id = Admin::first()->id;
-            $checkInDate = $request->checkin;
-            $checkOutDate = $request->checkout;
+//            format lai tu d-m-y thanh y-m-d
+            $checkInDate = date('Y-m-d', strtotime($request->checkin));
+            $checkOutDate = date('Y-m-d', strtotime($request->checkout));
 
             //days booked
             $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
             $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
             $daysBooked = $dateIn->diffInDays($dateOut);
 
+//            price
             $basePrice = $room->roomType->base_price;
             $totalPrice = $basePrice * $daysBooked;
 
+            //check trung nhau
+            $bookings = Booking::where('room_id', '=', $room->id)->get();
+            foreach ($bookings as $booking) {
+                $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
+                $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date);
+                if ($dateIn->between($dateInCheck, $dateOutCheck) || $dateOut->between($dateInCheck, $dateOutCheck)) {
+                    return back()->with('failed', 'Someone already booked this room for this period!');
+                }
+            }
+       
             $data = [
                 'created_date' => $created_date,
                 'status' => 0,

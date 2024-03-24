@@ -25,7 +25,7 @@
                 <div data-mdb-input-init class="form-outline">
                     <input type="text" id="name" name="name" class="form-control"
                            value="{{ $roomType->name }}" required/>
-                    <label class="form-label" for="name">Type name</label>
+                    <label class="form-label" for="name">Type name <span class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('name'))
                     @foreach ($errors->get('name') as $error)
@@ -40,7 +40,8 @@
                     <input type="number" id="base_price" name="base_price" class="form-control"
                            value="{{ $roomType->base_price }}" step="0.01" min="0"
                            required/>
-                    <label class="form-label" for="base_price">Base price per night ($)</label>
+                    <label class="form-label" for="base_price">Base price per night ($) <span
+                            class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('base_price'))
                     @foreach ($errors->get('base_price') as $error)

@@ -26,7 +26,8 @@
                         <div data-mdb-input-init class="form-outline">
                             <input type="text" id="first_name" name="first_name" class="form-control"
                                    value="{{ $admin->first_name }}" required/>
-                            <label class="form-label" for="first_name">First name</label>
+                            <label class="form-label" for="first_name">First name <span
+                                    class="text-danger">*</span></label>
                         </div>
                         @if ($errors->has('first_name'))
                             @foreach ($errors->get('first_name') as $error)
@@ -40,7 +41,8 @@
                         <div data-mdb-input-init class="form-outline">
                             <input type="text" id="last_name" name="last_name" class="form-control"
                                    value="{{ $admin->last_name }}" required/>
-                            <label class="form-label" for="last_name">Last name</label>
+                            <label class="form-label" for="last_name">Last name <span
+                                    class="text-danger">*</span></label>
                         </div>
                         @if ($errors->has('last_name'))
                             @foreach ($errors->get('last_name') as $error)
@@ -54,7 +56,8 @@
                         <div data-mdb-input-init class="form-outline">
                             <input type="email" id="email" name="email" class="form-control" value="{{ $admin->email }}"
                                    required/>
-                            <label class="form-label" for="email">Email address</label>
+                            <label class="form-label" for="email">Email address <span
+                                    class="text-danger">*</span></label>
                         </div>
                         @if ($errors->has('email'))
                             @foreach ($errors->get('email') as $error)
@@ -69,7 +72,8 @@
                             <input type="tel" id="phone" name="phone" class="form-control"
                                    value="{{ $admin->phone_number }}"
                                    maxlength="20" required/>
-                            <label class="form-label" for="phone">Phone number</label>
+                            <label class="form-label" for="phone">Phone number <span
+                                    class="text-danger">*</span></label>
                         </div>
                         @if ($errors->has('phone'))
                             @foreach ($errors->get('phone') as $error)

@@ -8,11 +8,11 @@ use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\CheckAdminLevel;
 use App\Http\Middleware\CheckLoginGuest;
+use App\Http\Middleware\CheckGuestAlreadyLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,12 +58,15 @@ Route::prefix('/booking')->group(function () {
 //END ROOMS
 
 //LOGIN REGISTER LOGOUT
-Route::get('/login', [GuestController::class, 'login'])->name('guest.login');
-Route::post('/login', [GuestController::class, 'loginProcess'])->name('guest.loginProcess');
-Route::get('/signup', [GuestController::class, 'register'])->name('guest.register');
-Route::post('/signup', [GuestController::class, 'registerProcess'])->name('guest.registerProcess');
+Route::middleware([CheckGuestAlreadyLogin::class])->group(function () {
+    Route::get('/login', [GuestController::class, 'login'])->name('guest.login');
+    Route::post('/login', [GuestController::class, 'loginProcess'])->name('guest.loginProcess');
+    Route::get('/signup', [GuestController::class, 'register'])->name('guest.register');
+    Route::post('/signup', [GuestController::class, 'registerProcess'])->name('guest.registerProcess');
+});
 Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 //LOGIN REGISTER LOGOUT
+
 
 //PROFILE
 Route::middleware([CheckLoginGuest::class])->group(function () {
@@ -83,6 +86,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
         Route::middleware([CheckAdminLevel::class])->group(function () {
             //    DASHBOARD =====================================================================================
+            Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
             Route::prefix('dashboard')->group(function () {
                 Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
             });

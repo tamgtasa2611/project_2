@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start text-muted bg-white border-top">
+<footer class="text-center text-lg-start text-white bg-black">
     <!-- Section: Links  -->
     <section class="pt-3">
         <div class="container text-center text-md-start">

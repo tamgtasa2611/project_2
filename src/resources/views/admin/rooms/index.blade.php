@@ -50,9 +50,15 @@
                             <td class="text-center">
                                 {{ $room->capacity }}
                             </td>
-                            <td class="text-center">
-                                {{ $room->roomType->name }}
-                            </td>
+                            @if($room->roomType == null)
+                                <td class="text-center bg-danger-subtle">
+                                    <i class="text-danger bi bi-exclamation-circle"></i>
+                                </td>
+                            @else
+                                <td class="text-center">
+                                    {{ $room->roomType->name}}
+                                </td>
+                            @endif
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.rooms.edit', $room) }}"

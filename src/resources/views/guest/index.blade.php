@@ -1,82 +1,131 @@
 <title>Home - Skyrim Hotel</title>
 <x-guestLayout>
     {{--    HERO--}}
-    <section id="hero" class="m-nav mb-5">
+    <section class="m-nav mb-5 position-relative bg-black">
         <div
-            class="fade-in load-hidden hero-section"
-            style="background-image: url('{{asset('images/home2.jpg')}}')">
-            <div class="container mh-80">
-                <div class="row mh-80 border-0 m-0 text-white">
-                    <div
-                        class="col-12 col-md-6 p-0 mh-80 d-flex flex-column text-center align-items-center text-md-start align-items-md-start justify-content-center fade-left fade-in load-hidden">
-                        <h5 class="fw-bolder display-5">
-                            A dream stay for your bucket list trip
-                        </h5>
-                        <p class="lead">
-                            Make it a trip to remember in a vacation home
-                        </p>
-                        <a href="" class="btn btn-primary tran-3 w-fit btn-lg shadow-lg rounded-9">
-                            Discover vacation rentals
-                        </a>
-                    </div>
-                    <div class="col-12 col-md-6 p-0 mh-80 d-flex align-items-center justify-content-center">
-                        <form method="post" action="{{route('guest.rooms.search')}}"
-                              class="border rounded-5 shadow-lg p-4 bg-white m-0 fade-right fade-in load-hidden">
-                            @csrf
-                            @method('POST')
-                            <h2 class="text-primary fw-bold mb-4 text-capitalize text-center">
-                                Stay somewhere great
-                            </h2>
-                            <div class="row">
-                                <div class="col">
-                                    <!-- checkin input -->
-                                    <div class="mb-4 tran-3">
-                                        <label class="form-label" for="checkin">Check-in date</label>
-                                        <input type="date" id="checkin" name="checkin" class="form-control"/>
-                                    </div>
+            class="mh-screen overflow-hidden fade-in load-hidden ">
+            <div class="bg-image h-100 overflow-hidden">
+                <img
+                    src="{{asset('images/hero.jpg')}}"
+                    class=""
+                    alt="hero_image"
+                />
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="container text-white">
+                            <div class="row justify-content-center text-center align-items-center">
+                                <div class="font-2 display-2 text-center text-capitalize col-12 mb-3">
+                                    Book Your Stay
                                 </div>
-                                <div class="col">
-                                    <!-- checkout input -->
-                                    <div class="mb-4 tran-3">
-                                        <label class="form-label" for="checkout">Check-out date</label>
-                                        <input type="date" id="checkout" name="checkout" class="form-control"/>
-                                    </div>
+                                <div class="mb-3 col-12">
+                                    <p class="fs-5">A stay infused with creativity and culture.</p>
+                                </div>
+                                <div class="col-10">
+                                    <form method="post" action="{{route('guest.rooms.search')}}"
+                                          class="bg-white p-3 m-0 shadow">
+                                        @csrf
+                                        @method('POST')
+                                        <div class="row g-3">
+                                            <div class="col-12 col-lg-3">
+                                                <!-- checkin input -->
+                                                <div data-mdb-input-init class="form-outline ">
+                                                    <i class="bi bi-calendar-plus trailing"></i>
+                                                    <input id="checkin" name="checkin" type="text"
+                                                           placeholder="Check In" required
+                                                           class="my-input form-control form-icon-trailing form-control-lg"
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-3">
+                                                <!-- checkout input -->
+                                                <div data-mdb-input-init class="form-outline ">
+                                                    <i class="bi bi-calendar-plus trailing"></i>
+                                                    <input id="checkout" name="checkout" type="text"
+                                                           placeholder="Check Out" required
+                                                           class="my-input form-control form-icon-trailing form-control-lg"
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-3">
+                                                <!-- guest num input -->
+                                                <div class="form-outline" data-mdb-input-init>
+                                                    <input type="number" id="guest_num" name="guest_num"
+                                                           class="my-input form-control form-control-lg"
+                                                           required step="1" min="1" max="10" placeholder="Guests"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-3">
+                                                <!-- Submit button -->
+                                                <button data-mdb-ripple-init type="submit"
+                                                        class="btn btn-lg btn-primary rounded-0 tran-3 btn-block">
+                                                    Check Availability
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-                            <!-- guest num input -->
-                            <div class="mb-4 tran-3">
-                                <label class="form-label" for="guest_num">Number of guests</label>
-                                <input type="number" id="guest_num" name="guest_num" class="form-control"
-                                       step="1" min="1" max="10"/>
-                            </div>
-
-                            <!-- Submit button -->
-                            <button data-mdb-ripple-init type="submit"
-                                    class="btn btn-primary rounded-9 tran-3 btn-block">
-                                Search<i class="bi bi-search ms-2"></i>
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    {{--HERO--}}
+        {{--        mcdatepicker--}}
+        <script>
+            const datePicker1 = MCDatepicker.create({
+                el: '#checkin',
+                theme: {
+                    theme_color: '#3b71ca',
 
-    {{--  ROOMS  --}}
-    <section id="rooms" class="mb-5 h-auto">
-        <!-- Background image -->
+                },
+                bodyType: 'inline',
+                dateFormat: 'dd-mm-yyyy',
+                closeOnBlur: true,
+                selectedDate: new Date(),
+                minDate: new Date(),
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+                jumpToMinMax: true,
+                customCancelBTN: 'Cancel'
+            });
+
+            const datePicker2 = MCDatepicker.create({
+                el: '#checkout',
+                theme: {
+                    theme_color: '#3b71ca',
+
+                },
+                bodyType: 'inline',
+                dateFormat: 'dd-mm-yyyy',
+                closeOnBlur: true,
+                selectedDate: new Date(),
+                minDate: new Date(),
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+                jumpToMinMax: true,
+                customCancelBTN: 'Cancel'
+            });
+        </script>
+    </section>
+    {{--    END HERO--}}
+
+    {{--    ABOUT US--}}
+    <section class="welcome-section my-5 py-5 load-hidden fade-in">
         <div class="container">
-            <div
-                class="w-100 py-5 d-flex justify-content-start align-items-center">
-                <div class="w-100 d-flex flex-column justify-content-center align-items-center
-                 fade-in fade-bottom load-hidden">
-                    <h1 class="display-6 text-center fw-bold mb-3 text-primary">
-                        Designer room to fall in love with</h1>
-                    <div class="mt-5 justify-content-center row">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-8 h-100">
+                    <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
+                        <div class="w-100 text-center">
+                            <span class="text-uppercase text-primary">Welcome to SkyrimHotel</span>
+                            <h2 class="font-2 display-6 my-3">Explore our refined accommodation options and find the
+                                perfect
+                                space for
+                                your stay.</h2>
+                        </div>
+                        <p class="lead col-10 text-center">All rooms have a bathroom with bathtub and/or shower, cable
+                            television/radio,
+                            free WIFI and mini bar. In addition, all rooms are equipped with a Nespresso coffee machine.
+                        </p>
                         <!-- Carousel wrapper -->
-                        <div id="carouselMaterialStyle" class="carousel slide carousel-fade col-10"
+                        <div id="carouselMaterialStyle" class="mt-3 carousel slide carousel-fade"
                              data-mdb-ride="carousel"
                              data-mdb-carousel-init>
                             <!-- Indicators -->
@@ -91,7 +140,7 @@
                             </div>
 
                             <!-- Inner -->
-                            <div class="carousel-inner rounded-5 shadow-4-strong overflow-hidden">
+                            <div class="carousel-inner rounded-0 shadow-sm overflow-hidden">
                                 <!-- Single item -->
                                 <div class="carousel-item active">
                                     <img src="{{asset('images/1.png')}}"
@@ -142,115 +191,108 @@
                         </div>
                         <!-- Carousel wrapper -->
                     </div>
-                    <div class="row mt-5 justify-content-center">
-                        <div class="text-center col-10 col-lg-9">
-                            Skyrim Hotel offers its guests various stylishly furnished, comfortable design rooms in four
-                            categories. All our beds are finished in extra sizes to provide even more sleeping comfort.
-                            Each
-                            design room or suite has its own individual character. Inspired with the nature, we divided
-                            our
-                            rooms in three primary elements: sun, water and earth.
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-pic">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img src="img/about/about-1.jpg" alt="">
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="img/about/about-2.jpg" alt="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-5">
-                        <a href="/" class="link-primary pb-1 border-bottom border-primary">
-                            DISCOVER ROOMS
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Background image -->
     </section>
-    {{--  ENDROOMS  --}}
+    {{--    ABOUT US--}}
 
-    {{-- INTRODUCTION --}}
-    <section id="introduction" class="mb-5 h-auto">
+    {{-- SERVICES --}}
+    <section id="introduction" class="my-5 py-5 load-hidden fade-in">
         <!-- Background image -->
         <div class="container">
-            <div
-                class="w-100 py-5 d-flex justify-content-start align-items-center">
-                <div class="w-100 d-flex flex-column justify-content-center align-items-center
-                 fade-in load-hidden">
-                    <h1 class="display-6 text-center fw-bold mb-3 text-primary fade-top">
-                        The glamorous hotel in the heart of Skyrim</h1>
-                    <div class="row mt-5">
-                        <div class="col-12 col-lg-4 fade-left">
-                            <div class="d-flex justify-content-center mb-4">
-                                <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-headset fs-4"></i>
-                                </div>
-                            </div>
-                            <h6 class="fw-bold text-primary-emphasis text-center mb-4">24/7 Room Services</h6>
-                            <p class="px-3 text-center">Whether you need a delicious meal, a refreshing drink, or a
-                                relaxing massage, our room services are available 24/7 to cater to your needs.</p>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-8 h-100">
+                    <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
+                        <div class="w-100 text-center">
+                            <span class="text-uppercase text-primary">THE ESSENTIAL IN-ROOM AMENITIES</span>
+                            <h2 class="font-2 display-6 my-3">Our spaces have all the essentials you need.</h2>
                         </div>
+                        <div class="row mt-3 g-5">
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-wifi fs-4"></i>
+                                    </div>
+                                </div>
+                                <h6 class="font-2 text-primary text-center mb-3">Wifi & Internet</h6>
+                                <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
+                                    space.</p>
+                            </div>
 
-                        <div class="col-12 col-lg-4 fade-bottom">
-                            <div class="d-flex justify-content-center mb-4">
-                                <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-person-walking fs-4"></i>
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-cup-straw fs-4"></i>
+                                    </div>
                                 </div>
+                                <h6 class="font-2 text-primary text-center mb-3">Bar And Lounge Area</h6>
+                                <p class="px-3 text-center">
+                                    Lorem ipsum proin gravida velit auctor sde re sit amet space.
+                                </p>
                             </div>
-                            <h6 class="fw-bold text-primary-emphasis text-center mb-4">Diverse Guide Tour</h6>
-                            <p class="px-3 text-center">
-                                If you want to explore the city and its attractions, our guide tour service is the best
-                                way to do it. You can choose from our various packages or customize your own itinerary.
-                            </p>
-                        </div>
 
-                        <div class="col-12 col-lg-4 fade-right">
-                            <div class="d-flex justify-content-center mb-4">
-                                <div class="badge badge-primary p-4 rounded-circle">
-                                    <i class="bi bi-bicycle fs-4"></i>
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-car-front fs-4"></i>
+                                    </div>
                                 </div>
+                                <h6 class="font-2 text-primary text-center mb-3">Private Parking Space</h6>
+                                <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
+                                    space.</p>
                             </div>
-                            <h6 class="fw-bold text-primary-emphasis text-center mb-4">Free Fitness Center</h6>
-                            <p class="px-3 text-center">If you want to stay fit and healthy during your stay, our
-                                fitness center service is the perfect choice for you. Feel free to enjoy our
-                                state-of-the-art
-                                equipments</p>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-headset fs-4"></i>
+                                    </div>
+                                </div>
+                                <h6 class="font-2 text-primary text-center mb-3">24/7 Room Services</h6>
+                                <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
+                                    space.</p>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-person-walking fs-4"></i>
+                                    </div>
+                                </div>
+                                <h6 class="font-2 text-primary text-center mb-3">Diverse Guide Tour</h6>
+                                <p class="px-3 text-center">
+                                    Lorem ipsum proin gravida velit auctor sde re sit amet space.
+                                </p>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="badge badge-primary p-4 rounded-circle">
+                                        <i class="bi bi-bicycle fs-4"></i>
+                                    </div>
+                                </div>
+                                <h6 class="font-2 text-primary text-center mb-3">Free Fitness Center</h6>
+                                <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
+                                    space.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-5 fade-bottm">
-                        <a href="/" class="link-primary pb-1 border-bottom border-primary">
-                            EXPLORE SERVICES
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     {{-- ENDINTRODUCTION --}}
-
-    {{--  JOIN  --}}
-    <section id="join" class=" h-auto bg-light ">
-        <!-- Background image -->
-        <div class="container">
-            <div class="row py-3">
-                <div class="col-12 col-md-6 col-lg-3 p-3 d-flex align-items-center fade-left fade-in load-hidden">
-                    <img src="{{asset('images/join.png')}}" alt="join"
-                         class="img-fluid rounded-5 shadow-3">
-                </div>
-                <div
-                    class="col-12 col-md-6 col-lg-9 p-3 fade-right fade-in load-hidden d-flex text-center text-md-start align-items-center align-items-md-start flex-column justify-content-center">
-                    <h5 class="fw-bold display-5 text-primary text-capitalize mb-4">
-                        Join our team
-                    </h5>
-                    <p class="text-justify mb-4">
-                        As a member of Skyrim Hotel, you’ll be recognized and rewarded across the global collection of
-                        hotels of Global Skyrim Hotel Alliance. We offer recognition from Day One — so our benefits,
-                        DISCOVERY
-                        Dollars (D$), Experiences and Live Local are available to you instantly, at all membership tiers
-                        at any of our properties, at home or away, with or without a stay.
-                    </p>
-                    <a href="" class="btn btn-primary tran-3 w-fit rounded-9">
-                        Find out more<i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Background image -->
-    </section>
-    {{--  ENDJOIN  --}}
 </x-guestLayout>

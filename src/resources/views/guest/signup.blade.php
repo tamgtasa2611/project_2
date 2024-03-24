@@ -1,15 +1,15 @@
 <title>Sign up - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="signup-section" class="m-nav">
-        <div class="container h-ok">
+        <div class="container mh-screen">
             <div
                 class="w-100 h-100 d-flex align-items-center justify-content-center
-             load-hidden fade-in fade-bottom position-relative">
+             load-hidden fade-in position-relative">
                 @if (session('failed'))
                     @include('partials.flashMsgFail')
                 @endif
                 <form method="post" action="{{ route('guest.registerProcess') }}" enctype="multipart/form-data"
-                    class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 rounded-5 border shadow col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     {{--                    heading --}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
@@ -20,7 +20,7 @@
                         <div class="col">
                             <div data-mdb-input-init class="form-outline">
                                 <input type="text" id="first_name" name="first_name" class="form-control"
-                                    value="{{ old('first_name') }}" required />
+                                       value="{{ old('first_name') }}" required/>
                                 <label class="form-label" for="first_name">First name</label>
                             </div>
                             @if ($errors->has('first_name'))
@@ -32,7 +32,7 @@
                         <div class="col">
                             <div data-mdb-input-init class="form-outline">
                                 <input type="text" id="last_name" name="last_name" class="form-control"
-                                    value="{{ old('last_name') }}" required />
+                                       value="{{ old('last_name') }}" required/>
                                 <label class="form-label" for="last_name">Last name</label>
                             </div>
                             @if ($errors->has('last_name'))
@@ -46,7 +46,7 @@
                     <div class="mb-4">
                         <div data-mdb-input-init class="form-outline">
                             <input type="email" id="email" name="email" class="form-control"
-                                value="{{ old('email') }}" required />
+                                   value="{{ old('email') }}" required/>
                             <label class="form-label" for="email">Email address</label>
                         </div>
                         @if ($errors->has('email'))
@@ -60,7 +60,7 @@
                     <div class="mb-4">
                         <div data-mdb-input-init class="form-outline input-group" id="show_hide_password">
                             <input type="password" id="password" name="password" class="form-control"
-                                value="{{ old('password') }}" required minlength="6" />
+                                   value="{{ old('password') }}" required minlength="6"/>
                             <a href="#!" class="input-group-text">
                                 <i class="bi bi-eye-slash" aria-hidden="true"></i>
                             </a>
@@ -77,7 +77,7 @@
                     <div class="mb-4">
                         <div data-mdb-input-init class="form-outline">
                             <input type="tel" id="phone" name="phone" class="form-control"
-                                value="{{ old('phone') }}" maxlength="20" required />
+                                   value="{{ old('phone') }}" maxlength="20" required/>
                             <label class="form-label" for="phone">Phone number</label>
                         </div>
                         @if ($errors->has('phone'))
@@ -88,7 +88,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4 rounded-9 tran-2">
+                    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4 rounded-0 tran-2">
                         Sign up
                     </button>
 

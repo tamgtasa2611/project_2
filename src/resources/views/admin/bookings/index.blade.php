@@ -36,6 +36,8 @@
                         <th class="align-middle text-center">Status</th>
                         <th class="align-middle text-center">Guest</th>
                         <th class="align-middle text-center">Room</th>
+                        <th class="align-middle text-center">Check-in</th>
+                        <th class="align-middle text-center">Check-out</th>
                         <th class="align-middle text-center">Actions</th>
                     </tr>
                     </thead>
@@ -60,6 +62,12 @@
                             </td>
                             <td class="text-center">
                                 {{ $booking->room->name }}
+                            </td>
+                            <td class="text-center">
+                                {{ $booking->checkin_date }}
+                            </td>
+                            <td class="text-center">
+                                {{ $booking->checkout_date }}
                             </td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">

@@ -1,9 +1,9 @@
 <title>Login - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="login-section" class="m-nav">
-        <div class="container h-ok">
+        <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
-             load-hidden fade-in fade-bottom position-relative">
+             load-hidden fade-in position-relative">
                 {{--alert create account--}}
                 @if (session('success'))
                     @include('partials.flashMsgSuccess')
@@ -14,7 +14,7 @@
                 @endif
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.loginProcess')}}" enctype="multipart/form-data"
-                      class="bg-white p-5 rounded-5 border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 rounded-0 border shadow col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
@@ -54,7 +54,7 @@
 
                     <!-- Submit button -->
                     <button data-mdb-ripple-init type="submit"
-                            class="btn btn-primary btn-block mb-4 rounded-9 tran-2">
+                            class="btn btn-primary btn-block mb-4 rounded-0 tran-2">
                         Sign in
                     </button>
 

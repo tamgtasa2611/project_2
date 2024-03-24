@@ -105,10 +105,10 @@ class GuestController extends Controller
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
             $data = Arr::add($data, 'email', $request->email);
-            //kiem tra neu password khong thay doi thi ko update password
-            if ($request->password != $guest->password) {
-                $data = Arr::add($data, 'password', Hash::make($request->password));
-            }
+//            //kiem tra neu password khong thay doi thi ko update password
+//            if ($request->password != $guest->password) {
+//                $data = Arr::add($data, 'password', Hash::make($request->password));
+//            }
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', $request->status);
             $data = Arr::add($data, 'image', $imagePath);
