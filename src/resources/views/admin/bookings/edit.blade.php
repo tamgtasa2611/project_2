@@ -1,13 +1,13 @@
 <title>Booking information - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
-    <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
+    <div class="p-3 bg-white rounded shadow-3 mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Bookings Management</h4>
         </div>
     </div>
 
-    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded shadow-3 overflow-hidden">
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
@@ -51,11 +51,11 @@
 
             <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
                 <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}"
-                   class="btn btn-secondary rounded-9 tran-2 me-3">
+                   class="btn btn-secondary rounded tran-2 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded-9 tran-2">
+                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
                     Update
                 </button>
             </div>

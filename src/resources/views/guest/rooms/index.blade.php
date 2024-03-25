@@ -1,11 +1,23 @@
 <title>Rooms - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="rooms" class="m-nav">
+        @if(session('failed'))
+            @include('partials.flashMsgFail')
+        @endif
+        {{--        breadcrumb--}}
         <div class="container">
+            <nav aria-label="breadcrumb" class="pt-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('guest.home')}}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Rooms</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="container load-hidden fade-in">
             {{--            search form--}}
-            <div class="pt-5 mb-5">
+            <div class="mb-5">
                 <form method="get"
-                      class="bg-white p-3 m-0 shadow-sm">
+                      class="bg-white p-3 m-0 shadow-sm rounded" autocomplete="off">
                     <div class="row g-3">
                         <div class="col-12 col-lg-3">
                             <!-- checkin input -->
@@ -15,6 +27,7 @@
                                        placeholder="Check In"
                                        class="my-input form-control form-icon-trailing form-control-lg"
                                        value="{{$search['checkin']}}"
+                                       required
                                 >
                             </div>
                         </div>
@@ -26,6 +39,7 @@
                                        placeholder="Check Out"
                                        value="{{$search['checkout']}}"
                                        class="my-input form-control form-icon-trailing form-control-lg"
+                                       required
                                 >
                             </div>
                         </div>
@@ -35,52 +49,21 @@
                                 <input type="number" id="guest_num" name="guest_num"
                                        class="my-input form-control form-control-lg"
                                        step="1" min="1" max="10" placeholder="Guests"
-                                       value="{{$search['guest_num']}}"/>
+                                       value="{{$search['guest_num']}}"
+                                       required/>
                             </div>
                         </div>
                         <div class="col-12 col-lg-3">
                             <!-- Submit button -->
-                            <button data-mdb-ripple-init type="submit"
-                                    class="btn btn-lg btn-primary rounded-0 tran-3 btn-block">
+                            <button data-mdb-ripple-init type="submit" id="bookBtn"
+                                    class="btn btn-lg btn-primary rounded tran-3 btn-block">
                                 Check Availability
                             </button>
                         </div>
                     </div>
+                    <div id="dateError"
+                         class="col-12 d-none text-danger pt-3"></div>
                 </form>
-                {{--        mcdatepicker--}}
-                <script>
-                    const datePicker1 = MCDatepicker.create({
-                        el: '#checkin',
-                        theme: {
-                            theme_color: '#3b71ca',
-
-                        },
-                        bodyType: 'inline',
-                        dateFormat: 'dd-mm-yyyy',
-                        closeOnBlur: true,
-                        selectedDate: new Date(`{{date('Y-m-d', strtotime($search['checkin']))}}`),
-                        minDate: new Date(),
-                        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-                        jumpToMinMax: true,
-                        customCancelBTN: 'Cancel'
-                    });
-
-                    const datePicker2 = MCDatepicker.create({
-                        el: '#checkout',
-                        theme: {
-                            theme_color: '#3b71ca',
-
-                        },
-                        bodyType: 'inline',
-                        dateFormat: 'dd-mm-yyyy',
-                        closeOnBlur: true,
-                        selectedDate: new Date(`{{date('Y-m-d', strtotime($search['checkout']))}}`),
-                        minDate: new Date(),
-                        maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-                        jumpToMinMax: true,
-                        customCancelBTN: 'Cancel'
-                    });
-                </script>
             </div>
             {{--           end search form--}}
 
@@ -94,7 +77,7 @@
 
             {{--            rooms--}}
             <div class="mb-5 row m-0">
-                <div class="col-3 d-none d-lg-block border rounded-0 p-0 bg-white shadow-sm"
+                <div class="col-3 d-none d-lg-block border rounded p-0 bg-white shadow-sm"
                      style="height: fit-content !important;">
                     <div class="fw-bold text-primary p-3 fs-6">
                         Filter by <i class="ms-2 bi bi-sliders"></i>
@@ -183,11 +166,11 @@
 
                         <div class="row gx-3">
                             <div class="col">
-                                <a href="{{route('guest.rooms')}}" class="btn btn-secondary btn-block rounded-0"
+                                <a href="{{route('guest.rooms')}}" class="btn btn-secondary btn-block rounded"
                                    data-mdb-ripple-init>Reset</a>
                             </div>
                             <div class="col">
-                                <button class="btn btn-primary btn-block rounded-0"
+                                <button class="btn btn-primary btn-block rounded"
                                         data-mdb-ripple-init>Apply
                                 </button>
                             </div>
@@ -213,14 +196,14 @@
                                 <input class="btn-check tran-2" type="radio" name="view" value="grid"
                                        id="grid" onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
                                 />
-                                <label class="btn btn-outline-light rounded-0 tran-2 text-primary fw-bold"
+                                <label class="btn btn-outline-light rounded tran-2 text-primary fw-bold"
                                        for="grid"> <i class="bi bi-grid fs-5"></i></label>
                             </div>
                             <div class="ms-3">
                                 <input class="btn-check tran-2" type="radio" name="view" value="list"
                                        id="list" onchange="this.form.submit()"
                                     {{$view == 'list' ? 'checked' : ''}}/>
-                                <label class="btn btn-outline-light rounded-0 tran-2 text-primary fw-bold"
+                                <label class="btn btn-outline-light rounded tran-2 text-primary fw-bold"
                                        for="list"> <i class="bi bi-list fs-5"></i></label>
                             </div>
                             {{--                            search--}}
@@ -285,17 +268,17 @@
                         <div id="rooms_div" class="row row-cols-1 row-cols-md-2 gx-md-3">
                             @foreach($rooms as $room)
                                 <div class="col-12 col-md-6 overflow-hidden">
-                                    <div class="border rounded-0 bg-white shadow-sm row m-0 mb-3 ">
-                                        <div class="col-12 p-0 overflow-hidden rounded-0 position-relative"
+                                    <div class="border rounded bg-white shadow-sm row m-0 mb-3 ">
+                                        <div class="col-12 p-0 overflow-hidden rounded position-relative"
                                              style="height: 260px">
                                             <a href="{{route('guest.rooms.show', $room)}}">
                                                 @if(count($room->images) != 0)
                                                     <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
                                                          alt="room_img"
-                                                         class="img-fluid shadow-sm rounded-0 tran-3"/>
+                                                         class="img-fluid shadow-sm rounded tran-3"/>
                                                 @else
                                                     <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                         class="img-fluid shadow-sm rounded-0 tran-3"/>
+                                                         class="img-fluid shadow-sm rounded tran-3"/>
                                                 @endif
                                             </a>
                                         </div>
@@ -357,7 +340,7 @@
                                                         <div class="fs-7 ms-2">Includes taxes and fees</div>
                                                     </div>
                                                     <a href="{{route('guest.rooms.show', $room)}}"
-                                                       class="btn btn-primary rounded-0">
+                                                       class="btn btn-primary rounded">
                                                         Book now
                                                     </a></div>
                                             </div>
@@ -369,17 +352,17 @@
                     @else
                         <div id="rooms_div" class="d-flex flex-column">
                             @foreach($rooms as $room)
-                                <div class="border rounded-0 shadow-sm row m-0 mb-3 bg-white overflow-hidden">
-                                    <div class="col-4 p-0 overflow-hidden rounded-0 position-relative"
+                                <div class="border rounded shadow-sm row m-0 mb-3 bg-white overflow-hidden">
+                                    <div class="col-4 p-0 overflow-hidden rounded position-relative"
                                          style="height: 200px">
                                         <a href="{{route('guest.rooms.show', $room)}}">
                                             @if(count($room->images) != 0)
                                                 <img src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
                                                      alt="room_img"
-                                                     class="img-fluid shadow-sm rounded-0 tran-3"/>
+                                                     class="img-fluid shadow-sm rounded tran-3"/>
                                             @else
                                                 <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                     class="img-fluid shadow-sm rounded-0 tran-3"/>
+                                                     class="img-fluid shadow-sm rounded tran-3"/>
                                             @endif
                                         </a>
                                     </div>
@@ -441,7 +424,7 @@
                                                     <div class="fs-7 ms-2">Includes taxes and fees</div>
                                                 </div>
                                                 <a href="{{route('guest.rooms.show', $room)}}"
-                                                   class="btn btn-primary rounded-0">
+                                                   class="btn btn-primary rounded">
                                                     Book now
                                                 </a></div>
                                         </div>
@@ -460,4 +443,97 @@
             {{--            end rooms--}}
         </div>
     </section>
+    {{--     ==========   MCDATEPICKER FORM INPUT ==========--}}
+    <script>
+        const datePicker1 = MCDatepicker.create({
+            el: '#checkin',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        const datePicker2 = MCDatepicker.create({
+            el: '#checkout',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        let checkValid = true;
+        let dateError = $("#dateError");
+        let bookBtn = $("#bookBtn");
+        let currentDate = new Date().toJSON().slice(0, 10);
+
+        // check date 1 < date 2
+        datePicker1.onSelect(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker1.onClear(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onSelect(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onClear(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        function dateErrorAction() {
+            dateError.removeClass("d-none");
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
+            bookBtn.removeAttr("type").attr("type", "button");
+        }
+
+        function dateValidAction() {
+            dateError.addClass("d-none");
+            dateError.html();
+            bookBtn.removeAttr("type").attr("type", "submit");
+        }
+    </script>
+    {{--     ==========   END MCDATEPICKER FORM INPUT ==========--}}
 </x-guestLayout>

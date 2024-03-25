@@ -24,7 +24,7 @@ body {
 
 /*margin from navbar*/
 .m-nav {
-    margin-top: 65.50px !important;
+    margin-top: 72.60px !important;
 }
 
 /*scroll reveal========================*/
@@ -103,10 +103,23 @@ html.sr .load-hidden {
 
 /*NAVBAR=====================================================*/
 
+/*rooms*/
+/*fullcalendar*/
+.fc-toolbar-chunk {
+    display: flex !important;
+}
+
+.fc-toolbar-chunk button {
+    font-size: 0.5rem !important;
+}
+
+/*fullcalendar*/
+
+/*end rooms*/
 
 /*home*/
 .my-input {
-
+    height: 100%;
 }
 
 #hero {
@@ -165,7 +178,7 @@ html.sr .load-hidden {
 
 @media (max-width: 768px) {
     .m-nav {
-        margin-top: 57.50px !important;
+        margin-top: 64px !important;
     }
 }
 

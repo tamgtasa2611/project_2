@@ -1,12 +1,12 @@
 <title>Activities Log - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
+    <div class="p-3 bg-white rounded shadow-3 mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Activities Log</h4>
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white border rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white border rounded shadow-3 overflow-hidden">
         <div
             class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">

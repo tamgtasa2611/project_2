@@ -14,7 +14,7 @@
                 @endif
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.loginProcess')}}" enctype="multipart/form-data"
-                      class="bg-white p-5 rounded-0 border shadow col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 rounded border shadow col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-5">
@@ -54,7 +54,7 @@
 
                     <!-- Submit button -->
                     <button data-mdb-ripple-init type="submit"
-                            class="btn btn-primary btn-block mb-4 rounded-0 tran-2">
+                            class="btn btn-primary btn-block mb-4 rounded tran-2">
                         Sign in
                     </button>
 

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row py-5 justify-content-center position-relative">
                 {{--                MENU--}}
-                <div class="col-10 col-lg-3 p-4 border rounded-5 shadow-sm">
+                <div class="col-10 col-lg-3 p-4 border rounded shadow-sm">
                     @include('partials.guest.guestProfile')
                 </div>
                 {{--                MENU--}}
@@ -106,11 +106,11 @@
                         <div
                             class="d-flex flex-column-reverse flex-lg-row justify-content-between justify-content-md-end align-items-center">
                             <a data-mdb-ripple-init href="{{ route('guest.editAccount') }}"
-                               class="btn btn-secondary col-12 col-lg-auto me-lg-3 rounded-9 tran-2">
+                               class="btn btn-secondary col-12 col-lg-auto me-lg-3 rounded tran-2">
                                 Cancel
                             </a>
                             <button data-mdb-ripple-init type="submit"
-                                    class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0 rounded-9 tran-2">
+                                    class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0 rounded tran-2">
                                 Save
                             </button>
                         </div>

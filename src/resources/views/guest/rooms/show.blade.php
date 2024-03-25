@@ -34,15 +34,26 @@
     @endif
 
     <section id="rooms" class="m-nav">
+        {{--        breadcrumb--}}
+        <div class="container">
+            <nav aria-label="breadcrumb" class="pt-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('guest.home')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('guest.rooms')}}">Rooms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$room->name}}</li>
+                </ol>
+            </nav>
+        </div>
+        {{--        main--}}
         <div class="container load-hidden fade-in">
             {{--            room detail--}}
             <div class="mb-5">
                 {{--                room image--}}
-                <div class="mb-5 rounded-0 overflow-hidden shadow ratio ratio-21x9">
+                <div class="mb-5 rounded overflow-hidden shadow ratio ratio-21x9">
                     @if(count($roomImages) > 1)
                         <!-- Carousel wrapper -->
                         <div id="carouselMaterialStyle"
-                             class="carousel slide carousel-fade overflow-hidden rounded-0 "
+                             class="carousel slide carousel-fade overflow-hidden rounded "
                              data-mdb-ride="carousel"
                              data-mdb-carousel-init>
                             <!-- Indicators -->
@@ -64,13 +75,13 @@
                             </div>
 
                             <!-- Inner -->
-                            <div class="carousel-inner w-100 rounded-0 shadow-sm overflow-hidden">
+                            <div class="carousel-inner w-100 rounded shadow-sm overflow-hidden">
                                 <!--  item -->
                                 @foreach($roomImages as $image)
                                     <div
-                                        class="carousel-item overflow-hidden ratio ratio-16x9 rounded-0  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                        class="carousel-item overflow-hidden ratio ratio-16x9 rounded  {{$image == $roomImages[0] ? 'active' : '' }}">
                                         <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                             class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
+                                             class="w-100 object-fit-cover d-block tran-3 rounded "/>
                                     </div>
                                 @endforeach
                             </div>
@@ -96,23 +107,23 @@
                         </div>
                         <!-- Carousel wrapper -->
                     @elseif(count($roomImages) == 1)
-                        <div class="rounded-0 shadow-sm overflow-hidden">
+                        <div class="rounded shadow-sm overflow-hidden">
                             <!--  item -->
                             @foreach($roomImages as $image)
                                 <div
-                                    class="carousel-item overflow-hidden ratio ratio-16x9 rounded-0  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                    class="carousel-item overflow-hidden ratio ratio-16x9 rounded  {{$image == $roomImages[0] ? 'active' : '' }}">
                                     <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                         class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
+                                         class="w-100 object-fit-cover d-block tran-3 rounded "/>
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <div class="rounded-0 shadow-sm overflow-hidden">
+                        <div class="rounded shadow-sm overflow-hidden">
                             <!--  item -->
                             <div
-                                class="overflow-hidden ratio ratio-16x9 rounded-0 ">
+                                class="overflow-hidden ratio ratio-16x9 rounded ">
                                 <img src="{{asset('images/noimage.jpg')}}"
-                                     class="w-100 object-fit-cover d-block tran-3 rounded-0 "/>
+                                     class="w-100 object-fit-cover d-block tran-3 rounded "/>
                             </div>
                         </div>
                     @endif
@@ -120,7 +131,7 @@
                 <div class="row g-5">
                     {{--                calendar--}}
                     <div class="col-12 col-lg-8 h-100">
-                        <div class="bg-white p-4 pb-4">
+                        <div class="bg-white p-4 pb-4 shadow-sm rounded">
                             <div class="mb-4 d-flex justify-content-between">
                                 <div>
                                     <h1 class="m-0 fw-bold text-primary">Room {{$room->name}}</h1>
@@ -144,21 +155,26 @@
                             </div>
                             <div class="mb-4">
                                 <h4 class="mb-3 text-primary">Family-friendly Amenities</h4>
-                                <div class="row g-4">
-                                    <div class="col-4">
-                                        <div class="bg-light border fs-6 p-4 text-center">Kids Swimming Pool</div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="bg-light border fs-6 p-4 text-center">Extra Beds/Baby Crib
+                                <div class="row h-100 g-4">
+                                    <div class="col-12 col-md-4 h-100">
+                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Swimming
+                                            Pool
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="bg-light border fs-6 p-4 text-center">Washing Machine</div>
+                                    <div class="col-12 col-md-4 h-100">
+                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Baby
+                                            Crib
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 h-100">
+                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Washing
+                                            Machine
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div class="row g-3">
+                                <div class="col-12 col-lg-6">
                                     <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
                                     <ul class="list-group list-group-light list-group-numbered">
                                         <li class="list-group-item p-3">
@@ -168,7 +184,7 @@
                                             Seat beside the panoramic window
                                         </li>
                                         <li class="list-group-item p-3">
-                                            TV for watching mountaineering films
+                                            TV for watching IMAX films
                                         </li>
                                         <li class="list-group-item p-3">
                                             Writing desk with USB ports for documenting your adventures
@@ -176,14 +192,11 @@
                                         <li class="list-group-item p-3">
                                             Bathroom with rain shower
                                         </li>
-                                        <li class="list-group-item p-3">
-                                            Comfortable terry towels and bathrobes
-                                        </li>
                                     </ul>
                                 </div>
-                                <div class="col">
-                                    <h4 class="mb-3 text-primary">Check Availability</h4>
-                                    <div id='calendar'></div>
+                                <div class="col-12 col-lg-6">
+                                    <h4 class="mb-3 mt-md-0 text-primary">Check Availability</h4>
+                                    <div id='calendar' class="fs-7"></div>
                                 </div>
                             </div>
                         </div>
@@ -192,13 +205,13 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-white p-4 m-0 shadow-sm" action="{{route('guest.bookRoom')}}">
+                              class="bg-white p-4 m-0 shadow-sm rounded" action="{{route('guest.bookRoom')}}">
                             @csrf
                             @method('POST')
                             <input type="text" name="room_id" value="{{$room->id}}" hidden class="visually-hidden">
                             <div class="mb-4 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0 fw-bold text-primary">RESERVE</h5>
-                                <div class="fs-6">From <span
+                                <h5 class="m-0 fw-bold text-primary">RESERVE <i class="bi bi-journal-check"></i></h5>
+                                <div><span
                                         class="text-success fw-bold">${{$room->roomType->base_price}}</span>/night
                                 </div>
                             </div>
@@ -229,7 +242,7 @@
                                         >
                                     </div>
                                 </div>
-                                <div id="dateError" class="col-12 d-none fs-6 text-danger"></div>
+                                <div id="dateError" class="col-12 d-none text-danger"></div>
                                 <div class="col-12">
                                     <!-- guest num input -->
                                     <div class="form-outline" data-mdb-input-init>
@@ -241,7 +254,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h5 class="m-0 fw-bold text-primary my-4">SUMMARY</h5>
+                            <h5 class="m-0 fw-bold text-primary my-4">SUMMARY <i class="bi bi-info-circle"></i></h5>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class=" fs-6">
                                     Days booked
@@ -264,7 +277,7 @@
                                 @auth('guest')
                                     <!-- Submit button -->
                                     <button data-mdb-ripple-init type="submit" id="bookBtn"
-                                            class="btn btn-lg btn-primary rounded-0 tran-3 btn-block">
+                                            class="btn btn-lg btn-primary rounded tran-3 btn-block">
                                         BOOK
                                     </button>
                                 @endauth
@@ -297,28 +310,35 @@
                 </div>
             </div>
             {{--            rating--}}
-            <div class="mb-5 bg-white p-4 shadow-sm" id="rating">
-                <h4 class="m-0 fw-bold text-primary">Reviews & Ratings</h4>
+            <div class="mb-5 bg-white p-4 shadow-sm rounded" id="rating">
+                <h4 class="m-0 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
             </div>
 
             {{--            SIMILAR ROOMS--}}
-            <div class="mb-5 bg-white p-4 shadow-sm">
-                <h4 class="mb-4 fw-bold text-primary">Similar Rooms</h4>
+            <div class="mb-5 bg-white p-4 shadow-sm rounded">
+                <h4 class="mb-4 fw-bold text-primary">Similar Rooms <i class="bi bi-house"></i></h4>
                 <div class="row row-cols-3 g-4">
                     @foreach($similarRooms as $sRoom)
-                        <div class="col">
-                            <div class="shadow-sm">
-                                <div class="ratio ratio-16x9">
+                        <div class="col-12 col-md-4">
+                            <div class="shadow-sm rounded">
+                                <div class="ratio ratio-16x9 rounded-top hover-zoom overflow-hidden">
                                     @if(count($sRoom->images)== 0)
-                                        <img src="{{asset('images/noimage.jpg')}}" class="img-fluid" alt="s_room_img">
+                                        <a href="{{route('guest.rooms.show', $sRoom)}}">
+                                            <img src="{{asset('images/noimage.jpg')}}" class="img-fluid"
+                                                 alt="s_room_img">
+                                        </a>
                                     @else
-                                        <img src="{{asset('storage/admin/rooms/'.$sRoom->images[0]->path)}}"
-                                             alt="s_room_img" class="img-fluid">
+                                        <a href="{{route('guest.rooms.show', $sRoom)}}">
+                                            <img src="{{asset('storage/admin/rooms/'.$sRoom->images[0]->path)}}"
+                                                 alt="s_room_img" class="img-fluid">
+                                        </a>
                                     @endif
                                 </div>
                                 <div class="p-3 d-flex justify-content-between align-items-center">
-                                    <h5 class="text-primary">Room {{$sRoom->name}}</h5>
-                                    <a href="{{route('guest.rooms.show', $sRoom)}}" class="btn btn-primary rounded-0"
+                                    <a href="{{route('guest.rooms.show', $sRoom)}}">
+                                        <h5 class="text-primary">Room {{$sRoom->name}}</h5>
+                                    </a>
+                                    <a href="{{route('guest.rooms.show', $sRoom)}}" class="btn btn-primary rounded"
                                        data-mdb-ripple-init>VIEW</a>
                                 </div>
                             </div>
@@ -347,7 +367,7 @@
             calendar.render();
         });
     </script>
-    {{--        mcdatepicker--}}
+    {{--     ==========   MCDATEPICKER FORM INPUT ==========--}}
     <script>
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
@@ -400,7 +420,27 @@
             }
         });
 
+        datePicker1.onClear(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
         datePicker2.onSelect(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onClear(function (date, formatedDate) {
             if (datePicker1.getFullDate() != null) {
                 if (date <= datePicker1.getFullDate()) {
                     dateErrorAction()
@@ -412,7 +452,7 @@
 
         function dateErrorAction() {
             dateError.removeClass("d-none");
-            dateError.html('<i class="bi bi-emoji-frown"></i> Check Out date must be after Check In date!');
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
             bookBtn.removeAttr("type").attr("type", "button");
             $("#dayBooked").html(`0 day`);
             $("#amount").html(`0.00`);
@@ -434,9 +474,10 @@
                     $("#amount").html(`0.00`);
                 } else {
                     $("#dayBooked").html(`${dayBooked} days`);
-                    $("#amount").html(`${basePrice * dayBooked}`);
+                    $("#amount").html(`${(basePrice * dayBooked).toFixed(2)}`);
                 }
             }
         }
     </script>
+    {{--     ==========   END MCDATEPICKER FORM INPUT ==========--}}
 </x-guestLayout>

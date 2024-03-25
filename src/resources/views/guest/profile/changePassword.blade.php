@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row py-5 justify-content-center">
                 {{--                MENU--}}
-                <div class="col-10 col-lg-3 p-4 border rounded-5 shadow-sm">
+                <div class="col-10 col-lg-3 p-4 border rounded shadow-sm">
                     @include('partials.guest.guestProfile')
                 </div>
                 {{--                MENU--}}

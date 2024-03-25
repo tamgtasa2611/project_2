@@ -4,9 +4,9 @@
     <section class="pt-3">
         <div class="container text-center text-md-start">
             <!-- Grid row -->
-            <div class="row mt-3 justify-content-between">
+            <div class="row mt-3 g-3 justify-content-between">
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                         SKYRIM HOTEL
@@ -19,7 +19,7 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mb-4">
+                <div class="col-12 col-md-2 mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                         Discover
@@ -28,10 +28,10 @@
                         <a href="#!" class="text-reset">Rooms</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Services</a>
+                        <a href="#!" class="text-reset">Contacts</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Gallery</a>
+                        <a href="#!" class="text-reset">Jobs</a>
                     </p>
                     <p>
                         <a href="#!" class="text-reset">About Us</a>
@@ -40,28 +40,7 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mb-4  text-decoration-none">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
-                        Others
-                    </h6>
-                    <p>
-                        <a href="#!" class="text-reset">Rooms</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Recruitment</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Contact</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">FAQ</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mb-md-0 mb-4">
+                <div class="col-12 col-md-3 mb-md-0 mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                         Contact
@@ -72,12 +51,62 @@
                     <p><i class="bi bi-printer me-2"></i>+ 01 234 567 89</p>
                 </div>
                 <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-12 col-md-4 mb-4 text-decoration-none">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7449.418765035499!2d105.83614809310981!3d21.00428353893818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac768ffe1abd%3A0x22b136bcf1c08e2a!2sBach%20Khoa%2C%20Hai%20B%C3%A0%20Tr%C6%B0ng%20District%2C%20Hanoi%2C%20Vietnam!5e0!3m2!1sen!2s!4v1711337016524!5m2!1sen!2s"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="w-100 h-100 rounded"></iframe>
+                </div>
+                <!-- Grid column -->
             </div>
             <!-- Grid row -->
         </div>
     </section>
     <!-- Section: Links  -->
 
+    <!-- Grid container -->
+    <div class="container pt-4">
+        <!-- Section: Form -->
+        <section class="">
+            <form action="">
+                <!--Grid row-->
+                <div class="row d-flex justify-content-center">
+                    <!--Grid column-->
+                    <div class="col-auto">
+                        <p class="pt-2">
+                            <strong>Sign up for our latest offers</strong>
+                        </p>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-5 col-12">
+                        <!-- Email input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="email" id="form5Example26" class="form-control"/>
+                            <label class="form-label" for="form5Example26">Email address</label>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-auto">
+                        <!-- Submit button -->
+                        <button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4 rounded">
+                            Subscribe
+                        </button>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </form>
+        </section>
+        <!-- Section: Form -->
+    </div>
+    <!-- Grid container -->
     <!-- Section: Social media -->
     <section class="mb-4 text-center text-reset">
         <!-- Facebook -->
@@ -97,7 +126,7 @@
             href="#!"
             role="button"
             data-mdb-ripple-color="dark"
-        ><i class="bi bi-tiktok" style="color: #333333;"></i
+        ><i class="bi bi-tiktok" style="color: #fbfbfb;"></i
             ></a>
 
         <!-- Instagram -->
@@ -118,7 +147,7 @@
             href="#!"
             role="button"
             data-mdb-ripple-color="dark"
-        ><i class="bi bi-twitter-x" style="color: #333333;"></i
+        ><i class="bi bi-twitter-x" style="color:#fbfbfb;"></i
             ></a>
 
         <!-- Google -->
@@ -139,7 +168,7 @@
             href="#!"
             role="button"
             data-mdb-ripple-color="dark"
-        ><i class="bi bi-github" style="color: #333333;"></i
+        ><i class="bi bi-github" style="color: #fbfbfb;"></i
             ></a>
     </section>
     <!-- Section: Social media -->

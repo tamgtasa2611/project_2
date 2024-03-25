@@ -42,12 +42,12 @@
         @guest('guest')
             {{--        login btn--}}
             <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-                <a class="btn btn-tertiary text-primary px-3 tran-2 me-2 rounded-0"
+                <a class="btn btn-tertiary text-primary px-3 tran-2 me-2 rounded"
                    href="{{route('guest.login')}}"
                    data-mdb-ripple-init>
                     Log in
                 </a>
-                <a class="btn btn-primary px-3 tran-2 rounded-0" href="{{route('guest.register')}}"
+                <a class="btn btn-primary px-3 tran-2 rounded" href="{{route('guest.register')}}"
                    data-mdb-ripple-init>
                     Sign up
                 </a>
@@ -65,7 +65,7 @@
                         <i class="bi bi-bell"></i>
                         <span class="badge rounded-pill badge-notification bg-danger">1</span>
                     </a>
-                    <ul class="end-0 dropdown-menu dropright mt-0 rounded-0 tran-3 bg-white border shadow-sm animate slideIn"
+                    <ul class="end-0 dropdown-menu dropright mt-0 rounded tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown3">
                         <li><a class="dropdown-item tran-2" href="#">Welcome back!</a></li>
                         <li><a class="dropdown-item tran-2" href="#">Book a room now for 20% sales off!</a>
@@ -81,7 +81,7 @@
                        data-mdb-toggle="dropdown" href="#" role="button">
                         <i class="bi bi-person"></i>
                     </a>
-                    <ul class="end-0 dropdown-menu dropright mt-0 rounded-0 tran-3 bg-white border shadow-sm animate slideIn"
+                    <ul class="end-0 dropdown-menu dropright mt-0 rounded tran-3 bg-white border shadow-sm animate slideIn"
                         aria-labelledby="dropdown4">
                         <li><a class="dropdown-item tran-2" href="{{route('guest.profile')}}">
                                 <i class="bi bi-info-circle me-2"></i>My profile</a></li>
@@ -108,7 +108,7 @@
             </a>
         </div>
 
-        {{--        responsive nav bar button--}}
+        {{--        ================== responsive nav bar button ================= --}}
         <div class="offcanvas offcanvas-start tran-3 d-lg-none" tabindex="-1" id="offcanvasExample"
              aria-labelledby="offcanvasExampleLabel" style="width: 240px">
             <div class="offcanvas-body d-flex flex-column justify-content-between">
@@ -132,26 +132,16 @@
                                 Home
                             </div>
                         </a>
+
                         <a class="d-flex align-items-center list-group-item list-group-item-action
-                        px-3 border-0 tran-2"
-                           href="#" role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
+                        px-3 border-0 tran-2  {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
+                           href="{{route('guest.rooms')}}">
                             <i class="bi bi-door-closed col-2"></i>
                             <div class="col-10">
                                 Rooms
                             </div>
                         </a>
-                        <a class="d-flex align-items-center list-group-item list-group-item-action
-                        px-3 border-0 tran-2"
-                           href="#" role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="bi bi-chat-heart col-2"></i>
-                            <div class="col-10">
-                                Services
-                            </div>
-                        </a>
+
                         <a class="d-flex align-items-center list-group-item list-group-item-action
                         px-3 border-0 tran-2
                             {{request()->routeIs('guest.contact') ? 'active' : ''}}"
@@ -161,6 +151,7 @@
                                 Contact
                             </div>
                         </a>
+
                         <a class="d-flex align-items-center list-group-item list-group-item-action
                         px-3 border-0 tran-2
                             {{request()->routeIs('guest.about') ? 'active' : ''}}"
@@ -170,16 +161,8 @@
                                 About Us
                             </div>
                         </a>
-                        @auth('guest')
-                            <a class="d-flex align-items-center list-group-item list-group-item-action
-                            px-3 border-0 tran-2"
-                               href="#">
-                                <i class="bi bi-bell col-2"></i>
-                                <div class="col-10">
-                                    Notification
-                                </div>
-                            </a>
 
+                        @auth('guest')
                             <a class="d-flex align-items-center list-group-item list-group-item-action
                             px-3 border-0 tran-2"
                                href="{{route('guest.profile')}}">
@@ -222,11 +205,11 @@
                 @guest('guest')
                     {{--                LOGIN--}}
                     <div class="w-100 d-flex flex-column justify-content-between align-items-end">
-                        <a class="btn btn-secondary px-3 tran-2 mb-2 rounded-0 w-100"
+                        <a class="btn btn-secondary px-3 tran-2 mb-2 rounded w-100"
                            href="{{route('guest.login')}}">
                             Log in
                         </a>
-                        <a class="btn btn-primary px-3 tran-2 rounded-0 w-100" href="{{route('guest.register')}}">
+                        <a class="btn btn-primary px-3 tran-2 rounded w-100" href="{{route('guest.register')}}">
                             Sign up
                         </a>
                     </div>

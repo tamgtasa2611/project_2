@@ -104,10 +104,10 @@
         </div>
         {{--        login btn--}}
         <div class="w-25 d-flex justify-content-end	d-none d-lg-flex">
-            <a class="btn btn-light bg-white border border-white rounded-5 px-3 me-2 tran-3" href="#">
+            <a class="btn btn-light bg-white border border-white rounded px-3 me-2 tran-3" href="#">
                 Log in
             </a>
-            <a class="btn btn-outline-info rounded-5 px-3 tran-3" href="#">
+            <a class="btn btn-outline-info rounded px-3 tran-3" href="#">
                 Sign up
             </a>
         </div>
@@ -194,8 +194,8 @@
                     </li>
                 </ul>
                 <div class="w-100 h-25 d-flex justify-content-between align-items-end">
-                    <a class="btn btn-outline-secondary rounded-5 px-3 me-2 tran-3" href="#">Log in</a>
-                    <a class="btn btn-outline-info rounded-5 px-3 tran-3" href="#">Sign up</a>
+                    <a class="btn btn-outline-secondary rounded px-3 me-2 tran-3" href="#">Log in</a>
+                    <a class="btn btn-outline-info rounded px-3 tran-3" href="#">Sign up</a>
                 </div>
             </div>
         </div>

@@ -1,13 +1,13 @@
 <title>Edit room information - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
-    <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
+    <div class="p-3 bg-white rounded shadow-3 mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Rooms Management</h4>
         </div>
     </div>
 
-    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded shadow-3 overflow-hidden">
         <div
             class="p-3 rounded-top border-bottom">
             <div class="text-primary">
@@ -90,7 +90,7 @@
                 <div class="col-12 col-lg-6 col-xl-8">
                     {{--                    neu co anh --}}
                     @if(count($roomImages) != 0)
-                        <div class="border m-3 rounded-5">
+                        <div class="border m-3 rounded">
                             <div class="border-bottom p-3 d-flex align-items-center justify-content-between">
                                 <div>
                                     <i class="bi bi-image me-2"></i>Current room images
@@ -105,9 +105,9 @@
                             <div
                                 class="p-3 pt-0 row row-cols-1 row-cols-md-2 row-cols-xl-4">
                                 @foreach($roomImages as $image)
-                                    <div class="overflow-hidden rounded-5 pt-3 h-100 room-img position-relative">
+                                    <div class="overflow-hidden rounded pt-3 h-100 room-img position-relative">
                                         <img src="{{asset('storage/admin/rooms/' . $image->path)}}"
-                                             class="w-100 h-100 object-fit-cover border rounded-5 "
+                                             class="w-100 h-100 object-fit-cover border rounded "
                                              alt="room_img">
                                         <a data-id="{{$image->id}}"
                                            data-mdb-ripple-init
@@ -125,18 +125,18 @@
 
             <div class=" d-flex justify-content-between justify-content-md-start border-top p-3">
                 <a data-mdb-ripple-init href="{{ route('admin.rooms') }}"
-                   class="btn btn-secondary rounded-9 tran-2 me-3">
+                   class="btn btn-secondary rounded tran-2 me-3">
                     Back
                 </a>
                 @if(count($roomTypes) == 0)
                     <a data-mdb-ripple-init href="{{ route('admin.roomTypes.create') }}"
-                       class="btn btn-primary rounded-9 tran-2 me-3">
+                       class="btn btn-primary rounded tran-2 me-3">
                         Add Room Type
                     </a>
                 @else
                     <!-- Submit button -->
                     <button data-mdb-ripple-init type="submit"
-                            class="btn btn-primary rounded-9 tran-2">
+                            class="btn btn-primary rounded tran-2">
                         Update
                     </button>
                 @endif
@@ -159,14 +159,14 @@
                     <div class="modal-body">Do you want to delete <span class="fw-bold">all images</span> of this room?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light rounded-9"
+                        <button type="button" class="btn btn-light rounded"
                                 data-mdb-ripple-init
                                 data-mdb-dismiss="modal">Cancel
                         </button>
                         <form method="get"
                               action="{{route('admin.rooms.update.destroyAllImages', $room)}}">
                             @csrf
-                            <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
+                            <button class="btn btn-danger rounded" data-mdb-ripple-init>
                                 Delete
                             </button>
                         </form>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="modal-body">Do you want to delete this image?</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light rounded-9"
+                        <button type="button" class="btn btn-light rounded"
                                 data-mdb-ripple-init
                                 data-mdb-dismiss="modal">Cancel
                         </button>
@@ -199,7 +199,7 @@
                             @csrf
                             <input id="id" name="id" hidden class="visually-hidden"
                                    value="">
-                            <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
+                            <button class="btn btn-danger rounded" data-mdb-ripple-init>
                                 Delete
                             </button>
                         </form>

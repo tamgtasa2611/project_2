@@ -1,12 +1,12 @@
 <title>Rooms management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded-5 shadow-3 mb-3">
+    <div class="p-3 bg-white rounded shadow-3 mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Rooms Management</h4>
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white rounded-5 shadow-3 overflow-hidden">
+    <div class="bg-white rounded shadow-3 overflow-hidden">
         <div
             class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
@@ -93,7 +93,7 @@
                             </div>
                             <div class="modal-body">You won't be able to revert this!</div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light rounded-9"
+                                <button type="button" class="btn btn-light rounded"
                                         data-mdb-ripple-init
                                         data-mdb-dismiss="modal">Cancel
                                 </button>
@@ -103,7 +103,7 @@
                                     @method('DELETE')
                                     <input id="id" name="id" hidden class="visually-hidden"
                                            value="">
-                                    <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
+                                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
                                         Delete
                                     </button>
                                 </form>

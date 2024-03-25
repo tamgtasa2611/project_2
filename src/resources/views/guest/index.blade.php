@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-10">
                                     <form method="post" action="{{route('guest.rooms.search')}}"
-                                          class="bg-white p-3 m-0 shadow">
+                                          class="bg-white p-3 m-0 shadow rounded" autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row g-3">
@@ -56,12 +56,14 @@
                                             </div>
                                             <div class="col-12 col-lg-3">
                                                 <!-- Submit button -->
-                                                <button data-mdb-ripple-init type="submit"
-                                                        class="btn btn-lg btn-primary rounded-0 tran-3 btn-block">
+                                                <button data-mdb-ripple-init type="submit" id="bookBtn"
+                                                        class="btn btn-lg btn-primary rounded tran-3 btn-block">
                                                     Check Availability
                                                 </button>
                                             </div>
                                         </div>
+                                        <div id="dateError"
+                                             class="col-12 text-start d-none text-danger pt-3"></div>
                                     </form>
                                 </div>
                             </div>
@@ -70,40 +72,6 @@
                 </div>
             </div>
         </div>
-        {{--        mcdatepicker--}}
-        <script>
-            const datePicker1 = MCDatepicker.create({
-                el: '#checkin',
-                theme: {
-                    theme_color: '#3b71ca',
-
-                },
-                bodyType: 'inline',
-                dateFormat: 'dd-mm-yyyy',
-                closeOnBlur: true,
-                selectedDate: new Date(),
-                minDate: new Date(),
-                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-                jumpToMinMax: true,
-                customCancelBTN: 'Cancel'
-            });
-
-            const datePicker2 = MCDatepicker.create({
-                el: '#checkout',
-                theme: {
-                    theme_color: '#3b71ca',
-
-                },
-                bodyType: 'inline',
-                dateFormat: 'dd-mm-yyyy',
-                closeOnBlur: true,
-                selectedDate: new Date(),
-                minDate: new Date(),
-                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-                jumpToMinMax: true,
-                customCancelBTN: 'Cancel'
-            });
-        </script>
     </section>
     {{--    END HERO--}}
 
@@ -140,7 +108,7 @@
                             </div>
 
                             <!-- Inner -->
-                            <div class="carousel-inner rounded-0 shadow-sm overflow-hidden">
+                            <div class="carousel-inner rounded shadow-sm overflow-hidden">
                                 <!-- Single item -->
                                 <div class="carousel-item active">
                                     <img src="{{asset('images/1.png')}}"
@@ -295,4 +263,98 @@
         </div>
     </section>
     {{-- ENDINTRODUCTION --}}
+    {{--     ==========   MCDATEPICKER FORM INPUT ==========--}}
+    <script>
+        const datePicker1 = MCDatepicker.create({
+            el: '#checkin',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        const datePicker2 = MCDatepicker.create({
+            el: '#checkout',
+            theme: {
+                theme_color: '#3b71ca',
+
+            },
+            bodyType: 'inline',
+            dateFormat: 'dd-mm-yyyy',
+            closeOnBlur: true,
+            minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            jumpToMinMax: true,
+            customCancelBTN: 'Cancel',
+            autoClose: true
+        });
+
+        let checkValid = true;
+        let dateError = $("#dateError");
+        let bookBtn = $("#bookBtn");
+        let currentDate = new Date().toJSON().slice(0, 10);
+
+        // check date 1 < date 2
+        datePicker1.onSelect(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker1.onClear(function (date, formatedDate) {
+            if (datePicker2.getFullDate() != null) {
+                if (date >= datePicker2.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onSelect(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        datePicker2.onClear(function (date, formatedDate) {
+            if (datePicker1.getFullDate() != null) {
+                if (date <= datePicker1.getFullDate()) {
+                    dateErrorAction()
+                } else {
+                    dateValidAction()
+                }
+            }
+        });
+
+        function dateErrorAction() {
+            dateError.removeClass("d-none");
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
+            bookBtn.removeAttr("type").attr("type", "button");
+        }
+
+        function dateValidAction() {
+            dateError.addClass("d-none");
+            dateError.html();
+            bookBtn.removeAttr("type").attr("type", "submit");
+        }
+    </script>
+    {{--     ==========   END MCDATEPICKER FORM INPUT ==========--}}
 </x-guestLayout>
+

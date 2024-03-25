@@ -19,6 +19,14 @@ class RoomController extends Controller
             'checkout' => $request->checkout,
             'guest_num' => $request->guest_num ?? 1,
         ];
+
+        //        check in < check out
+        if ($search['checkin'] != null || $search['checkout'] != null) {
+            if ($search['checkin'] >= $search['checkout']) {
+                return back()->with('failed', 'Check Out date must be after Check In date!');
+            }
+        }
+
         $price = [
             'from_price' => $request->from_price ?? 0,
             'to_price' => $request->to_price ?? 1000,
@@ -33,7 +41,7 @@ class RoomController extends Controller
         $roomList = Room::getRooms($search, $price, $sort);
         //        get total rooms available based on search/filter
         $countRoom = count($roomList->get());
-        $roomsPaginated = $roomList->paginate(10)->withQueryString();
+        $roomsPaginated = $roomList->paginate(6)->withQueryString();
 
 
 //        get room types for filter

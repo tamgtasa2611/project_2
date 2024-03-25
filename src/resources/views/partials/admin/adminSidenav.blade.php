@@ -1,4 +1,4 @@
-<div class="list-group list-group-light p-3 rounded-0">
+<div class="list-group list-group-light p-3 rounded">
     {{--    <div class="d-flex align-items-center">--}}
     {{--        <div--}}
     {{--            class="div-img overflow-hidden rounded-circle shadow">--}}
@@ -189,13 +189,13 @@
             </div>
             <div class="modal-body">Do you really want to logout?</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light rounded-9" data-mdb-ripple-init
+                <button type="button" class="btn btn-light rounded" data-mdb-ripple-init
                         data-mdb-dismiss="modal">Cancel
                 </button>
                 <form method="get"
                       action="{{ route('admin.logout') }}">
                     @csrf
-                    <button class="btn btn-danger rounded-9" data-mdb-ripple-init>
+                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
                         Logout
                     </button>
                 </form>

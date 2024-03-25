@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 class Room extends Model
 {
@@ -37,11 +38,6 @@ class Room extends Model
     public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class);
-    }
-
-    public static function roomSearch()
-    {
-
     }
 
     public static function roomSort(int $sort)
@@ -78,11 +74,28 @@ class Room extends Model
 
     public static function getRooms(array $search, array $price, int $sort)
     {
+        //            format lai tu d-m-y thanh y-m-d
+        $checkInDate = date('Y-m-d', strtotime($search['checkin']));
+        $checkOutDate = date('Y-m-d', strtotime($search['checkout']));
+        $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
+        $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
+
+        $bookings = Booking::with('room')->get();
+        $alreadyBookedRoomId = [];
+        foreach ($bookings as $booking) {
+            $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
+            $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date);
+            if ($dateIn->between($dateInCheck, $dateOutCheck) || $dateOut->between($dateInCheck, $dateOutCheck)) {
+                $alreadyBookedRoomId[] = $booking->room_id;
+            }
+        }
+
         $order = Room::roomSort($sort);
         return Room::with('roomType')->with('images')
             ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
             ->select('rooms.*', 'room_types.base_price')
             ->where('capacity', '>=', $search['guest_num'] ?? 1)
+            ->whereNotIn('rooms.id', $alreadyBookedRoomId)
             ->whereBetween('base_price', [$price['from_price'], $price['to_price']])
             ->orderBy($order['by'], $order['direction']);
     }

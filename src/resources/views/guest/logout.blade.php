@@ -3,7 +3,7 @@
     <section id="logout-section" class="m-nav">
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center load-hidden fade-in fade-bottom">
-                <form class="bg-white p-5 pb-4 rounded-5 border shadow col-md-8 col-lg-6 col-xl-4">
+                <form class="bg-white p-5 pb-4 rounded border shadow col-md-8 col-lg-6 col-xl-4">
                     {{--                    success icon--}}
                     <div class="d-flex align-items-center justify-content-center mb-4">
                         <i class="bi bi-check-circle-fill text-success display-1"></i>
@@ -20,12 +20,12 @@
                     <!-- Submit button -->
                     <div class="d-flex align-items-center justify-content-between">
                         <a data-mdb-ripple-init type="button"
-                           class="btn btn-tertiary rounded-0 tran-2 me-2"
+                           class="btn btn-tertiary rounded tran-2 me-2"
                            href="{{route('guest.home')}}">
                             Home
                         </a>
                         <a data-mdb-ripple-init type="button"
-                           class="btn btn-primary rounded-0 tran-2"
+                           class="btn btn-primary rounded tran-2"
                            href="{{route('guest.login')}}">
                             Sign in
                         </a>
