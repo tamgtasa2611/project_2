@@ -311,7 +311,75 @@
             </div>
             {{--            rating--}}
             <div class="mb-5 bg-white p-4 shadow-sm rounded" id="rating">
-                <h4 class="m-0 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
+                <h4 class="mb-4 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
+                {{--                review--}}
+                <div class="row g-5">
+                    <div class="col-12 col-lg-5">
+                        <div>
+                            @for($i = 5; $i > 0; $i--)
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        {{$i}} <i class="bi bi-star-fill text-warning"></i>
+                                    </div>
+                                    <div class="progress flex-fill" style="height: 10px">
+                                        <div
+                                            class="progress-bar bg-warning"
+                                            role="progressbar"
+                                            style="width: 75%;"
+                                            aria-valuenow="75"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        ></div>
+                                    </div>
+                                    <div class="ms-3">
+                                        100
+                                    </div>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        @for($i = 0; $i < 5; $i++)
+                            <div class="pb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="div-img overflow-hidden rounded-circle shadow-sm"
+                                         style="height: 60px; width: 60px">
+                                        <img src="{{asset('images/noavt.jpg')}}" class="img-fluid rounded-circle"
+                                             alt="guest_avatar">
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="">
+                                            Tam Nguyen
+                                        </div>
+                                        <div class="fs-7 text-muted">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        </div>
+                                        <div
+                                            class="fs-7 fst-italic">March 24, 2024
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="fw-bold">Phong nay dep lam</span>
+                                    <p>Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum
+                                        Lorem
+                                        isum Lorem
+                                        isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem
+                                        isum
+                                        Lorem isum
+                                        Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum
+                                        Lorem
+                                        isum
+                                        Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum </p>
+                                </div>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
             </div>
 
             {{--            SIMILAR ROOMS--}}

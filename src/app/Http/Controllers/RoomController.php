@@ -97,7 +97,6 @@ class RoomController extends Controller
         $similarRooms = Room::where('room_type_id', '=', $room->roomType->id)
             ->where('id', '!=', $room->id)
             ->with('images')
-            ->limit(6)
             ->get();
 
         return view('guest.rooms.show', [
@@ -106,46 +105,5 @@ class RoomController extends Controller
             'events' => $events,
             'similarRooms' => $similarRooms,
         ]);
-    }
-
-    public function postBookingInfo(Room $room, Request $request)
-    {
-        $created_date = date('Y-m-d H:i:s');
-        $guest_id = Auth::guard('guest')->id();
-        $checkInDate = $request->checkin;
-        $checkOutDate = $request->checkout;
-
-        //days booked
-//        $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
-//        $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
-//        $daysBooked = $dateIn->diffInDays($dateOut);
-
-        $basePrice = $room->roomType->base_price;
-        $totalPrice = $basePrice * $daysBooked;
-
-        dd($checkInDate, $checkOutDate, $daysBooked, $basePrice, $totalPrice);
-
-        $validated = $request->validate([
-            'checkin' => 'required|date|before:checkout|after:yesterday',
-            'checkout' => 'required|date|after:checkin',
-            'guest_num' => 'required',
-        ]);
-
-        if ($validated) {
-            session()->put('booking', [
-                'created_date' => $created_date,
-                'status' => 0,
-                'guest_id' => $guest_id,
-                'room_id' => $room->id,
-                'admin_id' => '',
-                'checkin_date' => $checkInDate,
-                'checkout_date' => $checkOutDate,
-                'guest_num' => $request->guest_num,
-                'total_price' => $totalPrice,
-            ]);
-            return to_route('guest.bookRoom');
-        } else {
-            return back()->with('failed', 'Something went wrong...');
-        }
     }
 }

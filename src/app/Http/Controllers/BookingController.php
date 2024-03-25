@@ -9,6 +9,8 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use MongoDB\Driver\Session;
 
 class BookingController extends Controller
 {
@@ -47,7 +49,7 @@ class BookingController extends Controller
                     return back()->with('failed', 'Someone already booked this room for this period!');
                 }
             }
-       
+
             $data = [
                 'created_date' => $created_date,
                 'status' => 0,
@@ -59,10 +61,62 @@ class BookingController extends Controller
                 'guest_num' => $request->guest_num,
                 'total_price' => $totalPrice,
             ];
-            Booking::create($data);
-            return back()->with('success', 'Booked successfully!');
+
+//            Booking::create($data);
+//            return back()->with('success', 'Booked successfully!');
+            session()->put('bookingData', $data);
+            return Redirect::route('guest.checkOut');
         } else {
             return back()->with('failed', 'Something went wrong...');
         }
+    }
+
+    public function checkOut()
+    {
+        if (session()->has('bookingData')) {
+            $data = session('bookingData');
+            $room = Room::with('roomType')->find($data['room_id']);
+            $guest = Auth::guard('guest')->user();
+
+            return view('guest.checkout.index', [
+                'data' => $data,
+                'room' => $room,
+                'guest' => $guest
+            ]);
+        } else {
+            session()->forget('bookingData');
+            return Redirect::route('guest.rooms')->with('failed', 'Something went wrong, please try again later...');
+        }
+    }
+
+    public function payInPerson()
+    {
+        $data = session('bookingData');
+        if ($data != []) {
+            Booking::create($data);
+            session()->forget('bookingData');
+            return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
+        } else {
+            session()->forget('bookingData');
+            return Redirect::route('guest.rooms')->with('failed', 'Something went wrong, please try again later...');
+        }
+    }
+
+    public function banking()
+    {
+        $data = session('bookingData');
+        if ($data != []) {
+            Booking::create($data);
+            session()->forget('bookingData');
+            return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
+        } else {
+            session()->forget('bookingData');
+            return Redirect::route('guest.rooms')->with('failed', 'Something went wrong, please try again later...');
+        }
+    }
+
+    public function success()
+    {
+        return view('guest.checkout.checkOutSuccess');
     }
 }

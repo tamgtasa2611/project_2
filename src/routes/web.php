@@ -47,12 +47,18 @@ Route::prefix('/rooms')->group(function () {
     Route::get('/', [RoomController::class, 'index'])->name('guest.rooms');
     Route::post('/', [RoomController::class, 'index'])->name('guest.rooms.search');
     Route::get('/{room}', [RoomController::class, 'show'])->name('guest.rooms.show');
-    Route::post('/{room}', [RoomController::class, 'postBookingInfo'])->name('guest.rooms.postBookingInfo');
 });
 
 //BOOKING
 Route::prefix('/booking')->group(function () {
     Route::post('/', [BookingController::class, 'bookRoom'])->name('guest.bookRoom');
+});
+
+Route::prefix('/checkout')->group(function () {
+    Route::get('/', [BookingController::class, 'checkOut'])->name('guest.checkOut');
+    Route::get('/payInPerson', [BookingController::class, 'payInPerson'])->name('guest.checkOut.payInPerson');
+    Route::get('/banking', [BookingController::class, 'banking'])->name('guest.checkOut.banking');
+    Route::get('/success', [BookingController::class, 'success'])->name('guest.checkOut.success');
 });
 
 //END ROOMS

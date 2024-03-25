@@ -77,7 +77,7 @@
                     <!--Grid column-->
                     <div class="col-auto">
                         <p class="pt-2">
-                            <strong>Sign up for our latest offers</strong>
+                            <span>Sign up for our latest offers</span>
                         </p>
                     </div>
                     <!--Grid column-->
